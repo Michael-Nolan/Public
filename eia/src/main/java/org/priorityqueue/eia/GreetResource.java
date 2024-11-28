@@ -12,6 +12,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
+
+import javax.naming.spi.DirStateFactory;
+
+import org.priorityqueue.eia.model.EIAInputData;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -24,6 +29,14 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import net.xyzsd.dichotomy.*;
+import net.xyzsd.dichotomy.Result.Err;
+import net.xyzsd.dichotomy.Result.OK;
+import net.xyzsd.dichotomy.trying.Try;
+import net.xyzsd.dichotomy.trying.Try.Failure;
+import net.xyzsd.dichotomy.trying.Try.Success;
+import net.xyzsd.dichotomy.trying.function.ExFunction;
+import net.xyzsd.dichotomy.trying.function.ExSupplier;
 
 @Path("/eia")
 @ApplicationScoped
@@ -51,61 +64,52 @@ public class GreetResource {
 
     @Produces(MediaType.TEXT_HTML)
     @GET
-    public String getDefaultMessage() {
-
-        try {
-
-            var start = System.currentTimeMillis();
- 
-            if (cacheMap.containsKey(request)){
-                // return String.valueOf(start  - System.currentTimeMillis());
-            }
-
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            cacheMap.put(request, response);
-
-            ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode jsonNode = objectMapper.readTree(response.body());
-
-            var data = jsonNode.get("response").get("data");
- 
-            List<EIAData> dataList = Arrays.asList(objectMapper.treeToValue(data, EIAData[].class));
-
-            List<StringWrapper> dates = new ArrayList<>();
+    public String getDefaultMessage() { 
             
-            Set<String> sources = new HashSet<>();
+            if (cacheMap.containsKey(request)){}
 
-            dataList
-                .stream()
-                    .forEach( (a) -> sources.add(a.fuelTypeDescription()));
+            return Try.wrap(() -> client.send(request, HttpResponse.BodyHandlers.ofString()))            
+            .exec(httpResponse -> cacheMap.put(request, httpResponse))
+            .map(httpResponse -> new ObjectMapper().readTree(httpResponse.body()).get("response").get("data"))
+            // .map(e -> convertJsonToPojo(e))
+            .map(e -> "")
+            .orElseGet(() -> "failure");
+
+
+            // List<EIAInputData> dataList = Arrays.asList(objectMapper.treeToValue(data, EIAInputData[].class));
+
+            // List<StringWrapper> dates = new ArrayList<>();
+            
+            // Set<String> sources = new HashSet<>();
+
+            // dataList
+            //     .stream()
+            //         .forEach( (a) -> sources.add(a.fuelTypeDescription()));
                     
-            List<EIADataSet> datadata = new ArrayList<>();
-            for (String fuelType : sources){
-                var x = dataList 
-                .stream()
-                        .filter((a) -> fuelType.equals(a.fuelTypeDescription()))
-                        .sorted((a, b) -> a.period().compareTo(b.period()))
-                        .toList();
+            // List<EIADataSet> datadata = new ArrayList<>();
+            // for (String fuelType : sources){
+            //     var x = dataList 
+            //     .stream()
+            //             .filter((a) -> fuelType.equals(a.fuelTypeDescription()))
+            //             .sorted((a, b) -> a.period().compareTo(b.period()))
+            //             .toList();
                         
-                dates = new ArrayList<>();
+            //     dates = new ArrayList<>();
 
-                StringBuilder values = new StringBuilder();
-                for (EIAData m : x){
-                    dates.add(new StringWrapper(m.period()));
-                    values.append(m.generation()).append(",");
-                }
+            //     StringBuilder values = new StringBuilder();
+            //     for (EIAInputData m : x){
+            //         dates.add(new StringWrapper(m.period()));
+            //         values.append(m.generation()).append(",");
+            //     }
 
-                datadata.add(new EIADataSet(fuelType, values.toString()));
-            }
+            //     datadata.add(new EIADataSet(fuelType, values.toString()));
+            // }
 
-            return JStachio.render(new EIAModel(dates, datadata));
+            // yield  JStachio.render(new EIAModel(dates, datadata));
+            // }
 
-            //return objectMapper.treeToValue(data.get(0), Message.class).toString();
-            //String.valueOf(start - System.currentTimeMillis());
-        } catch (IOException | InterruptedException ex) {
-        }
-
-        return "failure";
+            // case Err(Exception e) ->  e.getMessage();
+            // };
     }
 }
 

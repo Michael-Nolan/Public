@@ -1,10 +1,10 @@
-package org.priorityqueue.eia;
+package org.priorityqueue.eia.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @JsonSerialize
-public record EIAData(String period, 
+public record EIAInputData(String period, 
     String location, 
     String stateDescription,
     String sectorid,
