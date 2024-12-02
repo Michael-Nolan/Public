@@ -1,0 +1,18 @@
+{
+    "name": "GoLang",
+    "dockerFile" : "Dockerfile",
+	"features": {},
+
+	// Configure tool-specific properties.
+	"customizations": {
+		// Configure properties specific to VS Code.
+		"vscode": {
+			"settings": {
+                "terminal.integrated.shell.linux": "/bin/bash",
+            },
+			"extensions": [
+				"streetsidesoftware.code-spell-checker"
+			]
+		}
+	}
+}
