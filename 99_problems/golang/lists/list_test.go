@@ -2,6 +2,7 @@ package main
 
 import (
 	"errors"
+	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -138,4 +139,53 @@ func TestP06(t *testing.T) {
 	assert.True(t, isPalindrome([]string{"a", "b", "a"}))
 	assert.True(t, isPalindrome([]string{"a"}))
 	assert.False(t, isPalindrome([]string{"a", "b"}))
+}
+
+func TestP07_1(t *testing.T) {
+	// (a, b, (c, (d)))
+	assert.Equal(t, []any{"a", "b", "c", "d"}, flatten_1([]any{"a", "b", []any{"c", []any{"d"}}}))
+}
+func TestP07_2(t *testing.T) {
+	// (a, b, (c, (d)))
+	a := Single[string]{value: "a"}
+	b := Single[string]{value: "b"}
+	c := Single[string]{value: "c"}
+	d := Single[string]{value: "e"}
+
+	l1 := List[string]{values: []Nested[string]{d}}
+	l2 := List[string]{values: []Nested[string]{c, l1}}
+	l3 := List[string]{values: []Nested[string]{a, b, l2}}
+	outerList := []Nested[string]{l3}
+
+	fmt.Println(outerList)
+
+	assert.Equal(t, []string{"a", "b", "c", "d"}, flatten_2(outerList))
+}
+
+func TestP08(t *testing.T) {
+	// (a, b, (c, (d)))
+	assert.Equal(t, []string{"a", "b", "c"}, eliminateConsecutiveDuplicates([]string{"a", "a", "b", "b", "b", "c"}))
+}
+
+func TestP09(t *testing.T) {
+	// (a, b, (c, (d)))
+	assert.Equal(t, [][]string{{"a", "a"}, {"b", "b", "b"}, {"c"}}, packConsecutiveDuplicates([]string{"a", "a", "b", "b", "b", "c"}))
+}
+
+func TestP10(t *testing.T) {
+	// (a, b, (c, (d)))
+	assert.Equal(t, []Encoded[string]{
+		{value: "a", count: 2},
+		{value: "b", count: 3},
+		{value: "c", count: 1},
+	}, runLengthEncoding([]string{"a", "a", "b", "b", "b", "c"}))
+}
+
+func TestP11(t *testing.T) {
+	// (a, b, (c, (d)))
+	assert.Equal(t, []any{
+		[]any{2, "a"},
+		[]any{3, "b"},
+		[]any{1, "c"},
+	}, modifiedRunLengthEncoding([]any{"a", "a", "b", "b", "b", "c"}))
 }
