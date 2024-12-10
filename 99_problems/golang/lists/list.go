@@ -188,15 +188,126 @@ func modifiedRunLengthEncoding(input []any) []any {
 		if input[idx] == curValue {
 			curCount++
 		} else {
-			resp = append(resp, []any{curCount, curValue})
+			if curCount > 1 {
+				resp = append(resp, curCount, curValue)
+			} else {
+				resp = append(resp, curValue)
+			}
+
 			curCount = 1
 			curValue = input[idx]
 		}
 	}
-	resp = append(resp, []any{curCount, curValue})
+	if curCount > 1 {
+		resp = append(resp, curCount, curValue)
+	} else {
+		resp = append(resp, curValue)
+	}
 
 	return resp
 }
 
 // P12
-func decode() {}
+func decode[T any](input []any) []T {
+	resp := []T{}
+
+	if len(input) == 0 {
+		return resp
+	}
+
+	for idx := 0; idx < len(input); idx++ {
+		switch v := input[idx].(type) {
+		case int:
+			value := input[idx+1].(T)
+			for cnt := v; cnt > 0; cnt-- {
+				resp = append(resp, value)
+			}
+			// Idx should jump forward two spots in this case
+			idx++
+		case T:
+			resp = append(resp, v)
+		}
+	}
+
+	return resp
+}
+
+// P13
+// How is this different than P11?
+
+// P14
+func duplicate[T any](input []T) []T {
+	resp := []T{}
+
+	for _, i := range input {
+		resp = append(resp, i, i)
+	}
+
+	return resp
+}
+
+// P15
+func replicate[T any](input []T, count int) []T {
+	resp := []T{}
+
+	for _, i := range input {
+		for cnt := 0; cnt < count; cnt++ {
+			resp = append(resp, i)
+		}
+
+	}
+
+	return resp
+}
+
+// P16
+func dropNth[T any](input []T, x int) []T {
+	resp := []T{}
+
+	for idx, v := range input {
+		if ((idx + 1) % x) != 0 {
+			resp = append(resp, v)
+		}
+	}
+
+	return resp
+}
+
+// P17
+func split[T any](input []T, x int) ([]T, []T) {
+	return input[0:x], input[x:]
+}
+
+// P18
+func slice[T any](input []T, start int, end int) []T {
+	return input[start:end]
+}
+
+// P19
+func rotate[T any](input []T, x int) []T {
+	x = x % len(input)
+	resp := []T{}
+
+	for idx := x; idx < len(input); idx++ {
+		resp = append(resp, input[idx])
+	}
+
+	for idx := 0; idx < x; idx++ {
+		resp = append(resp, input[idx])
+	}
+
+	return resp
+}
+
+// P20
+func removeKth[T any](input []T, x int) []T {
+	resp := []T{}
+
+	for idx, v := range input {
+		if idx+1 != x {
+			resp = append(resp, v)
+		}
+	}
+
+	return resp
+}

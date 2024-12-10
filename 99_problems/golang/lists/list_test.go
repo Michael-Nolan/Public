@@ -150,7 +150,7 @@ func TestP07_2(t *testing.T) {
 	a := Single[string]{value: "a"}
 	b := Single[string]{value: "b"}
 	c := Single[string]{value: "c"}
-	d := Single[string]{value: "e"}
+	d := Single[string]{value: "d"}
 
 	l1 := List[string]{values: []Nested[string]{d}}
 	l2 := List[string]{values: []Nested[string]{c, l1}}
@@ -183,9 +183,46 @@ func TestP10(t *testing.T) {
 
 func TestP11(t *testing.T) {
 	// (a, b, (c, (d)))
-	assert.Equal(t, []any{
-		[]any{2, "a"},
-		[]any{3, "b"},
-		[]any{1, "c"},
-	}, modifiedRunLengthEncoding([]any{"a", "a", "b", "b", "b", "c"}))
+	assert.Equal(t, []any{2, "a", 3, "b", "c"}, modifiedRunLengthEncoding([]any{"a", "a", "b", "b", "b", "c"}))
+}
+
+func TestP12(t *testing.T) {
+	assert.Equal(t, []string{"a", "a", "b", "b", "b", "c"}, decode[string]([]any{
+		2, "a", 3, "b", "c",
+	}))
+}
+
+func TestP14(t *testing.T) {
+	assert.Equal(t, []string{"a", "a"}, duplicate([]string{"a"}))
+}
+
+func TestP15(t *testing.T) {
+	assert.Equal(t, []string{"a", "a", "a"}, replicate([]string{"a"}, 3))
+	assert.Equal(t, []string{}, replicate([]string{"a"}, 0))
+}
+
+func TestP16(t *testing.T) {
+	assert.Equal(t, []string{"a", "c", "e"}, dropNth([]string{"a", "b", "c", "d", "e"}, 2))
+}
+
+func TestP17(t *testing.T) {
+	a, b := split([]string{"a", "b", "c", "d", "e"}, 3)
+	assert.Equal(t, []string{"a", "b", "c"}, a)
+	assert.Equal(t, []string{"d", "e"}, b)
+}
+
+func TestP18(t *testing.T) {
+	assert.Equal(t, []string{"c", "d"}, slice([]string{"a", "b", "c", "d", "e"}, 2, 4))
+}
+
+func TestP19(t *testing.T) {
+	assert.Equal(t, []string{"b", "c", "d", "e", "a"}, rotate([]string{"a", "b", "c", "d", "e"}, 1))
+	assert.Equal(t, []string{"b", "c", "d", "e", "a"}, rotate([]string{"a", "b", "c", "d", "e"}, 6))
+	assert.Equal(t, []string{"a", "b", "c", "d", "e"}, rotate([]string{"a", "b", "c", "d", "e"}, 0))
+}
+
+func TestP20(t *testing.T) {
+	assert.Equal(t, []string{"b", "c", "d", "e"}, removeKth([]string{"a", "b", "c", "d", "e"}, 1))
+	assert.Equal(t, []string{"a", "c", "d", "e"}, removeKth([]string{"a", "b", "c", "d", "e"}, 2))
+	assert.Equal(t, []string{"a", "b", "d", "e"}, removeKth([]string{"a", "b", "c", "d", "e"}, 3))
 }
