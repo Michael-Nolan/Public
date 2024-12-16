@@ -37,7 +37,6 @@ func getKthElement[T any](input []T, k int) (T, error) {
 // P04
 func length[T any](input []T) int {
 	return len(input)
-	// I suppose you could iterate over the list, and then keep track of the count.
 }
 
 // P05
@@ -80,7 +79,6 @@ func flatten_1(input []any) []any {
 			resp = append(resp, flatten_1(v)...)
 		case any:
 			resp = append(resp, v)
-
 		default:
 			panic("error")
 		}
@@ -177,31 +175,14 @@ type Encoded[T comparable] struct {
 func modifiedRunLengthEncoding(input []any) []any {
 	resp := []any{}
 
-	if len(input) == 0 {
-		return resp
-	}
+	dupList := packConsecutiveDuplicates(input)
 
-	curValue := input[0]
-	curCount := 1
-
-	for idx := 1; idx < len(input); idx++ {
-		if input[idx] == curValue {
-			curCount++
+	for _, x := range dupList {
+		if len(x) > 1 {
+			resp = append(resp, []any{len(x), x[0]})
 		} else {
-			if curCount > 1 {
-				resp = append(resp, curCount, curValue)
-			} else {
-				resp = append(resp, curValue)
-			}
-
-			curCount = 1
-			curValue = input[idx]
+			resp = append(resp, x[0])
 		}
-	}
-	if curCount > 1 {
-		resp = append(resp, curCount, curValue)
-	} else {
-		resp = append(resp, curValue)
 	}
 
 	return resp
@@ -217,13 +198,10 @@ func decode[T any](input []any) []T {
 
 	for idx := 0; idx < len(input); idx++ {
 		switch v := input[idx].(type) {
-		case int:
-			value := input[idx+1].(T)
-			for cnt := v; cnt > 0; cnt-- {
-				resp = append(resp, value)
+		case []any:
+			for cnt := v[0].(int); cnt > 0; cnt-- {
+				resp = append(resp, v[1].(T))
 			}
-			// Idx should jump forward two spots in this case
-			idx++
 		case T:
 			resp = append(resp, v)
 		}
@@ -233,7 +211,38 @@ func decode[T any](input []any) []T {
 }
 
 // P13
-// How is this different than P11?
+func modifiedRunLengthEncodingDirect(input []any) []any {
+	resp := []any{}
+
+	if len(input) == 0 {
+		return resp
+	}
+
+	curValue := input[0]
+	curCount := 1
+
+	for idx := 1; idx < len(input); idx++ {
+		if input[idx] == curValue {
+			curCount++
+		} else {
+			if curCount > 1 {
+				resp = append(resp, []any{curCount, curValue})
+			} else {
+				resp = append(resp, curValue)
+			}
+
+			curCount = 1
+			curValue = input[idx]
+		}
+	}
+	if curCount > 1 {
+		resp = append(resp, []any{curCount, curValue})
+	} else {
+		resp = append(resp, curValue)
+	}
+
+	return resp
+}
 
 // P14
 func duplicate[T any](input []T) []T {
