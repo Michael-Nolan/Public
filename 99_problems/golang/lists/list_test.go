@@ -2,7 +2,6 @@ package main
 
 import (
 	"errors"
-	"fmt"
 	"strings"
 	"testing"
 
@@ -158,8 +157,6 @@ func TestP07_2(t *testing.T) {
 	l3 := List[string]{values: []Nested[string]{a, b, l2}}
 	outerList := []Nested[string]{l3}
 
-	fmt.Println(outerList)
-
 	assert.Equal(t, []string{"a", "b", "c", "d"}, flatten_2(outerList))
 }
 
@@ -287,16 +284,16 @@ func Test25(t *testing.T) {
 
 func Test26(t *testing.T) {
 	resp := combination(3, []string{"a", "b", "c"})
-	assert.Len(t, resp, 1*2)
+	assert.Len(t, resp, 1)
 
 	resp = combination(1, []string{"a", "b", "c"})
-	assert.Len(t, resp, 3*2)
+	assert.Len(t, resp, 3)
 
 	resp = combination(2, []string{"a", "b", "c"})
-	assert.Len(t, resp, 3*2)
+	assert.Len(t, resp, 3)
 
 	resp = combination(3, []string{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"})
-	assert.Len(t, resp, 220*2)
+	assert.Len(t, resp, 220)
 }
 
 func Test27(t *testing.T) {
