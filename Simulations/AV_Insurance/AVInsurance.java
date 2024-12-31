@@ -5,7 +5,7 @@ final float HUMAN_CRASH_RATE = 0.1f;
 final float CAR_REPAIR_COST = 100;
 
 // Default value of 10%. i.e., 90% reduction in crash rates compared to humans.
-final float DEFAULT_AV_RELATIVE_CRASH_RATE = 0.01f;
+final float DEFAULT_AV_RELATIVE_CRASH_RATE = 0.10f;
 
 // Default value of 120%. i.e., AVs are 20% more expensive to repair.
 final float DEFAULT_AV_RELATIVE_CAR_REPAIR_COST = 1.2f;
@@ -36,15 +36,16 @@ record Car(
     boolean isAV,
     float crashChance,
     float repairCost,
-    String poolName,
     PoolCost poolCost) {
 }
 
 record Result(
     float avPercent,
     float globalCosts,
-    Map<String,Float> poolCosts,
-    Map<String,Float> poolSize){
+    float avPoolCosts,
+    float humanPoolCosts,
+    int avPoolSize,
+    int humanPoolSize){
 }
 
 // Once JEP 468 is in preview, this could be removed in favor of a "with" syntax.
@@ -71,6 +72,8 @@ void main(String[] args) {
 
 private void basicSim(float avRelativeCrashRate, float avRelativeCarRepairCost, float payoutSplit) {
     List<Result> results = new ArrayList<>();
+    // Run once at 1%. (0% is a pain since then we have to handle div by zero)
+    results.add(runSimulation(avRelativeCrashRate, avRelativeCarRepairCost, 0.01f, payoutSplit));
     for (float avPercent = 0.1f; avPercent < 1.0; avPercent += 0.1f) {
         results.add(runSimulation(avRelativeCrashRate, avRelativeCarRepairCost, avPercent, payoutSplit));
     }
@@ -116,27 +119,32 @@ private Result runSimulation(float avRelativeCrashRate, float avRelativeCarRepai
         }
     }
 
-    Map<String,Float> poolCount = new HashMap<>();
-    Map<String,Float> costs = new HashMap<>();
-
-
     float globalCosts = 0;
+    float avPoolCosts = 0;
+    float humanPoolCosts = 0;
+    int avPoolSize = 0;
+    int humanPoolSize = 0;
     for (Car c : cars) {
-        poolCount.put(c.poolName, poolCount.getOrDefault(c.poolName, 0.0f) + 1);
-        costs.put(c.poolName, costs.getOrDefault(c.poolName, 0.0f) + c.poolCost.lifetimeRepairCosts);
         globalCosts += c.poolCost.lifetimeRepairCosts;
+        if (c.isAV){
+            avPoolCosts += c.poolCost.lifetimeRepairCosts;
+            avPoolSize++;
+        } else {
+            humanPoolCosts += c.poolCost.lifetimeRepairCosts;
+            humanPoolSize++;
+        }
     }
 
-    return new Result(percentOfCarsThatAreAV, globalCosts, costs, poolCount);
+    return new Result(percentOfCarsThatAreAV, globalCosts, avPoolCosts, humanPoolCosts, avPoolSize, humanPoolSize);
 }
 
 private Car buildCar(float avRelativeCrashRate, float avRelativeCarRepairCost, float percentOfCarsThatAreAV) {
     if (r.nextFloat() < percentOfCarsThatAreAV) {
         // Build AV
-        return new Car(true, HUMAN_CRASH_RATE * avRelativeCrashRate, (int)(CAR_REPAIR_COST * avRelativeCarRepairCost), "AV", new PoolCost());
+        return new Car(true, HUMAN_CRASH_RATE * avRelativeCrashRate, CAR_REPAIR_COST * avRelativeCarRepairCost, new PoolCost());
     }
 
-    return new Car(false, HUMAN_CRASH_RATE, CAR_REPAIR_COST, "HUMAN", new PoolCost());
+    return new Car(false, HUMAN_CRASH_RATE, CAR_REPAIR_COST, new PoolCost());
 }
 
 private void car(float payoutSplit, Car car, List<Car> cars) {
@@ -151,54 +159,33 @@ private void car(float payoutSplit, Car car, List<Car> cars) {
 
 // Outputs in MarkDown Table Format
 private void printResults(List<Result> results, boolean includeAbsoluteDollarValues) {
-    var pools = new ArrayList<>(results.get(0).poolCosts.keySet());
-
     var startResult = results.get(0);
 
-    var header = new StringBuilder("|AV Percent|Global Cost Reduction|");
+    var header = new StringBuilder("|AV Percent|Global Cost Reduction|Human Cost Reduction|AV Cost Reduction|");
     if (includeAbsoluteDollarValues){
-        header.append("Global Costs|");
+        header.append("Global Costs|Human Costs per car|AV Costs per car|");
     }
 
-    pools.forEach(s -> {
-        header.append(s).append(" Cost Reduction|");
-        if (includeAbsoluteDollarValues){
-            header.append(s).append(" Cost per car|");
-        }
-    });
-
-    var alignmentRow = new StringBuilder(":--|:--|");
-    pools.forEach(s -> alignmentRow.append(":--|"));
+    var alignmentRow = new StringBuilder(":--|:--|:--|:--|");
     if (includeAbsoluteDollarValues){
-        alignmentRow.append(":--|");
-        pools.forEach(s -> alignmentRow.append(":--|"));
+        alignmentRow.append(":--|:--|:--|");
     }
-    
 
     println(header.toString());
     println(alignmentRow.toString());
-    
 
     results.forEach(result -> {
         StringBuilder line = new StringBuilder("|");
-
         line.append(formatPercentage(result.avPercent)).append("|");
         line.append(formatPercentage(calculateChange(result.globalCosts, startResult.globalCosts))).append("|");
 
+        line.append(formatPercentage(calculateChange(result.humanPoolCosts / result.humanPoolSize, startResult.humanPoolCosts / startResult.humanPoolSize))).append("|");
+        line.append(formatPercentage(calculateChange(result.avPoolCosts / result.avPoolSize, startResult.avPoolCosts / startResult.avPoolSize))).append("|");
+
         if (includeAbsoluteDollarValues){
             line.append(formatCurrency(result.globalCosts)).append("|");
-        }
-
-        for (String poolName : pools){
-            var poolCost = result.poolCosts.get(poolName);
-            var poolCostStart = startResult.poolCosts.get(poolName);
-            var poolSize = result.poolSize.get(poolName);
-            var poolSizeStart = startResult.poolSize.get(poolName);
-
-            line.append(formatPercentage(calculateChange((poolCost / poolSize), (poolCostStart / poolSizeStart)))).append("|");
-            if (includeAbsoluteDollarValues){
-                line.append(formatCurrency(poolCost / poolSize)).append("|");
-            }
+            line.append(formatCurrency(result.humanPoolCosts / result.humanPoolSize)).append("|");
+            line.append(formatCurrency(result.avPoolCosts / result.avPoolSize)).append("|");
         }
         println(line.toString());
     });
