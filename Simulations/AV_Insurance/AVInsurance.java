@@ -115,7 +115,7 @@ private Result runSimulation(float avRelativeCrashRate, float avRelativeCarRepai
     // Drive the cars
     for (int x = 0; x < TOTAL_DRIVES; x++) {
         for (Car c : cars) {
-            car(payoutSplit, c, cars);
+            maybeCrash(payoutSplit, c, cars);
         }
     }
 
@@ -147,7 +147,7 @@ private Car buildCar(float avRelativeCrashRate, float avRelativeCarRepairCost, f
     return new Car(false, HUMAN_CRASH_RATE, CAR_REPAIR_COST, new PoolCost());
 }
 
-private void car(float payoutSplit, Car car, List<Car> cars) {
+private void maybeCrash(float payoutSplit, Car car, List<Car> cars) {
     if (r.nextFloat() > car.crashChance) {
         return;
     }
