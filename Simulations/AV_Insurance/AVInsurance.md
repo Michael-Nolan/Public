@@ -57,7 +57,7 @@ Currently authorities have to ballance two competing goals:
 25/50/25 should be read as:
 * Up to $25,000 per injured person's medical expenses.
 * Up to $50,000 total medical expenses per crash.
-* up to %25,000 total property damage per crash.
+* Up to $25,000 total property damage per crash.
 
 It should be clear that minimums of 25/50/25 are laughable low in 2025 given the cost of medical care and the cost of a new cars.
 

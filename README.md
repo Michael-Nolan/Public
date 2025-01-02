@@ -1,6 +1,6 @@
-# public
+# Public
 
-* [AV Insurance Simulation](/Simulations/AV_Insurance/AVInsurance.md)
-* [Recipes](Recipes/Recipes.md)
-* [99 Problems](99_problems/README.md)
-* [EIA](eia/README.md)
+
+## Projects
+
+**[AV Insurance Simulation](/Simulations/AV_Insurance/AVInsurance.md)** - How will Self Driving cars effect insurance premiums. Will your rates go up or down?
