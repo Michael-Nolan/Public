@@ -1,7 +1,7 @@
-# Impact of Autonomous Vehicles on Insurance Risk Pools: A Simulation Study
+# Impact of Autonomous Vehicles on Insurance Premiums: A Simulation Study
 
 ## TLDR
-This simulation suggest that as self driving vehicles become common, insurance costs will likely go down for everyone, including human drivers.
+This simulation suggests that as self driving vehicles become common, insurance costs will likely go down for everyone, including human drivers.
 
 ## Introduction
 How will the introduction of autonomous vehicles affect the insurance premiums paid by human drivers? 
@@ -37,8 +37,8 @@ The simulation excludes at least four significant factors:
 Differential adoption rates among driver risk categories. 
 I.e., are good drivers more or less likely to adopt AVs than bad drivers are?
 This simulation makes no distinction between good and bad human drivers, or the rate at which they adopt AVs.
-If good drivers adopt AVs at a faster rate than bad drivers, that should put upwards pressure on human insurance premiums.
-If bad drivers adopt AVs at a faster rate than good drivers, that should put downwards pressure on human insurance premiums.
+If good drivers adopt AVs at a faster rate than bad drivers, that should put upward pressure on human insurance premiums.
+If bad drivers adopt AVs at a faster rate than good drivers, that should put downward pressure on human insurance premiums.
 
 **Geographic Distribution:** Variation in deployment patterns and regional risk factors.
 AVs will almost certainly be adopted in Urban areas before they are adopted in Suburban or Rural areas.
@@ -50,7 +50,7 @@ Crash frequency and damage differ by region.
 **Legislative and Regulatory changes to insurance minimums:** Many states have insurance minimums as [low as 25/50/25](https://www.insure.com/car-insurance/minimum-coverage-levels.html).
 In a world where driving becomes safer, it is possible that authorities will **increase** insurance minimums.
 Increasing minimums would increase the cost of insurance.
-Currently authorities have to ballance two competing goals:
+Currently authorities have to balance two competing goals:
 1. Making insurance affordable enough so that 90+% of drivers can afford it.
 2. Making insurance comprehensive enough so that it covers the costs of most accidents.
 
@@ -59,13 +59,13 @@ Currently authorities have to ballance two competing goals:
 * Up to $50,000 total medical expenses per crash.
 * Up to $25,000 total property damage per crash.
 
-It should be clear that minimums of 25/50/25 are laughable low in 2025 given the cost of medical care and the cost of a new cars.
+It should be clear that minimums of 25/50/25 are laughably low in 2025 given the cost of medical care and the cost of new cars.
 
 
 **Defensive Driving:** Sometimes, but not always, it takes two to tango.
-When this simulation determines that a car is going to cause a crash, there is noting the "victim's" car can do to avoid the crash.
+When this simulation determines that a car is going to cause a crash, there is nothing the "victim's" car can do to avoid the crash.
 This simulation uses just a single variable for crash rate. 
-A more comprehensive simulation might have two variable, one for percent chance to cause a crash, and one for percent chance to avoid a crash.
+A more comprehensive simulation might have two variables, one for percent chance to cause a crash, and one for percent chance to avoid a crash.
 
 ## Results
 When AV market penetration increases from 1% to 90% the following results were observed:
