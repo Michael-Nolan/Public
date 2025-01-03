@@ -83,6 +83,11 @@ When AV market penetration increases from 1% to 90% the following results were o
   * As FAS approaches 100%: Smaller decrease in human insurance costs
   * At 100% FAS: Counterintuitive rise in both human and AV insurance costs despite lower global costs (see Appendix for detailed breakdown)
 
+## How to run
+These require a modern version of Java (23+) installed. [Download Java here](https://sdkman.io)
+```
+java --enable-preview AVInsurance.java
+```
 
 ## Appendix of full results:
 
