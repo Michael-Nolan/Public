@@ -149,9 +149,9 @@
 || Six Seasons | Late Summer | Tomato Soup with Arugula, Torn Croutons, and Pecorino |
 || Six Seasons | Late Summer | Grilled Green Tomatoes with Avocado, Feta, and Watermelon |
 || Six Seasons | Late Summer | Tomato Conserva |
-|| Six Seasons | Fall | [Roasted Beet, Citrus, and Olive Salad with Horseradish](recipes/Six_Seasons_Roasted_Beet_Salad/recipe.md) |
-|| Six Seasons | Fall | [Roasted and Smashed Beets with Spiced Green Sauce](recipes/Six_Seasons_Roasted_And_Smashed_Beets/recipe.md) |
-|| Six Seasons | Fall | [Roasted Beets and Carrots with Couscous, Sunflower Seeds, Citrus, and Feta](recipes/Six_Seasons_Roasted_Beets_And_Carrots/recipe.md) |
+|| Six Seasons | Fall | [Roasted Beet, Citrus, and Olive Salad with Horseradish](recipes/six_seasons_roasted_beet_salad.md) |
+|| Six Seasons | Fall | [Roasted and Smashed Beets with Spiced Green Sauce](recipes/six_seasons_roasted_and_smashed_beets.md) |
+|| Six Seasons | Fall | [Roasted Beets and Carrots with Couscous, Sunflower Seeds, Citrus, and Feta](recipes/six_seasons_roasted_beets_and_carrots.md) |
 || Six Seasons | Fall | Raw Brussels Sprouts with Lemon, Anchovy, Walnuts, and Pecorino |
 || Six Seasons | Fall | Brussels Sprouts with Pickled Carrots, Walnuts, Cilantro, and Citrus Vinaigrette |
 || Six Seasons | Fall | Gratin of Brussels Sprouts, Gruyère, and Prosciutto |
@@ -208,7 +208,7 @@
 || Six Seasons | Winter | Delicata Squash “Donuts” with Pumpkin Seeds and Honey |
 || Six Seasons | Winter | Roasted Squash with Yogurt, Walnuts, and Spiced Green Sauce |
 || Six Seasons | Winter | Pumpkin Bolognese |
-| ✅ | Campbell’s | | [Green Bean Casserole](recipes/Campbells_Green_Bean_Casserole/recipe.md) |
+| ✅ | Campbell’s | | [Green Bean Casserole](recipes/campbells_green_bean_casserole.md) |
 || Food Lab | Vegetables | Hot Buttered Snap Peas with Lemon and Mint |
 || Food Lab | Vegetables | Hot Buttered Snap Peas with Scallions and Ham |
 || Food Lab | Vegetables | Hot Buttered Snap Peas with Leeks and Basil |
