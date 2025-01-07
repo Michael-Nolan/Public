@@ -297,8 +297,8 @@
 || Food Lab | Soup, Stew, Stock | 30-min Minestrone |
 || Food Lab | Soup, Stew, Stock | 30-min Tuscan White Bean and Parmesan Soup |
 || Food Lab | Soup, Stew, Stock | 30-min Black Bean Soup |
-|| Food Lab | Soup, Stew, Stock | 15-min Pantry Tomato Soup |
-|| Food Lab | Soup, Stew, Stock | Extra Cheesy Grilled Cheese Sandwiches |
+| ✅ | Food Lab | Soup, Stew, Stock | [15-min Pantry Tomato Soup](recipes/food_lab_15_min_tomato_soup.md) |
+| ✅ | Food Lab | Soup, Stew, Stock | [Extra Cheesy Grilled Cheese Sandwiches](recipes/food_lab_extra_cheesy_grilled_cheese_sandwiches.md) |
 || Food Lab | Soup, Stew, Stock | Corn Chowder |
 || Food Lab | Soup, Stew, Stock | Creamy Broccoli-Parmesan Soup |
 || Food Lab | Soup, Stew, Stock | Creamy Mushroom Soup |
