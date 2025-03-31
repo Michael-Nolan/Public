@@ -27,12 +27,9 @@
             <ul>
                 <li><a href="#plotNetGenMonthly">       Net Generation Monthly</a></li>
                 <li><a href="#plotPercentGenMonthly">   Percent Generation Monthly</a></li>
+                <li><a href="#plotNetGenRolling">       Net Generation 12 Month Rolling</a></li>
+                <li><a href="#plotPercentGenRolling">   Percent Generation 12 Month Rolling</a></li>
                 <!-- 
-                    TODO
-
-                    Net Generation Monthly (12 Month Rolling)
-                    Percent Generation Monthly (12 Month Rolling)
-
                     Net Generation Monthly (Grouped)
                     Percent Generation Monthly (Grouped)
 
@@ -69,8 +66,8 @@
                 var d = processRawData();
                 plotNetGenMonthly(structuredClone(d));
                 plotPercentGenMonthly(structuredClone(d));
-                plotNetGenRolling(convertToRolling(structuredClone(d)));
-                plotPercentGenRolling(convertToRolling(structuredClone(d)));
+                plotNetGenRolling(convertToRolling(structuredClone(d), 12));
+                plotPercentGenRolling(convertToRolling(structuredClone(d), 12));
             });
         </script>
 
