@@ -1,35 +1,34 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <script src="https://cdn.plot.ly/plotly-3.0.1.min.js" charset="utf-8"></script>
+<head>
+    <script src="https://cdn.plot.ly/plotly-3.0.1.min.js" charset="utf-8"></script>
 
-        <style>
-            html {
-                scroll-behavior: smooth;
-            }
-        </style>
-    </head>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <div id="intro">
+        <h1>US Electricity Graphs</h1>
+        <br>
+        <p>
+            The US Energy Information Agency provides monthly data on US electricity generation.
+            This site uses that data and provides some graphs to make it easier to visualize whats happening.
+            If there are any other graphs you would like to see, open an issue at
+            https://github.com/Michael-Nolan/Public
+        </p>
 
-    <body>
-        <div id="intro">
-            <h1>US Electricity Graphs</h1>
-            <br>
-            <p>
-                The US Energy Information Agency provides monthly data on US electricity generation. 
-                This site uses that data and provides some graphs to make it easier to visualize whats happening.
-                If there are any other graphs you would like to see, open an issue at https://github.com/Michael-Nolan/Public
-            </p>
-            
-        </div>
-
-        <div>
-            <strong>Jump to:</strong>
-            <ul>
-                <li><a href="#plotNetGenMonthly">       Net Generation Monthly</a></li>
-                <li><a href="#plotPercentGenMonthly">   Percent Generation Monthly</a></li>
-                <li><a href="#plotNetGenRolling">       Net Generation 12 Month Rolling</a></li>
-                <li><a href="#plotPercentGenRolling">   Percent Generation 12 Month Rolling</a></li>
-                <!-- 
+    </div>
+    <div>
+        <strong>Jump to:</strong>
+        <ul>
+            <li><a href="#plotNetGenMonthly"> Net Generation Monthly</a></li>
+            <li><a href="#plotPercentGenMonthly"> Percent Generation Monthly</a></li>
+            <li><a href="#plotNetGenRolling"> Net Generation 12 Month Rolling</a></li>
+            <li><a href="#plotPercentGenRolling"> Percent Generation 12 Month Rolling</a></li>
+            <!-- 
                     Net Generation Monthly (Grouped)
                     Percent Generation Monthly (Grouped)
 
@@ -46,30 +45,29 @@
                 -->
 
 
-            </ul>
-        </div>
+        </ul>
+    </div>
+
+    <div id="plotNetGenMonthly" style="display: flex; justify-content: center;"></div>
+    <div id="plotPercentGenMonthly" style="display: flex; justify-content: center;"></div>
+    <div id="plotNetGenRolling" style="display: flex; justify-content: center;"></div>
+    <div id="plotPercentGenRolling" style="display: flex; justify-content: center;"></div>
 
 
-        <div id="plotNetGenMonthly" style="display: flex; justify-content: center;"></div>
-        <div id="plotPercentGenMonthly" style="display: flex; justify-content: center;"></div>
-        <div id="plotNetGenRolling" style="display: flex; justify-content: center;"></div>
-        <div id="plotPercentGenRolling" style="display: flex; justify-content: center;"></div>
+    <!-- Link the external JavaScript file containing data -->
 
 
-        <!-- Link the external JavaScript file containing data -->
-        
+    <script type="text/javascript" src="data.js" defer></script>
+    <script type="text/javascript" src="eia.js" defer></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var d = processRawData();
+            plotNetGenMonthly(structuredClone(d));
+            plotPercentGenMonthly(structuredClone(d));
+            plotNetGenRolling(convertToRolling(structuredClone(d), 12));
+            plotPercentGenRolling(convertToRolling(structuredClone(d), 12));
+        });
+    </script>
 
-        <script type="text/javascript" src="data.js" defer></script>
-        <script type="text/javascript" src="eia.js" defer></script>
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                var d = processRawData();
-                plotNetGenMonthly(structuredClone(d));
-                plotPercentGenMonthly(structuredClone(d));
-                plotNetGenRolling(convertToRolling(structuredClone(d), 12));
-                plotPercentGenRolling(convertToRolling(structuredClone(d), 12));
-            });
-        </script>
-
-    </body>
+</body>
 </html>
