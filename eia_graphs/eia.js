@@ -112,7 +112,7 @@ function plotPercentGenMonthly(data){
 }
 
 
-function convertToRolling(data){
+function convertToRolling(data, windowSize){
     const result = new Map(); 
 
     data.forEach((value, key) => {
@@ -123,12 +123,12 @@ function convertToRolling(data){
         for (let i = 0; i < value.x.length; i++) {
            sum += value.y[i];
 
-            if (i < 11){
+            if (i < windowSize-1){
                 continue;
             }
             
-            if (i > 11) {
-                sum -= value.y[i-12];
+            if (i > windowSize-1) {
+                sum -= value.y[i-windowSize];
             }
             
             newY.push(sum);
