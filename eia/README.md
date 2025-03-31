@@ -1,3 +1,0 @@
-# EIA
-
-Work in progress.
