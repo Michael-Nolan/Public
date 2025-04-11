@@ -1,10 +1,19 @@
+const nameMap = new Map([
+  ['all coal products', 'Coal'],
+  ['wind', 'Wind'],
+  ['estimated total solar', 'Solar'],
+  ['nuclear', 'Nuclear'],
+  ['natural gas & other gases', 'Natural Gas'],
+  ['conventional hydroelectric','Hydroelectric']
+]);
+
 function processRawData() {
   rawData.response.data.sort((a, b) => a.period.localeCompare(b.period));
 
   const groupedData = new Map();
 
   rawData.response.data.forEach(item => {
-    const fuelType = item.fuelTypeDescription;
+    const fuelType = nameMap.get(item.fuelTypeDescription);
     if (!groupedData.has(fuelType)) {
       groupedData.set(fuelType, []);
     }
@@ -50,7 +59,9 @@ function plotNetGenMonthly(data) {
       title: {
         text: 'month'
       },
-      fixedrange: false  // Allow zooming on x-axis
+      fixedrange: false,  // Allow zooming on x-axis
+      minallowed: "2001-01",
+      maxallowed: "2025-01"
     },
     yaxis: {
       title: {
@@ -88,7 +99,9 @@ function plotPercentGenMonthly(data) {
     xaxis: {
       title: {
         text: 'month'
-      }
+      },
+      minallowed: "2001-01",
+      maxallowed: "2025-01"
     },
     yaxis: {
       title: {
@@ -161,7 +174,9 @@ function plotNetGenRolling(data) {
       title: {
         text: 'month'
       },
-      fixedrange: false  // Allow zooming on x-axis
+      fixedrange: false,  // Allow zooming on x-axis
+      minallowed: "2001-01",
+      maxallowed: "2025-01"
     },
     yaxis: {
       title: {
@@ -199,7 +214,9 @@ function plotPercentGenRolling(data) {
     xaxis: {
       title: {
         text: 'month'
-      }
+      },
+      minallowed: "2001-01",
+      maxallowed: "2025-01"
     },
     yaxis: {
       title: {
@@ -219,4 +236,17 @@ function plotPercentGenRolling(data) {
   };
 
   Plotly.newPlot('plotPercentGenRolling', dd, layout, config);
+}
+
+function calculateD1D2D3(data, windowSize){
+  const d1 = new Map();
+  const d2 = new Map();
+  const d3 = new Map();
+
+  data.forEach((value, key) => {
+    newX = [];
+    newY = [];
+
+  });
+
 }
