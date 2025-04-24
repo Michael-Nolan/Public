@@ -1,3 +1,70 @@
+
+const plotNetGenMonthlyDiv = "plotNetGenMonthlyDiv"
+const plotPercentGenMonthlyDiv = "plotPercentGenMonthlyDiv"
+const plotNetGenRollingDiv = "plotNetGenRollingDiv"
+const plotPercentGenRollingDiv = "plotPercentGenRollingDiv"
+const plotPercentGrowthMonthlyDiv = "plotPercentGrowthMonthlyDiv"
+const plotPercentGrowthYearlyDiv = "plotPercentGrowthYearlyDiv"
+const plotAbsoluteGrowthMonthlyDiv = "plotAbsoluteGrowthMonthlyDiv"
+const plotAbsoluteGrowthYearlyDiv = "plotAbsoluteGrowthYearlyDiv"
+
+const titleTextMap = new Map([
+  [plotNetGenMonthlyDiv, 'Net Generation by Source (Monthly)'],
+  [plotPercentGenMonthlyDiv, 'Percent Generation by Source (Monthly)'],
+  [plotNetGenRollingDiv, 'Net Generation by Source (12 Month Rolling)'],
+  [plotPercentGenRollingDiv, 'Percent Generation by Source (12 Month Rolling)'],
+  [plotPercentGrowthMonthlyDiv, 'Percent Growth (12 Month Rolling)(1 month look back)'],
+  [plotPercentGrowthYearlyDiv, 'Percent Growth (12 Month Rolling)(12 month look back)'],
+  [plotAbsoluteGrowthMonthlyDiv, 'Absolute Growth (12 Month Rolling)(1 month look back)'],
+  [plotAbsoluteGrowthYearlyDiv, 'Absolute Growth (12 Month Rolling)(12 month look back)'],
+]);
+
+const yAxisMap = new Map([
+  [plotNetGenMonthlyDiv, '1,000 mwh'],
+  [plotPercentGenMonthlyDiv, 'Percent'],
+  [plotNetGenRollingDiv, '1,000 mwh'],
+  [plotPercentGenRollingDiv, 'Percent'],
+  [plotPercentGrowthMonthlyDiv, 'Percent'],
+  [plotPercentGrowthYearlyDiv, 'Percent'],
+  [plotAbsoluteGrowthMonthlyDiv, '1,000 mwh'],
+  [plotAbsoluteGrowthYearlyDiv, '1,000 mwh'],
+]);
+
+
+
+
+const plotConfig = {
+  toImageButtonOptions: {
+    format: 'svg', // one of png, svg, jpeg, webp
+    filename: name,
+    scale: 1 // Multiply title/legend/axis/canvas sizes by this factor
+  },
+  scrollZoom: true
+};
+
+
+function buildLayout(divName) {
+  return {
+    title: {
+      text: titleTextMap.get(divName)
+    },
+    xaxis: {
+      title: {
+        text: 'month'
+      },
+      fixedrange: false,  // Allow zooming on x-axis
+      minallowed: "2001-01",
+      maxallowed: "2025-01"
+    },
+    yaxis: {
+      title: {
+        text: yAxisMap.get(divName),
+      },
+      fixedrange: true  // Prevent direct y-axis zooming
+    }
+  };
+}
+
 const nameMap = new Map([
   ['all coal products', 'Coal'],
   ['wind', 'Wind'],
@@ -29,10 +96,10 @@ var allSourceData;
 var twoSourceData;
 var threeSourceData;
 
-function populateData(){
+function populateData() {
   allSourceData = processRawData();
   twoSourceData = mergeCategories(structuredClone(allSourceData), cat2MergeMap);
-  threeSourceData = mergeCategories(structuredClone(allSourceData), cat3MergeMap);          
+  threeSourceData = mergeCategories(structuredClone(allSourceData), cat3MergeMap);
 }
 
 
@@ -72,19 +139,19 @@ function processRawData() {
   return result
 }
 
-function mergeCategories(data, mergeMap){
+function mergeCategories(data, mergeMap) {
   const result = new Map();
 
   mergeMap.forEach((value, key) => {
-      result.set(value, {
-        name: value,
-        x: [],
-        y: []
-      })
+    result.set(value, {
+      name: value,
+      x: [],
+      y: []
+    })
   });
 
   data.forEach((value, key) => {
-    if (result.get(mergeMap.get(key)).y.length == 0){
+    if (result.get(mergeMap.get(key)).y.length == 0) {
       result.get(mergeMap.get(key)).y = value.y;
       result.get(mergeMap.get(key)).x = value.x;
     } else {
@@ -93,8 +160,8 @@ function mergeCategories(data, mergeMap){
       var valueXInt = 0;
       var resultXInt = 0;
 
-      while (valueXInt < value.x.length && resultXInt < result.get(mergeMap.get(key)).x.length){
-        while (value.x[valueXInt] != result.get(mergeMap.get(key)).x[resultXInt]){
+      while (valueXInt < value.x.length && resultXInt < result.get(mergeMap.get(key)).x.length) {
+        while (value.x[valueXInt] != result.get(mergeMap.get(key)).x[resultXInt]) {
           resultXInt++;
         }
         result.get(mergeMap.get(key)).y[resultXInt] += value.y[valueXInt];
@@ -104,9 +171,9 @@ function mergeCategories(data, mergeMap){
     }
   });
 
-  
+
   // console.log(result);
-  
+
   return result;
 }
 
@@ -117,37 +184,7 @@ function plotNetGenMonthly(name, data) {
     dd.push(value)
   });
 
-  const myplot = document.getElementById(name);
-  var layout = {
-    title: {
-      text: 'Net Generation by Source'
-    },
-    xaxis: {
-      title: {
-        text: 'month'
-      },
-      fixedrange: false,  // Allow zooming on x-axis
-      minallowed: "2001-01",
-      maxallowed: "2025-01"
-    },
-    yaxis: {
-      title: {
-        text: '1,000 mwh',
-      },
-      fixedrange: true  // Prevent direct y-axis zooming
-    }
-  };
-
-  var config = {
-    toImageButtonOptions: {
-      format: 'svg', // one of png, svg, jpeg, webp
-      filename: name,
-      scale: 1 // Multiply title/legend/axis/canvas sizes by this factor
-    },
-    scrollZoom: true
-  };
-
-  Plotly.newPlot(name, dd, layout, config);
+  Plotly.newPlot(name, dd, buildLayout(name), plotConfig);
 }
 
 function plotPercentGenMonthly(name, data) {
@@ -159,35 +196,8 @@ function plotPercentGenMonthly(name, data) {
     dd.push(value)
   });
 
-  var layout = {
-    title: {
-      text: 'Percent of Generation by Source'
-    },
-    xaxis: {
-      title: {
-        text: 'month'
-      },
-      minallowed: "2001-01",
-      maxallowed: "2025-01"
-    },
-    yaxis: {
-      title: {
-        text: 'Percent'
-      },
-      fixedrange: true,
-    }
-  };
-
-  var config = {
-    toImageButtonOptions: {
-      format: 'svg', // one of png, svg, jpeg, webp
-      filename: name,
-      scale: 1 // Multiply title/legend/axis/canvas sizes by this factor
-    },
-    scrollZoom: true
-  };
-
-  Plotly.newPlot(name, dd, layout, config);
+  layout = buildLayout(name)
+  Plotly.newPlot(name, dd, layout, plotConfig);
 }
 
 function convertToRolling(data, windowSize) {
@@ -235,7 +245,7 @@ function calculateGrowth(data, windowSize) {
       newY.push(((value.y[i] - value.y[i - windowSize]) / value.y[i - windowSize]));
       newX.push(value.x[i]);
 
-      if (value.y[i - windowSize] == 0){
+      if (value.y[i - windowSize] == 0) {
         console.log("hahha");
       }
     }
@@ -283,37 +293,7 @@ function plotNetGenRolling(name, data) {
     dd.push(value)
   });
 
-  const myplot = document.getElementById(name);
-  var layout = {
-    title: {
-      text: 'Net Generation by Source (12 Month Rolling)'
-    },
-    xaxis: {
-      title: {
-        text: 'month'
-      },
-      fixedrange: false,  // Allow zooming on x-axis
-      minallowed: "2001-01",
-      maxallowed: "2025-01"
-    },
-    yaxis: {
-      title: {
-        text: '1,000 mwh',
-      },
-      fixedrange: true  // Prevent direct y-axis zooming
-    }
-  };
-
-  var config = {
-    toImageButtonOptions: {
-      format: 'svg', // one of png, svg, jpeg, webp
-      filename: name,
-      scale: 1 // Multiply title/legend/axis/canvas sizes by this factor
-    },
-    scrollZoom: true
-  };
-
-  Plotly.newPlot(name, dd, layout, config);
+  Plotly.newPlot(name, dd, buildLayout(name), plotConfig);
 }
 
 function plotPercentGenRolling(name, data) {
@@ -325,35 +305,8 @@ function plotPercentGenRolling(name, data) {
     dd.push(value)
   });
 
-  var layout = {
-    title: {
-      text: 'Percent of Generation by Source (12 Month Rolling)'
-    },
-    xaxis: {
-      title: {
-        text: 'month'
-      },
-      minallowed: "2001-01",
-      maxallowed: "2025-01"
-    },
-    yaxis: {
-      title: {
-        text: 'Percent'
-      },
-      fixedrange: true,
-    }
-  };
-
-  var config = {
-    toImageButtonOptions: {
-      format: 'svg', // one of png, svg, jpeg, webp
-      filename: name,
-      scale: 1 // Multiply title/legend/axis/canvas sizes by this factor
-    },
-    scrollZoom: true
-  };
-
-  Plotly.newPlot(name, dd, layout, config);
+  layout = buildLayout(name)
+  Plotly.newPlot(name, dd, layout, plotConfig);
 }
 
 function plotPercentGrowthMonthly(name, data) {
@@ -363,38 +316,10 @@ function plotPercentGrowthMonthly(name, data) {
     dd.push(value)
   });
 
-  const myplot = document.getElementById(name);
-  var layout = {
-    title: {
-      text: 'Percent Growth (12 Month Rolling)(1 month look back)'
-    },
-    xaxis: {
-      title: {
-        text: 'month'
-      },
-      fixedrange: false,  // Allow zooming on x-axis
-      minallowed: "2001-01",
-      maxallowed: "2025-01"
-    },
-    yaxis: {
-      title: {
-        text: '% Growth',
-      },
-      tickformat: '.2%',
-      fixedrange: true  // Prevent direct y-axis zooming
-    }
-  };
+  layout = buildLayout(name)
+  layout.yaxis.tickformat = '.2%';
 
-  var config = {
-    toImageButtonOptions: {
-      format: 'svg', // one of png, svg, jpeg, webp
-      filename: name,
-      scale: 1 // Multiply title/legend/axis/canvas sizes by this factor
-    },
-    scrollZoom: true
-  };
-
-  Plotly.newPlot(name, dd, layout, config);
+  Plotly.newPlot(name, dd, layout, plotConfig);
 }
 
 function plotPercentGrowthYearly(name, data) {
@@ -404,36 +329,8 @@ function plotPercentGrowthYearly(name, data) {
     dd.push(value)
   });
 
-  const myplot = document.getElementById(name);
-  var layout = {
-    title: {
-      text: 'Percent Growth (12 Month Rolling)(12 month look back)'
-    },
-    xaxis: {
-      title: {
-        text: 'month'
-      },
-      fixedrange: false,  // Allow zooming on x-axis
-      minallowed: "2001-01",
-      maxallowed: "2025-01"
-    },
-    yaxis: {
-      title: {
-        text: '% Growth',
-      },
-      tickformat: '.2%',
-      fixedrange: true  // Prevent direct y-axis zooming
-    }
-  };
+  layout = buildLayout(name)
+  layout.yaxis.tickformat = '.2%';
 
-  var config = {
-    toImageButtonOptions: {
-      format: 'svg', // one of png, svg, jpeg, webp
-      filename: name,
-      scale: 1 // Multiply title/legend/axis/canvas sizes by this factor
-    },
-    scrollZoom: true
-  };
-
-  Plotly.newPlot(name, dd, layout, config);
+  Plotly.newPlot(name, dd, layout, plotConfig);
 }
