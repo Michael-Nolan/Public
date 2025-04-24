@@ -27,38 +27,41 @@
         <h3>Select an option:</h3>
 
         <div class="option">
-            <input type="radio" id="option1" name="choice" value="Option 1" onchange="handleSelection(this)">
+            <input type="radio" id="option1" name="choice" value="All Sources" onchange="handleSelection(this)">
             <label for="option1">All Sources</label>
         </div>
 
         <div class="option">
-            <input type="radio" id="option2" name="choice" value="Option 2" onchange="handleSelection(this)">
+            <input type="radio" id="option2" name="choice" value="Fossil Fuel & Carbon Free"
+                onchange="handleSelection(this)">
             <label for="option2">Fossil Fuel & Carbon Free</label>
         </div>
 
         <div class="option">
-            <input type="radio" id="option3" name="choice" value="Option 3" onchange="handleSelection(this)">
+            <input type="radio" id="option3" name="choice" value="Fossil Fuel, Nuclear, Renewables"
+                onchange="handleSelection(this)">
             <label for="option3">Fossil Fuel, Nuclear, Renewables</label>
         </div>
     </div>
 
 
     <div id="result" class="result">
-        <p>You selected: <span id="selected-option">None</span></p>
+        <p>You selected: <span id="selected-option">All Sources</span></p>
     </div>
     <div>
         <strong>Jump to:</strong>
         <ul>
-            <li><a href="#plotNetGenMonthly"> Net Generation Monthly</a></li>
-            <li><a href="#plotPercentGenMonthly"> Percent Generation Monthly</a></li>
-            <li><a href="#plotNetGenRolling"> Net Generation 12 Month Rolling</a></li>
-            <li><a href="#plotPercentGenRolling"> Percent Generation 12 Month Rolling</a></li>
-            <li><a href="#plotPercentGrowthMonthly"> Percent Generation Growth Monthly</a></li>
-            <li><a href="#plotPercentGrowthYearly"> Percent Generation Growth 12 Month Rolling</a></li>
-            <li><a href="#plotAbsoluteGrowthMonthly"> Absolute Generation Growth Monthly</a></li>
-            <li><a href="#plotAbsoluteGrowthYearly"> Absolute Generation Growth 12 Month Rolling</a></li>
+            <li><a href="#plotNetGenMonthlyDiv"> Net Generation Monthly</a></li>
+            <li><a href="#plotNetGenRollingDiv"> Net Generation 12 Month Rolling</a></li>
 
+            <li><a href="#plotPercentGenMonthlyDiv"> Percent Generation Monthly</a></li>
+            <li><a href="#plotPercentGenRollingDiv"> Percent Generation 12 Month Rolling</a></li>
 
+            <li><a href="#plotPercentGrowthMonthlyDiv"> Percent Generation Growth Monthly</a></li>
+            <li><a href="#plotPercentGrowthYearlyDiv"> Percent Generation Growth 12 Month Rolling</a></li>
+
+            <li><a href="#plotAbsoluteGrowthMonthlyDiv"> Absolute Generation Growth Monthly</a></li>
+            <li><a href="#plotAbsoluteGrowthYearlyDiv"> Absolute Generation Growth 12 Month Rolling</a></li>
 
             <!-- 
                 TODO:
@@ -68,24 +71,22 @@
 
                 Enhance UI so that user can select desired chart type. (rather than displaying all of them)
             -->
-
-
         </ul>
     </div>
 
-    <div id="plotNetGenMonthlyOuter">
-        <p>This graph shows the xyz</p>
-        <div id="plotNetGenMonthly" style="display: flex; justify-content: center;"></div>
-    </div>
 
-    <div id="plotPercentGenMonthly" style="display: flex; justify-content: center;"></div>
-    <div id="plotNetGenRolling" style="display: flex; justify-content: center;"></div>
-    <div id="plotPercentGenRolling" style="display: flex; justify-content: center;"></div>
-    <div id="plotPercentGrowthMonthly" style="display: flex; justify-content: center;"></div>
-    <div id="plotPercentGrowthYearly" style="display: flex; justify-content: center;"></div>
-    <div id="plotAbsoluteGrowthMonthly" style="display: flex; justify-content: center;"></div>
-    <div id="plotAbsoluteGrowthYearly" style="display: flex; justify-content: center;"></div>
+    <div id="plotNetGenMonthlyDiv" style="display: flex; justify-content: center;"></div>
+    <div id="plotNetGenRollingDiv" style="display: flex; justify-content: center;"></div>
 
+
+    <div id="plotPercentGenMonthlyDiv" style="display: flex; justify-content: center;"></div>
+    <div id="plotPercentGenRollingDiv" style="display: flex; justify-content: center;"></div>
+
+    <div id="plotPercentGrowthMonthlyDiv" style="display: flex; justify-content: center;"></div>
+    <div id="plotPercentGrowthYearlyDiv" style="display: flex; justify-content: center;"></div>
+
+    <div id="plotAbsoluteGrowthMonthlyDiv" style="display: flex; justify-content: center;"></div>
+    <div id="plotAbsoluteGrowthYearlyDiv" style="display: flex; justify-content: center;"></div>
 
 
     <!-- Link the external JavaScript file containing data -->
@@ -98,13 +99,13 @@
             document.getElementById("result").style.display = "block";
 
             switch (radioButton.value) {
-                case "Option 1":
+                case "All Sources":
                     plotAll();
                     break;
-                case "Option 2":
+                case "Fossil Fuel & Carbon Free":
                     plotCat2();
                     break;
-                case "Option 3":
+                case "Fossil Fuel, Nuclear, Renewables":
                     plotCat3();
                     break;
             }
@@ -112,36 +113,36 @@
 
 
         function plotAll() {
-            plotNetGenMonthly("plotNetGenMonthly", structuredClone(allSourceData));
-            plotPercentGenMonthly("plotPercentGenMonthly", structuredClone(allSourceData));
-            plotNetGenRolling("plotNetGenRolling", convertToRolling(structuredClone(allSourceData), 12));
-            plotPercentGenRolling("plotPercentGenRolling", convertToRolling(structuredClone(allSourceData), 12));
-            plotPercentGrowthMonthly("plotPercentGrowthMonthly", calculateGrowth(convertToRolling(structuredClone(allSourceData), 12), 1));
-            plotPercentGrowthYearly("plotPercentGrowthYearly", calculateGrowth(convertToRolling(structuredClone(allSourceData), 12), 12));
-            plotNetGenRolling("plotAbsoluteGrowthMonthly", calculateAbsoluteGrowth(convertToRolling(structuredClone(allSourceData), 12), 1));
-            plotNetGenRolling("plotAbsoluteGrowthYearly", calculateAbsoluteGrowth(convertToRolling(structuredClone(allSourceData), 12), 12));
+            plotNetGenMonthly(plotNetGenMonthlyDiv, structuredClone(allSourceData));
+            plotPercentGenMonthly(plotPercentGenMonthlyDiv, structuredClone(allSourceData));
+            plotNetGenRolling(plotNetGenRollingDiv, convertToRolling(structuredClone(allSourceData), 12));
+            plotPercentGenRolling(plotPercentGenRollingDiv, convertToRolling(structuredClone(allSourceData), 12));
+            plotPercentGrowthMonthly(plotPercentGrowthMonthlyDiv, calculateGrowth(convertToRolling(structuredClone(allSourceData), 12), 1));
+            plotPercentGrowthYearly(plotPercentGrowthYearlyDiv, calculateGrowth(convertToRolling(structuredClone(allSourceData), 12), 12));
+            plotNetGenRolling(plotAbsoluteGrowthMonthlyDiv, calculateAbsoluteGrowth(convertToRolling(structuredClone(allSourceData), 12), 1));
+            plotNetGenRolling(plotAbsoluteGrowthYearlyDiv, calculateAbsoluteGrowth(convertToRolling(structuredClone(allSourceData), 12), 12));
         }
 
         function plotCat2() {
-            plotNetGenMonthly("plotNetGenMonthly", structuredClone(twoSourceData));
-            plotPercentGenMonthly("plotPercentGenMonthly", structuredClone(twoSourceData));
-            plotNetGenRolling("plotNetGenRolling", convertToRolling(structuredClone(twoSourceData), 12));
-            plotPercentGenRolling("plotPercentGenRolling", convertToRolling(structuredClone(twoSourceData), 12));
-            plotPercentGrowthMonthly("plotPercentGrowthMonthly", calculateGrowth(convertToRolling(structuredClone(twoSourceData), 12), 1));
-            plotPercentGrowthYearly("plotPercentGrowthYearly", calculateGrowth(convertToRolling(structuredClone(twoSourceData), 12), 12));
-            plotNetGenRolling("plotAbsoluteGrowthMonthly", calculateAbsoluteGrowth(convertToRolling(structuredClone(twoSourceData), 12), 1));
-            plotNetGenRolling("plotAbsoluteGrowthYearly", calculateAbsoluteGrowth(convertToRolling(structuredClone(twoSourceData), 12), 12));
+            plotNetGenMonthly(plotNetGenMonthlyDiv, structuredClone(twoSourceData));
+            plotPercentGenMonthly(plotPercentGenMonthlyDiv, structuredClone(twoSourceData));
+            plotNetGenRolling(plotNetGenRollingDiv, convertToRolling(structuredClone(twoSourceData), 12));
+            plotPercentGenRolling(plotPercentGenRollingDiv, convertToRolling(structuredClone(twoSourceData), 12));
+            plotPercentGrowthMonthly(plotPercentGrowthMonthlyDiv, calculateGrowth(convertToRolling(structuredClone(twoSourceData), 12), 1));
+            plotPercentGrowthYearly(plotPercentGrowthYearlyDiv, calculateGrowth(convertToRolling(structuredClone(twoSourceData), 12), 12));
+            plotNetGenRolling(plotAbsoluteGrowthMonthlyDiv, calculateAbsoluteGrowth(convertToRolling(structuredClone(twoSourceData), 12), 1));
+            plotNetGenRolling(plotAbsoluteGrowthYearlyDiv, calculateAbsoluteGrowth(convertToRolling(structuredClone(twoSourceData), 12), 12));
         }
 
         function plotCat3() {
-            plotNetGenMonthly("plotNetGenMonthly", structuredClone(threeSourceData));
-            plotPercentGenMonthly("plotPercentGenMonthly", structuredClone(threeSourceData));
-            plotNetGenRolling("plotNetGenRolling", convertToRolling(structuredClone(threeSourceData), 12));
-            plotPercentGenRolling("plotPercentGenRolling", convertToRolling(structuredClone(threeSourceData), 12));
-            plotPercentGrowthMonthly("plotPercentGrowthMonthly", calculateGrowth(convertToRolling(structuredClone(threeSourceData), 12), 1));
-            plotPercentGrowthYearly("plotPercentGrowthYearly", calculateGrowth(convertToRolling(structuredClone(threeSourceData), 12), 12));
-            plotNetGenRolling("plotAbsoluteGrowthMonthly", calculateAbsoluteGrowth(convertToRolling(structuredClone(threeSourceData), 12), 1));
-            plotNetGenRolling("plotAbsoluteGrowthYearly", calculateAbsoluteGrowth(convertToRolling(structuredClone(threeSourceData), 12), 12));
+            plotNetGenMonthly(plotNetGenMonthlyDiv, structuredClone(threeSourceData));
+            plotPercentGenMonthly(plotPercentGenMonthlyDiv, structuredClone(threeSourceData));
+            plotNetGenRolling(plotNetGenRollingDiv, convertToRolling(structuredClone(threeSourceData), 12));
+            plotPercentGenRolling(plotPercentGenRollingDiv, convertToRolling(structuredClone(threeSourceData), 12));
+            plotPercentGrowthMonthly(plotPercentGrowthMonthlyDiv, calculateGrowth(convertToRolling(structuredClone(threeSourceData), 12), 1));
+            plotPercentGrowthYearly(plotPercentGrowthYearlyDiv, calculateGrowth(convertToRolling(structuredClone(threeSourceData), 12), 12));
+            plotNetGenRolling(plotAbsoluteGrowthMonthlyDiv, calculateAbsoluteGrowth(convertToRolling(structuredClone(threeSourceData), 12), 1));
+            plotNetGenRolling(plotAbsoluteGrowthYearlyDiv, calculateAbsoluteGrowth(convertToRolling(structuredClone(threeSourceData), 12), 12));
         }
     </script>
 
