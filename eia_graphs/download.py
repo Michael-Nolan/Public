@@ -25,7 +25,9 @@ def get_url_and_save(url, filename="response.txt"):
             parsed_json = json.loads(data)
             parsed_json['request'] = None
 
-            
+            # Assuming each item has 'date' and 'name' fields
+            parsed_json["response"]["data"].sort(key=lambda x: (x.get('period'), x.get('fueltypeid')))
+
             # Save the response content to a file
             with open(filename, 'w', encoding='utf-8') as file:
                 file.write("const rawData = " + json.dumps(parsed_json, indent=4) + ";")
