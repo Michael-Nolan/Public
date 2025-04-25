@@ -54,7 +54,7 @@ function buildLayout(divName) {
       },
       fixedrange: false,  // Allow zooming on x-axis
       minallowed: "2001-01",
-      maxallowed: "2025-01"
+      maxallowed: "2025-02"
     },
     yaxis: {
       title: {

@@ -17361,6 +17361,72 @@ const rawData = {
                 "fuelTypeDescription": "wind",
                 "generation": "43630.08115",
                 "generation-units": "thousand megawatthours"
+            },
+            {
+                "period": "2025-02",
+                "location": "US",
+                "stateDescription": "U.S. Total",
+                "sectorid": "99",
+                "sectorDescription": "All Sectors",
+                "fueltypeid": "COW",
+                "fuelTypeDescription": "all coal products",
+                "generation": "62262.40528",
+                "generation-units": "thousand megawatthours"
+            },
+            {
+                "period": "2025-02",
+                "location": "US",
+                "stateDescription": "U.S. Total",
+                "sectorid": "99",
+                "sectorDescription": "All Sectors",
+                "fueltypeid": "HYC",
+                "fuelTypeDescription": "conventional hydroelectric",
+                "generation": "19331.17353",
+                "generation-units": "thousand megawatthours"
+            },
+            {
+                "period": "2025-02",
+                "location": "US",
+                "stateDescription": "U.S. Total",
+                "sectorid": "99",
+                "sectorDescription": "All Sectors",
+                "fueltypeid": "NGO",
+                "fuelTypeDescription": "natural gas & other gases",
+                "generation": "133339.64735",
+                "generation-units": "thousand megawatthours"
+            },
+            {
+                "period": "2025-02",
+                "location": "US",
+                "stateDescription": "U.S. Total",
+                "sectorid": "99",
+                "sectorDescription": "All Sectors",
+                "fueltypeid": "NUC",
+                "fuelTypeDescription": "nuclear",
+                "generation": "61828.502",
+                "generation-units": "thousand megawatthours"
+            },
+            {
+                "period": "2025-02",
+                "location": "US",
+                "stateDescription": "U.S. Total",
+                "sectorid": "99",
+                "sectorDescription": "All Sectors",
+                "fueltypeid": "TSN",
+                "fuelTypeDescription": "estimated total solar",
+                "generation": "22227.26163",
+                "generation-units": "thousand megawatthours"
+            },
+            {
+                "period": "2025-02",
+                "location": "US",
+                "stateDescription": "U.S. Total",
+                "sectorid": "99",
+                "sectorDescription": "All Sectors",
+                "fueltypeid": "WND",
+                "fuelTypeDescription": "wind",
+                "generation": "39420.00917",
+                "generation-units": "thousand megawatthours"
             }
         ],
         "description": "Monthly and annual electric power operations by state, sector, and energy source.\n    Source: Form EIA-923"
