@@ -32,14 +32,12 @@
         </div>
 
         <div class="option">
-            <input type="radio" id="option2" name="choice" value="Fossil Fuel & Carbon Free"
-                onchange="handleSelection(this)">
+            <input type="radio" id="option2" name="choice" value="Fossil Fuel & Carbon Free" onchange="handleSelection(this)">
             <label for="option2">Fossil Fuel & Carbon Free</label>
         </div>
 
         <div class="option">
-            <input type="radio" id="option3" name="choice" value="Fossil Fuel, Nuclear, Renewables"
-                onchange="handleSelection(this)">
+            <input type="radio" id="option3" name="choice" value="Fossil Fuel, Nuclear, Renewables" onchange="handleSelection(this)">
             <label for="option3">Fossil Fuel, Nuclear, Renewables</label>
         </div>
     </div>
@@ -65,9 +63,15 @@
 
             <!-- 
                 TODO:
-                Absolute Growth
-                2nd Derivative
-                3rd Derivative
+
+                Absolute change in percent of total gen.
+
+                2nd Derivative (absolute and percent)
+                3rd Derivative (absolute and percent)
+
+                Forecast next 5 years (percent growth)
+
+                Ratio over time
 
                 Enhance UI so that user can select desired chart type. (rather than displaying all of them)
             -->
@@ -89,6 +93,7 @@
     <div id="plotAbsoluteGrowthYearlyDiv" style="display: flex; justify-content: center;"></div>
 
 
+
     <!-- Link the external JavaScript file containing data -->
     <script type="text/javascript" src="data.js" defer></script>
     <script type="text/javascript" src="eia.js" defer></script>
@@ -98,14 +103,14 @@
             document.getElementById("selected-option").textContent = radioButton.value;
             document.getElementById("result").style.display = "block";
 
-            switch (radioButton.value) {
-                case "All Sources":
+            switch (radioButton.id) {
+                case "option1":
                     plotAll();
                     break;
-                case "Fossil Fuel & Carbon Free":
+                case "option2":
                     plotCat2();
                     break;
-                case "Fossil Fuel, Nuclear, Renewables":
+                case "option3":
                     plotCat3();
                     break;
             }

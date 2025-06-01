@@ -54,7 +54,7 @@ function buildLayout(divName) {
       },
       fixedrange: false,  // Allow zooming on x-axis
       minallowed: "2001-01",
-      maxallowed: "2025-02"
+      maxallowed: "2025-03"
     },
     yaxis: {
       title: {
@@ -244,10 +244,6 @@ function calculateGrowth(data, windowSize) {
     for (let i = windowSize; i < value.y.length; i++) {
       newY.push(((value.y[i] - value.y[i - windowSize]) / value.y[i - windowSize]));
       newX.push(value.x[i]);
-
-      if (value.y[i - windowSize] == 0) {
-        console.log("hahha");
-      }
     }
 
 
