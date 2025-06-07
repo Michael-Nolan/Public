@@ -1,4 +1,3 @@
-
 const plotNetGenMonthlyDiv = "plotNetGenMonthlyDiv"
 const plotPercentGenMonthlyDiv = "plotPercentGenMonthlyDiv"
 const plotNetGenRollingDiv = "plotNetGenRollingDiv"
@@ -44,6 +43,33 @@ const plotConfig = {
 
 
 function buildLayout(divName) {
+  // Only add presidency overlays for plots that are not percent growth
+  const excludeOverlay = [plotPercentGenMonthlyDiv, plotPercentGenRollingDiv];
+  let shapes = undefined;
+  if (!excludeOverlay.includes(divName)) {
+    // Define presidency periods and colors
+    const presidencies = [
+      { start: '2001-01', end: '2009-01', color: 'rgba(255,0,0,0.08)' }, // Bush (R)
+      { start: '2009-01', end: '2017-01', color: 'rgba(0,0,255,0.08)' }, // Obama (D)
+      { start: '2017-01', end: '2021-01', color: 'rgba(255,0,0,0.08)' }, // Trump (R)
+      { start: '2021-01', end: '2025-01', color: 'rgba(0,0,255,0.08)' }, // Biden (D)
+      { start: '2025-01', end: '2025-03', color: 'rgba(255,0,0,0.08)' }, // Trump (R)
+    ];
+    // Create shapes for background tints
+    shapes = presidencies.map(p => ({
+      type: 'rect',
+      xref: 'x',
+      yref: 'paper',
+      x0: p.start,
+      x1: p.end,
+      y0: 0,
+      y1: 1,
+      fillcolor: p.color,
+      line: { width: 0 },
+      layer: 'below'
+    }));
+  }
+
   return {
     title: {
       text: titleTextMap.get(divName)
@@ -61,7 +87,8 @@ function buildLayout(divName) {
         text: yAxisMap.get(divName),
       },
       fixedrange: true  // Prevent direct y-axis zooming
-    }
+    },
+    ...(shapes ? { shapes } : {})
   };
 }
 
@@ -305,27 +332,14 @@ function plotPercentGenRolling(name, data) {
   Plotly.newPlot(name, dd, layout, plotConfig);
 }
 
-function plotPercentGrowthMonthly(name, data) {
+function plotPercentGrowth(name, data) {
   var dd = [];
   data.forEach((value, key) => {
     value["type"] = "scatter"
     dd.push(value)
   });
 
-  layout = buildLayout(name)
-  layout.yaxis.tickformat = '.2%';
-
-  Plotly.newPlot(name, dd, layout, plotConfig);
-}
-
-function plotPercentGrowthYearly(name, data) {
-  var dd = [];
-  data.forEach((value, key) => {
-    value["type"] = "scatter"
-    dd.push(value)
-  });
-
-  layout = buildLayout(name)
+  let layout = buildLayout(name)
   layout.yaxis.tickformat = '.2%';
 
   Plotly.newPlot(name, dd, layout, plotConfig);
