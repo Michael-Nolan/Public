@@ -122,8 +122,8 @@
             plotPercentGenMonthly(plotPercentGenMonthlyDiv, structuredClone(allSourceData));
             plotNetGenRolling(plotNetGenRollingDiv, convertToRolling(structuredClone(allSourceData), 12));
             plotPercentGenRolling(plotPercentGenRollingDiv, convertToRolling(structuredClone(allSourceData), 12));
-            plotPercentGrowthMonthly(plotPercentGrowthMonthlyDiv, calculateGrowth(convertToRolling(structuredClone(allSourceData), 12), 1));
-            plotPercentGrowthYearly(plotPercentGrowthYearlyDiv, calculateGrowth(convertToRolling(structuredClone(allSourceData), 12), 12));
+            plotPercentGrowth(plotPercentGrowthMonthlyDiv, calculateGrowth(convertToRolling(structuredClone(allSourceData), 12), 1));
+            plotPercentGrowth(plotPercentGrowthYearlyDiv, calculateGrowth(convertToRolling(structuredClone(allSourceData), 12), 12));
             plotNetGenRolling(plotAbsoluteGrowthMonthlyDiv, calculateAbsoluteGrowth(convertToRolling(structuredClone(allSourceData), 12), 1));
             plotNetGenRolling(plotAbsoluteGrowthYearlyDiv, calculateAbsoluteGrowth(convertToRolling(structuredClone(allSourceData), 12), 12));
         }
@@ -133,8 +133,8 @@
             plotPercentGenMonthly(plotPercentGenMonthlyDiv, structuredClone(twoSourceData));
             plotNetGenRolling(plotNetGenRollingDiv, convertToRolling(structuredClone(twoSourceData), 12));
             plotPercentGenRolling(plotPercentGenRollingDiv, convertToRolling(structuredClone(twoSourceData), 12));
-            plotPercentGrowthMonthly(plotPercentGrowthMonthlyDiv, calculateGrowth(convertToRolling(structuredClone(twoSourceData), 12), 1));
-            plotPercentGrowthYearly(plotPercentGrowthYearlyDiv, calculateGrowth(convertToRolling(structuredClone(twoSourceData), 12), 12));
+            plotPercentGrowth(plotPercentGrowthMonthlyDiv, calculateGrowth(convertToRolling(structuredClone(twoSourceData), 12), 1));
+            plotPercentGrowth(plotPercentGrowthYearlyDiv, calculateGrowth(convertToRolling(structuredClone(twoSourceData), 12), 12));
             plotNetGenRolling(plotAbsoluteGrowthMonthlyDiv, calculateAbsoluteGrowth(convertToRolling(structuredClone(twoSourceData), 12), 1));
             plotNetGenRolling(plotAbsoluteGrowthYearlyDiv, calculateAbsoluteGrowth(convertToRolling(structuredClone(twoSourceData), 12), 12));
         }
@@ -144,8 +144,8 @@
             plotPercentGenMonthly(plotPercentGenMonthlyDiv, structuredClone(threeSourceData));
             plotNetGenRolling(plotNetGenRollingDiv, convertToRolling(structuredClone(threeSourceData), 12));
             plotPercentGenRolling(plotPercentGenRollingDiv, convertToRolling(structuredClone(threeSourceData), 12));
-            plotPercentGrowthMonthly(plotPercentGrowthMonthlyDiv, calculateGrowth(convertToRolling(structuredClone(threeSourceData), 12), 1));
-            plotPercentGrowthYearly(plotPercentGrowthYearlyDiv, calculateGrowth(convertToRolling(structuredClone(threeSourceData), 12), 12));
+            plotPercentGrowth(plotPercentGrowthMonthlyDiv, calculateGrowth(convertToRolling(structuredClone(threeSourceData), 12), 1));
+            plotPercentGrowth(plotPercentGrowthYearlyDiv, calculateGrowth(convertToRolling(structuredClone(threeSourceData), 12), 12));
             plotNetGenRolling(plotAbsoluteGrowthMonthlyDiv, calculateAbsoluteGrowth(convertToRolling(structuredClone(threeSourceData), 12), 1));
             plotNetGenRolling(plotAbsoluteGrowthYearlyDiv, calculateAbsoluteGrowth(convertToRolling(structuredClone(threeSourceData), 12), 12));
         }
