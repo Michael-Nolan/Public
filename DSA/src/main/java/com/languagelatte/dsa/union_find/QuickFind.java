@@ -1,11 +1,11 @@
 package com.languagelatte.dsa.union_find;
 
-public final class QuickFindV1 implements UnionFind {
+public final class QuickFind implements UnionFind {
 
   private int count;
   private final int[] data;
 
-  public QuickFindV1(int size) {
+  public QuickFind(int size) {
     this.count = size;
 
     this.data = new int[size];
@@ -27,11 +27,6 @@ public final class QuickFindV1 implements UnionFind {
         this.data[x] = this.data[b];
       }
     }
-  }
-
-  @Override
-  public boolean isConnected(int a, int b) {
-    return this.data[a] == this.data[b];
   }
 
   @Override

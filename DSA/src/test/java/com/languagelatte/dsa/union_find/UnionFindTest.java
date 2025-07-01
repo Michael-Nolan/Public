@@ -11,7 +11,7 @@ public class UnionFindTest {
   @Test
   public void test() {
 
-    UnionFind[] unionFindImpls = new UnionFind[] {new QuickFindV1(10)};
+    UnionFind[] unionFindImpls = new UnionFind[] {new QuickFind(10), new QuickUnion(10)};
 
     for (UnionFind unionFind : unionFindImpls) {
       assertEquals(10, unionFind.count());
