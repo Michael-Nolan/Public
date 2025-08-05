@@ -19,11 +19,11 @@ final class QuickUnion implements UnionFind {
 
   @Override
   public void union(int a, int b) {
-    if (!isConnected(a, b)) {
-      count--;
-    }
     a = find(a);
     b = find(b);
+    if (a != b) {
+      count--;
+    }
     data[a] = b;
   }
 
