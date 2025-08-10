@@ -95,9 +95,9 @@
 || Six Seasons | Early Summer | Pan Roasted New Potatoes with Butter |
 || Six Seasons | Early Summer | Turnip Salad with Yogurt, Herbs, and Poppy Seeds |
 || Six Seasons | Early Summer | Sautéed Turnips with Prunes and Radicchio |
-|| Six Seasons | Midsummer | Smashed Broccoli and Potatoes with Parmigiano and Lemon |
+| ✅ | Six Seasons | Midsummer | [Smashed Broccoli and Potatoes with Parmigiano and Lemon](recipes/six_seasons_smashed_broccoli_and_potatoes.md) |
 || Six Seasons | Midsummer | Pan Steamed Broccoli with Sesame Seeds, Parmigiano, and Lemon |
-|| Six Seasons | Midsummer | Rigatoni with Broccoli and Sausage |
+| ✅ | Six Seasons | Midsummer | [Rigatoni with Broccoli and Sausage](recipes/six_seasons_rigatoni_with_broccoli_and_sausage.md) |
 || Six Seasons | Midsummer | "Chinese" Beef and Broccoli |
 || Six Seasons | Midsummer | Charred Broccoli with Tonnato, Pecorino, Lemon, and Chiles |
 || Six Seasons | Midsummer | Broccoli Rabe, Mozzarella, Anchovy, and Spicy Tomato|
