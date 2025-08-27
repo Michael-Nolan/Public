@@ -48,7 +48,13 @@ def automate_git_workflow():
         print("Changes present. Exiting.")
         # sys.exit(0)
     
-    
+    result = subprocess.run(
+            ['python3'] + ["download.py"],
+            check=True,
+            capture_output=True,
+            text=True
+        )
+    print(result.stdout.strip())
 
     # 3. Checkout to a new branch named 'eia_graphs'.
     run_git_command(['checkout', '-b', 'eia_graphs'])
