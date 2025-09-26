@@ -3,8 +3,8 @@ package com.languagelatte.priorityqueue.model;
 import java.util.UUID;
 
 
-public final class Node{
-    public Node(java.util.UUID id, String context, String front, String back) {
+public final class Card{
+    public Card(java.util.UUID id, String context, String front, String back) {
         this.id = id;
         this.context = context;
         this.front = front;
