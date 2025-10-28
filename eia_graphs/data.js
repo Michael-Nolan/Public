@@ -1,6 +1,6 @@
 const rawData = {
     "response": {
-        "total": "1614",
+        "total": "1620",
         "dateFormat": "YYYY-MM",
         "frequency": "monthly",
         "data": [
@@ -15742,7 +15742,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "NGO",
                 "fuelTypeDescription": "natural gas & other gases",
-                "generation": "139284.01161",
+                "generation": "139447.56395",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -15808,7 +15808,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "NGO",
                 "fuelTypeDescription": "natural gas & other gases",
-                "generation": "125783.28235",
+                "generation": "125926.99223",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -15874,7 +15874,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "NGO",
                 "fuelTypeDescription": "natural gas & other gases",
-                "generation": "134585.98202",
+                "generation": "134727.69131",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -15940,7 +15940,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "NGO",
                 "fuelTypeDescription": "natural gas & other gases",
-                "generation": "120744.12728",
+                "generation": "120877.99494",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -16006,7 +16006,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "NGO",
                 "fuelTypeDescription": "natural gas & other gases",
-                "generation": "138307.08724",
+                "generation": "138405.01011",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -16072,7 +16072,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "NGO",
                 "fuelTypeDescription": "natural gas & other gases",
-                "generation": "162825.2047",
+                "generation": "162955.51286",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -16138,7 +16138,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "NGO",
                 "fuelTypeDescription": "natural gas & other gases",
-                "generation": "200334.63696",
+                "generation": "200567.36325",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -16204,7 +16204,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "NGO",
                 "fuelTypeDescription": "natural gas & other gases",
-                "generation": "200087.6451",
+                "generation": "200308.53996",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -16270,7 +16270,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "NGO",
                 "fuelTypeDescription": "natural gas & other gases",
-                "generation": "167134.29935",
+                "generation": "167294.41514",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -16336,7 +16336,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "NGO",
                 "fuelTypeDescription": "natural gas & other gases",
-                "generation": "141578.20861",
+                "generation": "141748.37912",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -16402,7 +16402,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "NGO",
                 "fuelTypeDescription": "natural gas & other gases",
-                "generation": "136316.32208",
+                "generation": "136489.87921",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -16468,7 +16468,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "NGO",
                 "fuelTypeDescription": "natural gas & other gases",
-                "generation": "150860.05902",
+                "generation": "149091.36326",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -16512,7 +16512,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "COW",
                 "fuelTypeDescription": "all coal products",
-                "generation": "75690.97615",
+                "generation": "75617.5277",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -16523,7 +16523,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "HYC",
                 "fuelTypeDescription": "conventional hydroelectric",
-                "generation": "21936.00738",
+                "generation": "21553.90405",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -16534,7 +16534,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "NGO",
                 "fuelTypeDescription": "natural gas & other gases",
-                "generation": "161206.88261",
+                "generation": "162740.6956",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -16556,7 +16556,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "TSN",
                 "fuelTypeDescription": "estimated total solar",
-                "generation": "14543.39051",
+                "generation": "14308.63728",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -16567,7 +16567,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "WND",
                 "fuelTypeDescription": "wind",
-                "generation": "34930.45708",
+                "generation": "34790.87225",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -16578,7 +16578,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "COW",
                 "fuelTypeDescription": "all coal products",
-                "generation": "44058.09197",
+                "generation": "44137.43221",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -16589,7 +16589,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "HYC",
                 "fuelTypeDescription": "conventional hydroelectric",
-                "generation": "20105.30611",
+                "generation": "20795.29923",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -16600,7 +16600,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "NGO",
                 "fuelTypeDescription": "natural gas & other gases",
-                "generation": "131753.34003",
+                "generation": "132775.66601",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -16622,7 +16622,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "TSN",
                 "fuelTypeDescription": "estimated total solar",
-                "generation": "17913.6875",
+                "generation": "17881.98207",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -16633,7 +16633,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "WND",
                 "fuelTypeDescription": "wind",
-                "generation": "41561.86978",
+                "generation": "40981.58242",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -16644,7 +16644,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "COW",
                 "fuelTypeDescription": "all coal products",
-                "generation": "38389.60988",
+                "generation": "38505.27471",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -16655,7 +16655,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "HYC",
                 "fuelTypeDescription": "conventional hydroelectric",
-                "generation": "23320.64044",
+                "generation": "23362.63545",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -16666,7 +16666,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "NGO",
                 "fuelTypeDescription": "natural gas & other gases",
-                "generation": "131323.11597",
+                "generation": "132019.16514",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -16688,7 +16688,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "TSN",
                 "fuelTypeDescription": "estimated total solar",
-                "generation": "22979.12959",
+                "generation": "23131.61929",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -16699,7 +16699,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "WND",
                 "fuelTypeDescription": "wind",
-                "generation": "45640.82098",
+                "generation": "45101.85185",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -16710,7 +16710,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "COW",
                 "fuelTypeDescription": "all coal products",
-                "generation": "37322.4042",
+                "generation": "37245.8778",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -16721,7 +16721,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "HYC",
                 "fuelTypeDescription": "conventional hydroelectric",
-                "generation": "19376.29594",
+                "generation": "20915.74336",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -16732,7 +16732,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "NGO",
                 "fuelTypeDescription": "natural gas & other gases",
-                "generation": "122048.7699",
+                "generation": "122444.71571",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -16743,7 +16743,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "NUC",
                 "fuelTypeDescription": "nuclear",
-                "generation": "57621.498",
+                "generation": "57541.876",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -16754,7 +16754,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "TSN",
                 "fuelTypeDescription": "estimated total solar",
-                "generation": "26994.84784",
+                "generation": "27073.05048",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -16765,7 +16765,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "WND",
                 "fuelTypeDescription": "wind",
-                "generation": "47380.86617",
+                "generation": "47088.4599",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -16776,7 +16776,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "COW",
                 "fuelTypeDescription": "all coal products",
-                "generation": "45912.7158",
+                "generation": "45812.36607",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -16787,7 +16787,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "HYC",
                 "fuelTypeDescription": "conventional hydroelectric",
-                "generation": "22616.8404",
+                "generation": "24477.22317",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -16798,7 +16798,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "NGO",
                 "fuelTypeDescription": "natural gas & other gases",
-                "generation": "144391.70114",
+                "generation": "144882.79832",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -16820,7 +16820,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "TSN",
                 "fuelTypeDescription": "estimated total solar",
-                "generation": "30815.49765",
+                "generation": "30910.12132",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -16831,7 +16831,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "WND",
                 "fuelTypeDescription": "wind",
-                "generation": "38692.58505",
+                "generation": "39255.64694",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -16842,7 +16842,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "COW",
                 "fuelTypeDescription": "all coal products",
-                "generation": "61392.89261",
+                "generation": "61338.66076",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -16853,7 +16853,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "HYC",
                 "fuelTypeDescription": "conventional hydroelectric",
-                "generation": "21171.60308",
+                "generation": "22396.56968",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -16864,7 +16864,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "NGO",
                 "fuelTypeDescription": "natural gas & other gases",
-                "generation": "170187.30472",
+                "generation": "170096.46714",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -16886,7 +16886,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "TSN",
                 "fuelTypeDescription": "estimated total solar",
-                "generation": "32914.7275",
+                "generation": "33011.56491",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -16897,7 +16897,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "WND",
                 "fuelTypeDescription": "wind",
-                "generation": "38160.41225",
+                "generation": "38661.38917",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -16908,7 +16908,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "COW",
                 "fuelTypeDescription": "all coal products",
-                "generation": "71686.29409",
+                "generation": "71565.35794",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -16919,7 +16919,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "HYC",
                 "fuelTypeDescription": "conventional hydroelectric",
-                "generation": "21187.54055",
+                "generation": "21383.98095",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -16930,7 +16930,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "NGO",
                 "fuelTypeDescription": "natural gas & other gases",
-                "generation": "208571.46613",
+                "generation": "206907.6265",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -16941,7 +16941,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "NUC",
                 "fuelTypeDescription": "nuclear",
-                "generation": "69885.242",
+                "generation": "69850.752",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -16952,7 +16952,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "TSN",
                 "fuelTypeDescription": "estimated total solar",
-                "generation": "33051.76445",
+                "generation": "33262.11179",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -16963,7 +16963,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "WND",
                 "fuelTypeDescription": "wind",
-                "generation": "27970.5392",
+                "generation": "28304.45113",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -16974,7 +16974,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "COW",
                 "fuelTypeDescription": "all coal products",
-                "generation": "68837.95979",
+                "generation": "68760.46706",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -16985,7 +16985,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "HYC",
                 "fuelTypeDescription": "conventional hydroelectric",
-                "generation": "21364.13449",
+                "generation": "20490.58129",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -16996,7 +16996,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "NGO",
                 "fuelTypeDescription": "natural gas & other gases",
-                "generation": "203936.35791",
+                "generation": "203826.11043",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17018,7 +17018,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "TSN",
                 "fuelTypeDescription": "estimated total solar",
-                "generation": "32543.16019",
+                "generation": "32740.81148",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17029,7 +17029,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "WND",
                 "fuelTypeDescription": "wind",
-                "generation": "28763.96196",
+                "generation": "29289.62048",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17040,7 +17040,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "COW",
                 "fuelTypeDescription": "all coal products",
-                "generation": "54628.10634",
+                "generation": "54558.65201",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17051,7 +17051,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "HYC",
                 "fuelTypeDescription": "conventional hydroelectric",
-                "generation": "16665.75643",
+                "generation": "15911.34208",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17062,7 +17062,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "NGO",
                 "fuelTypeDescription": "natural gas & other gases",
-                "generation": "170134.2081",
+                "generation": "170507.21055",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17084,7 +17084,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "TSN",
                 "fuelTypeDescription": "estimated total solar",
-                "generation": "27848.13265",
+                "generation": "28048.76933",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17095,7 +17095,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "WND",
                 "fuelTypeDescription": "wind",
-                "generation": "28995.2059",
+                "generation": "29178.43056",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17106,7 +17106,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "COW",
                 "fuelTypeDescription": "all coal products",
-                "generation": "46957.33506",
+                "generation": "46889.6963",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17117,7 +17117,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "HYC",
                 "fuelTypeDescription": "conventional hydroelectric",
-                "generation": "15821.35795",
+                "generation": "15352.21163",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17128,7 +17128,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "NGO",
                 "fuelTypeDescription": "natural gas & other gases",
-                "generation": "146968.15619",
+                "generation": "147511.52417",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17150,7 +17150,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "TSN",
                 "fuelTypeDescription": "estimated total solar",
-                "generation": "26321.80065",
+                "generation": "26563.94003",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17161,7 +17161,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "WND",
                 "fuelTypeDescription": "wind",
-                "generation": "40053.82313",
+                "generation": "39591.52366",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17172,7 +17172,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "COW",
                 "fuelTypeDescription": "all coal products",
-                "generation": "44994.68815",
+                "generation": "44924.31891",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17183,7 +17183,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "HYC",
                 "fuelTypeDescription": "conventional hydroelectric",
-                "generation": "18275.92039",
+                "generation": "16723.42876",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17194,7 +17194,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "NGO",
                 "fuelTypeDescription": "natural gas & other gases",
-                "generation": "137799.30896",
+                "generation": "138486.47813",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17216,7 +17216,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "TSN",
                 "fuelTypeDescription": "estimated total solar",
-                "generation": "19314.98697",
+                "generation": "19234.01301",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17227,7 +17227,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "WND",
                 "fuelTypeDescription": "wind",
-                "generation": "40960.54107",
+                "generation": "40133.13355",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17238,7 +17238,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "COW",
                 "fuelTypeDescription": "all coal products",
-                "generation": "62888.46959",
+                "generation": "62800.28918",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17249,7 +17249,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "HYC",
                 "fuelTypeDescription": "conventional hydroelectric",
-                "generation": "20384.32831",
+                "generation": "19533.13457",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17260,7 +17260,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "NGO",
                 "fuelTypeDescription": "natural gas & other gases",
-                "generation": "146360.47393",
+                "generation": "148548.74407",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17282,7 +17282,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "TSN",
                 "fuelTypeDescription": "estimated total solar",
-                "generation": "17926.20495",
+                "generation": "17585.34063",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17293,7 +17293,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "WND",
                 "fuelTypeDescription": "wind",
-                "generation": "40343.06835",
+                "generation": "39527.39468",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17304,7 +17304,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "COW",
                 "fuelTypeDescription": "all coal products",
-                "generation": "83149.59178",
+                "generation": "83153.25455",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17315,7 +17315,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "HYC",
                 "fuelTypeDescription": "conventional hydroelectric",
-                "generation": "21192.35254",
+                "generation": "21429.15212",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17326,7 +17326,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "NGO",
                 "fuelTypeDescription": "natural gas & other gases",
-                "generation": "157504.9912",
+                "generation": "158142.1917",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17348,7 +17348,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "TSN",
                 "fuelTypeDescription": "estimated total solar",
-                "generation": "20735.37781",
+                "generation": "20825.49285",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17359,7 +17359,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "WND",
                 "fuelTypeDescription": "wind",
-                "generation": "43630.08115",
+                "generation": "43611.65101",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17370,7 +17370,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "COW",
                 "fuelTypeDescription": "all coal products",
-                "generation": "62262.40528",
+                "generation": "62306.02232",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17381,7 +17381,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "HYC",
                 "fuelTypeDescription": "conventional hydroelectric",
-                "generation": "19331.17353",
+                "generation": "19541.08731",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17392,7 +17392,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "NGO",
                 "fuelTypeDescription": "natural gas & other gases",
-                "generation": "133339.64735",
+                "generation": "132290.11537",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17414,7 +17414,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "TSN",
                 "fuelTypeDescription": "estimated total solar",
-                "generation": "22227.26163",
+                "generation": "22227.19638",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17425,7 +17425,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "WND",
                 "fuelTypeDescription": "wind",
-                "generation": "39420.00917",
+                "generation": "39356.6952",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17436,7 +17436,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "COW",
                 "fuelTypeDescription": "all coal products",
-                "generation": "49134.02239",
+                "generation": "49215.21019",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17447,7 +17447,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "HYC",
                 "fuelTypeDescription": "conventional hydroelectric",
-                "generation": "22034.00596",
+                "generation": "22454.1132",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17458,7 +17458,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "NGO",
                 "fuelTypeDescription": "natural gas & other gases",
-                "generation": "119602.74367",
+                "generation": "119049.29981",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17480,7 +17480,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "TSN",
                 "fuelTypeDescription": "estimated total solar",
-                "generation": "31136.60621",
+                "generation": "31122.56073",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17491,7 +17491,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "WND",
                 "fuelTypeDescription": "wind",
-                "generation": "50691.77463",
+                "generation": "50606.76347",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17502,7 +17502,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "COW",
                 "fuelTypeDescription": "all coal products",
-                "generation": "45839.19058",
+                "generation": "45526.36037",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17513,7 +17513,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "HYC",
                 "fuelTypeDescription": "conventional hydroelectric",
-                "generation": "22414.84826",
+                "generation": "22840.02691",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17524,7 +17524,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "NGO",
                 "fuelTypeDescription": "natural gas & other gases",
-                "generation": "116551.60971",
+                "generation": "115321.11226",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17546,7 +17546,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "TSN",
                 "fuelTypeDescription": "estimated total solar",
-                "generation": "35439.52018",
+                "generation": "35427.76723",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17557,7 +17557,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "WND",
                 "fuelTypeDescription": "wind",
-                "generation": "45731.48261",
+                "generation": "45888.56638",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17568,7 +17568,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "COW",
                 "fuelTypeDescription": "all coal products",
-                "generation": "48744.03814",
+                "generation": "48778.18265",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17579,7 +17579,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "HYC",
                 "fuelTypeDescription": "conventional hydroelectric",
-                "generation": "24033.56215",
+                "generation": "24358.38929",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17590,7 +17590,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "NGO",
                 "fuelTypeDescription": "natural gas & other gases",
-                "generation": "135733.09963",
+                "generation": "135643.27241",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17612,7 +17612,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "TSN",
                 "fuelTypeDescription": "estimated total solar",
-                "generation": "38965.44416",
+                "generation": "38932.2843",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17623,7 +17623,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "WND",
                 "fuelTypeDescription": "wind",
-                "generation": "36906.51258",
+                "generation": "36881.11525",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17634,7 +17634,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "COW",
                 "fuelTypeDescription": "all coal products",
-                "generation": "64436.40578",
+                "generation": "64501.54129",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17645,7 +17645,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "HYC",
                 "fuelTypeDescription": "conventional hydroelectric",
-                "generation": "21974.60053",
+                "generation": "22161.36024",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17656,7 +17656,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "NGO",
                 "fuelTypeDescription": "natural gas & other gases",
-                "generation": "165966.31516",
+                "generation": "165746.37415",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17678,7 +17678,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "TSN",
                 "fuelTypeDescription": "estimated total solar",
-                "generation": "41137.19407",
+                "generation": "41168.07125",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17689,7 +17689,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "WND",
                 "fuelTypeDescription": "wind",
-                "generation": "35851.35654",
+                "generation": "35787.95538",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17700,7 +17700,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "COW",
                 "fuelTypeDescription": "all coal products",
-                "generation": "80248.7019",
+                "generation": "80260.24034",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17711,7 +17711,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "HYC",
                 "fuelTypeDescription": "conventional hydroelectric",
-                "generation": "20087.03664",
+                "generation": "19984.27372",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17722,7 +17722,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "NGO",
                 "fuelTypeDescription": "natural gas & other gases",
-                "generation": "203588.04799",
+                "generation": "202846.84798",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17744,7 +17744,7 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "TSN",
                 "fuelTypeDescription": "estimated total solar",
-                "generation": "43091.71443",
+                "generation": "43032.21294",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17755,13 +17755,79 @@ const rawData = {
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "WND",
                 "fuelTypeDescription": "wind",
-                "generation": "31831.30543",
+                "generation": "31815.91915",
+                "generation-units": "thousand megawatthours"
+            },
+            {
+                "period": "2025-08",
+                "location": "US",
+                "stateDescription": "U.S. Total",
+                "sectorid": "99",
+                "sectorDescription": "All Sectors",
+                "fueltypeid": "COW",
+                "fuelTypeDescription": "all coal products",
+                "generation": "69728.03343",
+                "generation-units": "thousand megawatthours"
+            },
+            {
+                "period": "2025-08",
+                "location": "US",
+                "stateDescription": "U.S. Total",
+                "sectorid": "99",
+                "sectorDescription": "All Sectors",
+                "fueltypeid": "HYC",
+                "fuelTypeDescription": "conventional hydroelectric",
+                "generation": "19982.75949",
+                "generation-units": "thousand megawatthours"
+            },
+            {
+                "period": "2025-08",
+                "location": "US",
+                "stateDescription": "U.S. Total",
+                "sectorid": "99",
+                "sectorDescription": "All Sectors",
+                "fueltypeid": "NGO",
+                "fuelTypeDescription": "natural gas & other gases",
+                "generation": "193710.0995",
+                "generation-units": "thousand megawatthours"
+            },
+            {
+                "period": "2025-08",
+                "location": "US",
+                "stateDescription": "U.S. Total",
+                "sectorid": "99",
+                "sectorDescription": "All Sectors",
+                "fueltypeid": "NUC",
+                "fuelTypeDescription": "nuclear",
+                "generation": "70705.131",
+                "generation-units": "thousand megawatthours"
+            },
+            {
+                "period": "2025-08",
+                "location": "US",
+                "stateDescription": "U.S. Total",
+                "sectorid": "99",
+                "sectorDescription": "All Sectors",
+                "fueltypeid": "TSN",
+                "fuelTypeDescription": "estimated total solar",
+                "generation": "40819.87152",
+                "generation-units": "thousand megawatthours"
+            },
+            {
+                "period": "2025-08",
+                "location": "US",
+                "stateDescription": "U.S. Total",
+                "sectorid": "99",
+                "sectorDescription": "All Sectors",
+                "fueltypeid": "WND",
+                "fuelTypeDescription": "wind",
+                "generation": "27297.02776",
                 "generation-units": "thousand megawatthours"
             }
         ],
         "description": "Monthly and annual electric power operations by state, sector, and energy source.\n    Source: Form EIA-923"
     },
     "request": null,
-    "apiVersion": "2.1.8",
+    "apiVersion": "2.1.10",
     "ExcelAddInVersion": "2.1.0"
 };
