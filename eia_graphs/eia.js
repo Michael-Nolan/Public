@@ -53,7 +53,7 @@ function buildLayout(divName) {
       { start: '2009-01', end: '2017-01', color: 'rgba(0,0,255,0.08)' }, // Obama (D)
       { start: '2017-01', end: '2021-01', color: 'rgba(255,0,0,0.08)' }, // Trump (R)
       { start: '2021-01', end: '2025-01', color: 'rgba(0,0,255,0.08)' }, // Biden (D)
-      { start: '2025-01', end: '2025-07', color: 'rgba(255,0,0,0.08)' }, // Trump (R)
+      { start: '2025-01', end: '2025-08', color: 'rgba(255,0,0,0.08)' }, // Trump (R)
     ];
     // Create shapes for background tints
     shapes = presidencies.map(p => ({
@@ -80,7 +80,7 @@ function buildLayout(divName) {
       },
       fixedrange: false,  // Allow zooming on x-axis
       minallowed: "2001-01",
-      maxallowed: "2025-07"
+      maxallowed: "2025-08"
     },
     yaxis: {
       title: {
