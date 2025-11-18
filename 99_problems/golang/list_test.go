@@ -1,7 +1,6 @@
-package main
+package ninetynineproblems
 
 import (
-	"errors"
 	"strings"
 	"testing"
 
@@ -24,13 +23,13 @@ func TestP01(t *testing.T) {
 			name:        "empty list",
 			input:       []string{},
 			expected:    "",
-			expectedErr: errors.New("empty list"),
+			expectedErr: ErrEmptyList,
 		},
 		{
 			name:        "nil list",
 			input:       nil,
 			expected:    "",
-			expectedErr: errors.New("empty list"),
+			expectedErr: ErrEmptyList,
 		},
 	}
 
@@ -59,19 +58,19 @@ func TestP02(t *testing.T) {
 			name:        "1 element list",
 			input:       []string{"a"},
 			expected:    "",
-			expectedErr: errors.New("list too small"),
+			expectedErr: ErrListTooSmall,
 		},
 		{
 			name:        "empty list",
 			input:       []string{},
 			expected:    "",
-			expectedErr: errors.New("list too small"),
+			expectedErr: ErrListTooSmall,
 		},
 		{
 			name:        "nil list",
 			input:       nil,
 			expected:    "",
-			expectedErr: errors.New("list too small"),
+			expectedErr: ErrListTooSmall,
 		},
 	}
 
@@ -99,18 +98,24 @@ func TestP03(t *testing.T) {
 			expected: "b",
 		},
 		{
+			name:     "k equals list length",
+			input:    []string{"a", "b", "c"},
+			k:        3,
+			expected: "c",
+		},
+		{
 			name:        "k is zero",
 			input:       []string{"a", "b"},
 			k:           0,
 			expected:    "",
-			expectedErr: errors.New("k less than or equal to zero"),
+			expectedErr: ErrKNonPositive,
 		},
 		{
 			name:        "k is greater than list length",
 			input:       []string{"a", "b"},
 			k:           5,
 			expected:    "",
-			expectedErr: errors.New("list smaller than k"),
+			expectedErr: ErrListSmallerThanK,
 		},
 	}
 
@@ -127,8 +132,26 @@ func TestP04(t *testing.T) {
 	list1 := []string{"a", "b", "c"}
 	var list2 []string
 
-	assert.Equal(t, 3, length(list1))
-	assert.Equal(t, 0, length(list2))
+	assert.Equal(t, 3, sliceLen(list1))
+	assert.Equal(t, 0, sliceLen(list2))
+
+	var nilList *LinkedList[string] = nil
+	assert.Equal(t, 0, linkedListLen(nilList))
+
+	var oneList *LinkedList[string] = &LinkedList[string]{}
+	assert.Equal(t, 1, linkedListLen(oneList))
+
+	threeList := &LinkedList[string]{
+		value : "one",
+		next: &LinkedList[string]{
+			value: "two",
+			next:&LinkedList[string]{
+				value:"three",
+				next:nil,
+			},
+		},
+	}
+	assert.Equal(t, 3, linkedListLen(threeList))
 }
 
 func TestP05(t *testing.T) {
@@ -143,7 +166,7 @@ func TestP06(t *testing.T) {
 
 func TestP07_1(t *testing.T) {
 	// (a, b, (c, (d)))
-	assert.Equal(t, []any{"a", "b", "c", "d"}, flatten_1([]any{"a", "b", []any{"c", []any{"d"}}}))
+	assert.Equal(t, []any{"a", "b", "c", "d"}, flattenAny([]any{"a", "b", []any{"c", []any{"d"}}}))
 }
 func TestP07_2(t *testing.T) {
 	// (a, b, (c, (d)))
@@ -157,7 +180,7 @@ func TestP07_2(t *testing.T) {
 	l3 := List[string]{values: []Nested[string]{a, b, l2}}
 	outerList := []Nested[string]{l3}
 
-	assert.Equal(t, []string{"a", "b", "c", "d"}, flatten_2(outerList))
+	assert.Equal(t, []string{"a", "b", "c", "d"}, flattenNested(outerList))
 }
 
 func TestP08(t *testing.T) {
@@ -168,6 +191,8 @@ func TestP08(t *testing.T) {
 func TestP09(t *testing.T) {
 	// (a, b, (c, (d)))
 	assert.Equal(t, [][]string{{"a", "a"}, {"b", "b", "b"}, {"c"}}, packConsecutiveDuplicates([]string{"a", "a", "b", "b", "b", "c"}))
+	// empty input
+	assert.Len(t, packConsecutiveDuplicates([]string{}), 0)
 }
 
 func TestP10(t *testing.T) {
@@ -182,15 +207,21 @@ func TestP10(t *testing.T) {
 func TestP11(t *testing.T) {
 	// (a, b, (c, (d)))
 	assert.Equal(t, []any{[]any{2, "a"}, []any{3, "b"}, "c"}, modifiedRunLengthEncoding([]any{"a", "a", "b", "b", "b", "c"}))
+	// empty input
+	assert.Len(t, modifiedRunLengthEncoding([]any{}), 0)
 }
 
 func TestP12(t *testing.T) {
 	assert.Equal(t, []string{"a", "a", "b", "b", "b", "c"}, decode[string](modifiedRunLengthEncoding([]any{"a", "a", "b", "b", "b", "c"})))
+	// empty input
+	assert.Len(t, decode[string]([]any{}), 0)
 }
 
 func TestP13(t *testing.T) {
 	// (a, b, (c, (d)))
 	assert.Equal(t, []any{[]any{2, "a"}, []any{3, "b"}, "c"}, modifiedRunLengthEncodingDirect([]any{"a", "a", "b", "b", "b", "c"}))
+	// empty input
+	assert.Len(t, modifiedRunLengthEncodingDirect([]any{}), 0)
 }
 
 func TestP14(t *testing.T) {
@@ -253,6 +284,16 @@ func Test23(t *testing.T) {
 	for _, x := range resp {
 		assert.True(t, m[x])
 	}
+
+	// count <= 0 should return nil
+	assert.Nil(t, rndSelect([]string{"a", "b"}, 0))
+
+	// count >= len(input) returns all elements (shuffled)
+	out := rndSelect([]string{"a", "b", "c"}, 5)
+	assert.Len(t, out, 3)
+	for _, x := range out {
+		assert.True(t, m[x])
+	}
 }
 
 func Test24(t *testing.T) {
@@ -261,6 +302,16 @@ func Test24(t *testing.T) {
 	assert.Len(t, resp, 15)
 	for _, x := range resp {
 		assert.True(t, x >= 0 && x < 5)
+	}
+
+	// count <= 0 should return nil
+	assert.Nil(t, lottoSelect(0, 5))
+
+	// upperBounds == 1 should only produce zeros
+	lotto := lottoSelect(5, 1)
+	assert.Len(t, lotto, 5)
+	for _, x := range lotto {
+		assert.Equal(t, 0, x)
 	}
 
 }
@@ -362,3 +413,4 @@ func Test28B(t *testing.T) {
 		lfsort([][]string{{"1", "2", "3"}, {"1", "2", "3"}, {"1", "2", "3"}, {"1", "2"}, {"1", "2"}, {"1"}}),
 	)
 }
+
