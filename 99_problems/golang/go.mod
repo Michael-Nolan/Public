@@ -1,4 +1,4 @@
-module example/hello
+module ninetynineproblems
 
 go 1.21.13
 

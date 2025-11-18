@@ -1,3 +1,5 @@
+package ninetynineproblems
+
 import (
 	"testing"
 

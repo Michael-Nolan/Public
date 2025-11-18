@@ -1,7 +1,7 @@
-package main
+package ninetynineproblems
 
 type Nested[T any] interface {
-	isNested()
+	isNested() // Private marker method
 }
 
 type Single[T any] struct {

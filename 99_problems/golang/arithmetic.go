@@ -1,9 +1,7 @@
-package main
-
-import "math"
+package ninetynineproblems
 
 func isPrime(n int) bool {
-	if n == 1 {
+	if n <= 1 {
 		return false
 	}
 
@@ -12,7 +10,8 @@ func isPrime(n int) bool {
 		return false
 	}
 
-	for x := 3; x < int(math.Ceil(math.Sqrt(float64(n)))); x += 2 {
+	// Iterate using integer arithmetic to avoid float issues.
+	for x := 3; x*x <= n; x += 2 {
 		if n%x == 0 {
 			return false
 		}
