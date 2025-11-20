@@ -98,33 +98,33 @@ Despite the name, there are actually only 88 problems.
 | P34 - Calculate Euler's totient function phi(m) | | | | | | | | |
 | P33 - Determine whether two positive integer numbers are coprime | | | | | | | | |
 | P32 - Determine the greatest common divisor of two positive integer numbers | | | | | | | | |
-| P31 - Determine whether a given integer number is prime | `7 -> true` | [here](/golang/p31.go)| | | | | | |
-| P28b - Sorting a list of lists according to length frequency of sublists | `((a b c) (d e) (f g h) (d e) (i j k l) (m n) (o))) -> ((I J K L) (O) (A B C) (F G H) (D E) (D E) (M N)) `| [here](/golang/p28.go) | | | | | | |
-| P28a - Sorting a list of lists according to length of sublists | `((a b c) (d e) (f g h) (d e) (i j k l) (m n) (o))) -> ((O) (D E) (D E) (M N) (A B C) (F G H) (I J K L))` | [here](/golang/p28.go) | | | | | | |
-| P27(a,b) - Group the elements of a set into disjoint subsets | `(a,b,c,d),1,1,2 -> ((a),(b),(c,d)),((a),(c),(a,d)) ...` | [here](/golang/p27.go) | | | | | | |
-| P26 - Generate the combinations of K distinct objects chosen from the N elements of a list | `(a,b,c),2 -> ((a,b),(a,c),(b,c))` | [here](/golang/p26.go) | | | | | | |
-| P25 - Generate a random permutation of the elements of a list (shuffle) | `(a,b,c,d) -> (b,a,d,c)` | [here](/golang/p25.go) | | | | | | |
-| P24 - Lotto: Draw N different random numbers from the set 1..M | `5,20 -> (19,33,2,5,3` | [here](/golang/p24.go) | | | | | | |
-| P23 - Extract a given number of randomly selected elements from a list | `(a,b,c,d),2 -> (d,a)`| [here](/golang/p23.go) | | | | | | |
-| P22 - Create a list containing all integers within a given range | `4,9 -> (4,5,6,7,8,9)` | [here](/golang/p22.go) | | | | | | |
-| P21 - Insert an element at a given position into a list | `(a,b), xx,2 -> (a,xx,b)` | [here](/golang/p21.go) | | | | | | |
-| P20 - Remove the K'th element from a list | `(a,b,c),2 -> (a,c)` | [here](/golang/p20.go) | | | | | | |
-| P19 - Rotate a list N places to the left | `(a,b,c,d),2 -> (c,d,a,b)` | [here](/golang/p19.go) | | | | | | |
-| P18 - Extract a slice from a list | `(a,b,c,d,e),2,4 -> (b,c,d)` | [here](/golang/p18.go) | | | | | | |
-| P17 - Split a list into two parts | `(a,b,c,d,e),3 -> (a,b,c),(d,e)` | [here](/golang/p17.go) | | | | | | |
-| P16 - Drop every N'th element from a list | `(a,b,c,d,e,f),2 -> (a,c,e)` | [here](/golang/p16.go) | | | | | | |
-| P15 - Duplicate the elements of a list a given number of times | `(a,b,c),3 -> (a,a,a,b,b,b,c,c,c)` | [here](/golang/p15.go) | | | | | | |
-| P14 - Duplicate the elements of a list |`(a,b,c) -> (a,a,b,b,c,c)` | [here](/golang/p14.go) | | | | | | |
-| P13 - Run-length encoding of a list (direct solution) | `(a,a,a,b,b,c,c) -> ((3,a),b,(2,c))` | [here](/golang/p13.go) | | | | | | |
-| P12 - Decode a run-length encoded list | `((3,a),b,(2,c)) -> (a,a,a,b,b,c,c)` | [here](/golang/p12.go) | | | | | | |
-| P11 - Modified run-length encoding | `(a,a,a,b,b,c,c) -> ((3,a),b,(2,c))` | [here](/golang/p11.go) | | | | | | |
-| P10 - Run-length encoding of a list | `(a,a,a,b,c,c) -> ((3,a),(1,b),(2,c))` | [here](/golang/p10.go) | | | | | | |
-| P09 - Pack consecutive duplicates of list elements into sublists | `(a,a,a,b,b,c,c) -> ((a,a,a),(b,b),(c,c))` | [here](/golang/p09.go) | | | | | | |
-| P08 - Eliminate consecutive duplicates of list elements | `(a,a,b,b,c,c) -> (a,b,c)` | [here](/golang/p08.go) | | | | | | |
-| P07 - Flatten a nested list structure |`(a,(b,(c,d),e)) -> (a,b,c,d,e)` | [here](/golang/p07.go) | | | | | | |
-| P06 - Find out whether a list is a palindrome | `(a,b,a) -> true` | [here](/golang/p06.go) | | | | | | |
-| P05 - Reverse a list | `(a,b,c,d) -> (d,c,b,a)` | [here](/golang/p05.go) | | | | | | |
-| P04 - Find the number of elements of a list | `(a,b,c,d) -> 4` | [here](/golang/p04.go) | | | | | | |
-| P03 - Find the K'th element of a list | `(a,b,c,d),2  -> b`| [here](/golang/p03.go) | | | | | | |
-| P02 - Find the last but one element of a list | `(a,b,c,d) -> c` | [here](/golang/p02.go) | | | | | | |
-| P01 - Find the last element of a list | `(a,b,c,d) -> d` | [here](/golang/p01.go) | | | | | | |
+| P31 - Determine whether a given integer number is prime | `7 -> true` | [here](/99_problems/golang/p31.go)| | | | | | |
+| P28b - Sorting a list of lists according to length frequency of sublists | `((a b c) (d e) (f g h) (d e) (i j k l) (m n) (o))) -> ((I J K L) (O) (A B C) (F G H) (D E) (D E) (M N)) `| [here](/99_problems/golang/p28.go) | | | | | | |
+| P28a - Sorting a list of lists according to length of sublists | `((a b c) (d e) (f g h) (d e) (i j k l) (m n) (o))) -> ((O) (D E) (D E) (M N) (A B C) (F G H) (I J K L))` | [here](/99_problems/golang/p28.go) | | | | | | |
+| P27(a,b) - Group the elements of a set into disjoint subsets | `(a,b,c,d),1,1,2 -> ((a),(b),(c,d)),((a),(c),(a,d)) ...` | [here](/99_problems/golang/p27.go) | | | | | | |
+| P26 - Generate the combinations of K distinct objects chosen from the N elements of a list | `(a,b,c),2 -> ((a,b),(a,c),(b,c))` | [here](/99_problems/golang/p26.go) | | | | | | |
+| P25 - Generate a random permutation of the elements of a list (shuffle) | `(a,b,c,d) -> (b,a,d,c)` | [here](/99_problems/golang/p25.go) | | | | | | |
+| P24 - Lotto: Draw N different random numbers from the set 1..M | `5,20 -> (19,33,2,5,3` | [here](/99_problems/golang/p24.go) | | | | | | |
+| P23 - Extract a given number of randomly selected elements from a list | `(a,b,c,d),2 -> (d,a)`| [here](/99_problems/golang/p23.go) | | | | | | |
+| P22 - Create a list containing all integers within a given range | `4,9 -> (4,5,6,7,8,9)` | [here](/99_problems/golang/p22.go) | | | | | | |
+| P21 - Insert an element at a given position into a list | `(a,b), xx,2 -> (a,xx,b)` | [here](/99_problems/golang/p21.go) | | | | | | |
+| P20 - Remove the K'th element from a list | `(a,b,c),2 -> (a,c)` | [here](/99_problems/golang/p20.go) | | | | | | |
+| P19 - Rotate a list N places to the left | `(a,b,c,d),2 -> (c,d,a,b)` | [here](/99_problems/golang/p19.go) | | | | | | |
+| P18 - Extract a slice from a list | `(a,b,c,d,e),2,4 -> (b,c,d)` | [here](/99_problems/golang/p18.go) | | | | | | |
+| P17 - Split a list into two parts | `(a,b,c,d,e),3 -> (a,b,c),(d,e)` | [here](/99_problems/golang/p17.go) | | | | | | |
+| P16 - Drop every N'th element from a list | `(a,b,c,d,e,f),2 -> (a,c,e)` | [here](/99_problems/golang/p16.go) | | | | | | |
+| P15 - Duplicate the elements of a list a given number of times | `(a,b,c),3 -> (a,a,a,b,b,b,c,c,c)` | [here](/99_problems/golang/p15.go) | | | | | | |
+| P14 - Duplicate the elements of a list |`(a,b,c) -> (a,a,b,b,c,c)` | [here](/99_problems/golang/p14.go) | | | | | | |
+| P13 - Run-length encoding of a list (direct solution) | `(a,a,a,b,b,c,c) -> ((3,a),b,(2,c))` | [here](/99_problems/golang/p13.go) | | | | | | |
+| P12 - Decode a run-length encoded list | `((3,a),b,(2,c)) -> (a,a,a,b,b,c,c)` | [here](/99_problems/golang/p12.go) | | | | | | |
+| P11 - Modified run-length encoding | `(a,a,a,b,b,c,c) -> ((3,a),b,(2,c))` | [here](/99_problems/golang/p11.go) | | | | | | |
+| P10 - Run-length encoding of a list | `(a,a,a,b,c,c) -> ((3,a),(1,b),(2,c))` | [here](/99_problems/golang/p10.go) | | | | | | |
+| P09 - Pack consecutive duplicates of list elements into sublists | `(a,a,a,b,b,c,c) -> ((a,a,a),(b,b),(c,c))` | [here](/99_problems/golang/p09.go) | | | | | | |
+| P08 - Eliminate consecutive duplicates of list elements | `(a,a,b,b,c,c) -> (a,b,c)` | [here](/99_problems/golang/p08.go) | | | | | | |
+| P07 - Flatten a nested list structure |`(a,(b,(c,d),e)) -> (a,b,c,d,e)` | [here](/99_problems/golang/p07.go) | | | | | | |
+| P06 - Find out whether a list is a palindrome | `(a,b,a) -> true` | [here](/99_problems/golang/p06.go) | | | | | | |
+| P05 - Reverse a list | `(a,b,c,d) -> (d,c,b,a)` | [here](/99_problems/golang/p05.go) | | | | | | |
+| P04 - Find the number of elements of a list | `(a,b,c,d) -> 4` | [here](/99_problems/golang/p04.go) | | | | | | |
+| P03 - Find the K'th element of a list | `(a,b,c,d),2  -> b`| [here](/99_problems/golang/p03.go) | | | | | | |
+| P02 - Find the last but one element of a list | `(a,b,c,d) -> c` | [here](/99_problems/golang/p02.go) | | | | | | |
+| P01 - Find the last element of a list | `(a,b,c,d) -> d` | [here](/99_problems/golang/p01.go) | | | | | | |
