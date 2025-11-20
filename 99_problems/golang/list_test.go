@@ -23,13 +23,13 @@ func TestP01(t *testing.T) {
 			name:        "empty list",
 			input:       []string{},
 			expected:    "",
-			expectedErr: ErrEmptyList,
+			expectedErr: ErrFailedPrecondition,
 		},
 		{
 			name:        "nil list",
 			input:       nil,
 			expected:    "",
-			expectedErr: ErrEmptyList,
+			expectedErr: ErrFailedPrecondition,
 		},
 	}
 
@@ -58,19 +58,19 @@ func TestP02(t *testing.T) {
 			name:        "1 element list",
 			input:       []string{"a"},
 			expected:    "",
-			expectedErr: ErrListTooSmall,
+			expectedErr: ErrFailedPrecondition,
 		},
 		{
 			name:        "empty list",
 			input:       []string{},
 			expected:    "",
-			expectedErr: ErrListTooSmall,
+			expectedErr: ErrFailedPrecondition,
 		},
 		{
 			name:        "nil list",
 			input:       nil,
 			expected:    "",
-			expectedErr: ErrListTooSmall,
+			expectedErr: ErrFailedPrecondition,
 		},
 	}
 
@@ -108,14 +108,14 @@ func TestP03(t *testing.T) {
 			input:       []string{"a", "b"},
 			k:           0,
 			expected:    "",
-			expectedErr: ErrKNonPositive,
+			expectedErr: ErrFailedPrecondition,
 		},
 		{
 			name:        "k is greater than list length",
 			input:       []string{"a", "b"},
 			k:           5,
 			expected:    "",
-			expectedErr: ErrListSmallerThanK,
+			expectedErr: ErrFailedPrecondition,
 		},
 	}
 
@@ -142,12 +142,12 @@ func TestP04(t *testing.T) {
 	assert.Equal(t, 1, linkedListLen(oneList))
 
 	threeList := &LinkedList[string]{
-		value : "one",
+		value: "one",
 		next: &LinkedList[string]{
 			value: "two",
-			next:&LinkedList[string]{
-				value:"three",
-				next:nil,
+			next: &LinkedList[string]{
+				value: "three",
+				next:  nil,
 			},
 		},
 	}
@@ -197,7 +197,7 @@ func TestP09(t *testing.T) {
 
 func TestP10(t *testing.T) {
 	// (a, b, (c, (d)))
-	assert.Equal(t, []Encoded[string]{
+	assert.Equal(t, []RunLengthEncoding[string]{
 		{value: "a", count: 2},
 		{value: "b", count: 3},
 		{value: "c", count: 1},
@@ -413,4 +413,3 @@ func Test28B(t *testing.T) {
 		lfsort([][]string{{"1", "2", "3"}, {"1", "2", "3"}, {"1", "2", "3"}, {"1", "2"}, {"1", "2"}, {"1"}}),
 	)
 }
-
