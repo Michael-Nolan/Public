@@ -1,74 +1,60 @@
-const plotNetGenMonthlyDiv = "plotNetGenMonthlyDiv"
-const plotPercentGenMonthlyDiv = "plotPercentGenMonthlyDiv"
-const plotNetGenRollingDiv = "plotNetGenRollingDiv"
-const plotPercentGenRollingDiv = "plotPercentGenRollingDiv"
-const plotPercentGrowthMonthlyDiv = "plotPercentGrowthMonthlyDiv"
-const plotPercentGrowthYearlyDiv = "plotPercentGrowthYearlyDiv"
-const plotAbsoluteGrowthMonthlyDiv = "plotAbsoluteGrowthMonthlyDiv"
-const plotAbsoluteGrowthYearlyDiv = "plotAbsoluteGrowthYearlyDiv"
+const plotNetGenDiv = "plotNetGenDiv"
+const plotPercentGenDiv = "plotPercentGenDiv"
+const plotPercentGrowthDiv = "plotPercentGrowthDiv"
+const plotAbsoluteGrowthDiv = "plotAbsoluteGrowthDiv"
 
 const titleTextMap = new Map([
-  [plotNetGenMonthlyDiv, 'Net Generation by Source (Monthly)'],
-  [plotPercentGenMonthlyDiv, 'Percent Generation by Source (Monthly)'],
-  [plotNetGenRollingDiv, 'Net Generation by Source (12 Month Rolling)'],
-  [plotPercentGenRollingDiv, 'Percent Generation by Source (12 Month Rolling)'],
-  [plotPercentGrowthMonthlyDiv, 'Percent Growth (12 Month Rolling)(1 month look back)'],
-  [plotPercentGrowthYearlyDiv, 'Percent Growth (12 Month Rolling)(12 month look back)'],
-  [plotAbsoluteGrowthMonthlyDiv, 'Absolute Growth (12 Month Rolling)(1 month look back)'],
-  [plotAbsoluteGrowthYearlyDiv, 'Absolute Growth (12 Month Rolling)(12 month look back)'],
+  [plotNetGenDiv, 'Net Generation by Source (Monthly)'],
+  [plotPercentGenDiv, 'Percent Generation by Source (Monthly)'],
+  [plotPercentGrowthDiv, 'Percent Growth (12 Month Rolling)(1 month look back)'],
+  [plotAbsoluteGrowthDiv, 'Absolute Growth (12 Month Rolling)(1 month look back)'],
 ]);
 
 const yAxisMap = new Map([
-  [plotNetGenMonthlyDiv, '1,000 mwh'],
-  [plotPercentGenMonthlyDiv, 'Percent'],
-  [plotNetGenRollingDiv, '1,000 mwh'],
-  [plotPercentGenRollingDiv, 'Percent'],
-  [plotPercentGrowthMonthlyDiv, 'Percent'],
-  [plotPercentGrowthYearlyDiv, 'Percent'],
-  [plotAbsoluteGrowthMonthlyDiv, '1,000 mwh'],
-  [plotAbsoluteGrowthYearlyDiv, '1,000 mwh'],
+  [plotNetGenDiv, '1,000 mwh'],
+  [plotPercentGenDiv, 'Percent'],
+  [plotPercentGrowthDiv, 'Percent'],
+  [plotAbsoluteGrowthDiv, '1,000 mwh'],
 ]);
 
-
-
-
-const plotConfig = {
-  toImageButtonOptions: {
-    format: 'svg', // one of png, svg, jpeg, webp
-    filename: name,
-    scale: 1 // Multiply title/legend/axis/canvas sizes by this factor
-  },
-  scrollZoom: true
-};
+function makePlotConfig() {
+  return {
+    toImageButtonOptions: {
+      format: 'svg', // one of png, svg, jpeg, webp
+      filename: 'eia_graph',
+      scale: 1 // Multiply title/legend/axis/canvas sizes by this factor
+    },
+    scrollZoom: true
+  };
+}
 
 
 function buildLayout(divName) {
   // Only add presidency overlays for plots that are not percent growth
-  const excludeOverlay = [plotPercentGenMonthlyDiv, plotPercentGenRollingDiv];
-  let shapes = undefined;
-  if (!excludeOverlay.includes(divName)) {
-    // Define presidency periods and colors
-    const presidencies = [
-      { start: '2001-01', end: '2009-01', color: 'rgba(255,0,0,0.08)' }, // Bush (R)
-      { start: '2009-01', end: '2017-01', color: 'rgba(0,0,255,0.08)' }, // Obama (D)
-      { start: '2017-01', end: '2021-01', color: 'rgba(255,0,0,0.08)' }, // Trump (R)
-      { start: '2021-01', end: '2025-01', color: 'rgba(0,0,255,0.08)' }, // Biden (D)
-      { start: '2025-01', end: '2025-08', color: 'rgba(255,0,0,0.08)' }, // Trump (R)
-    ];
-    // Create shapes for background tints
-    shapes = presidencies.map(p => ({
-      type: 'rect',
-      xref: 'x',
-      yref: 'paper',
-      x0: p.start,
-      x1: p.end,
-      y0: 0,
-      y1: 1,
-      fillcolor: p.color,
-      line: { width: 0 },
-      layer: 'below'
-    }));
-  }
+  const excludeOverlay = [plotPercentGenDiv];
+
+  const red = 'rgba(255,0,0,0.08)'
+  const blue = 'rgba(0,0,255,0.08)'
+  const presidencies = [
+    { start: '2001-01', end: '2009-01', color: red }, // Bush (R)
+    { start: '2009-01', end: '2017-01', color: blue }, // Obama (D)
+    { start: '2017-01', end: '2021-01', color: red }, // Trump (R)
+    { start: '2021-01', end: '2025-01', color: blue }, // Biden (D)
+    { start: '2025-01', end: '2025-08', color: red }, // Trump (R)
+  ];
+
+  const shapes = presidencies.map(p => ({
+    type: 'rect',
+    xref: 'x',
+    yref: 'paper',
+    x0: p.start,
+    x1: p.end,
+    y0: 0,
+    y1: 1,
+    fillcolor: p.color,
+    line: { width: 0 },
+    layer: 'below'
+  }));
 
   return {
     title: {
@@ -88,7 +74,7 @@ function buildLayout(divName) {
       },
       fixedrange: true  // Prevent direct y-axis zooming
     },
-    ...(shapes ? { shapes } : {})
+    ...(!excludeOverlay.includes(divName) ? { shapes } : {})
   };
 }
 
@@ -119,16 +105,9 @@ const cat2MergeMap = new Map([
   ['Hydroelectric', 'Carbon Free']
 ]);
 
-var allSourceData;
-var twoSourceData;
-var threeSourceData;
-
-function populateData() {
-  allSourceData = processRawData();
-  twoSourceData = mergeCategories(structuredClone(allSourceData), cat2MergeMap);
-  threeSourceData = mergeCategories(structuredClone(allSourceData), cat3MergeMap);
-}
-
+const allSourceData = processRawData();
+const twoSourceData = mergeCategories(structuredClone(allSourceData), cat2MergeMap);
+const threeSourceData = mergeCategories(structuredClone(allSourceData), cat3MergeMap);
 
 function processRawData() {
   rawData.response.data.sort((a, b) => a.period.localeCompare(b.period));
@@ -148,7 +127,7 @@ function processRawData() {
   const result = new Map();
 
   groupedData.forEach((value, key) => {
-    // Sort data by period in descending order
+    // Sort data by period in ascending order
     groupedData.get(key).sort((a, b) => a.period.localeCompare(b.period));
 
     // Extract dates and values
@@ -184,8 +163,8 @@ function mergeCategories(data, mergeMap) {
     } else {
 
 
-      var valueXInt = 0;
-      var resultXInt = 0;
+      let valueXInt = 0;
+      let resultXInt = 0;
 
       while (valueXInt < value.x.length && resultXInt < result.get(mergeMap.get(key)).x.length) {
         while (value.x[valueXInt] != result.get(mergeMap.get(key)).x[resultXInt]) {
@@ -198,24 +177,21 @@ function mergeCategories(data, mergeMap) {
     }
   });
 
-
-  // console.log(result);
-
   return result;
 }
 
-function plotNetGenMonthly(name, data) {
-  var dd = [];
+function plotNetGen(name, data) {
+  let dd = [];
   data.forEach((value, key) => {
     value["type"] = "scatter"
     dd.push(value)
   });
 
-  Plotly.newPlot(name, dd, buildLayout(name), plotConfig);
+  Plotly.newPlot(name, dd, buildLayout(name), makePlotConfig());
 }
 
-function plotPercentGenMonthly(name, data) {
-  var dd = [];
+function plotPercentGen(name, data) {
+  let dd = [];
   data.forEach((value, key) => {
     value["type"] = "scatter"
     value["groupnorm"] = "percent"
@@ -224,7 +200,20 @@ function plotPercentGenMonthly(name, data) {
   });
 
   layout = buildLayout(name)
-  Plotly.newPlot(name, dd, layout, plotConfig);
+  Plotly.newPlot(name, dd, layout, makePlotConfig());
+}
+
+function plotPercentGrowth(name, data) {
+  let dd = [];
+  data.forEach((value, key) => {
+    value["type"] = "scatter"
+    dd.push(value)
+  });
+
+  let layout = buildLayout(name)
+  layout.yaxis.tickformat = '.2%';
+
+  Plotly.newPlot(name, dd, layout, makePlotConfig());
 }
 
 function convertToRolling(data, windowSize) {
@@ -234,7 +223,7 @@ function convertToRolling(data, windowSize) {
     newX = [];
     newY = [];
 
-    var sum = 0;
+    let sum = 0;
     for (let i = 0; i < value.x.length; i++) {
       sum += value.y[i];
 
@@ -307,40 +296,4 @@ function calculateAbsoluteGrowth(data, windowSize) {
   });
 
   return result;
-}
-
-function plotNetGenRolling(name, data) {
-  var dd = [];
-  data.forEach((value, key) => {
-    value["type"] = "scatter"
-    dd.push(value)
-  });
-
-  Plotly.newPlot(name, dd, buildLayout(name), plotConfig);
-}
-
-function plotPercentGenRolling(name, data) {
-  var dd = [];
-  data.forEach((value, key) => {
-    value["type"] = "scatter"
-    value["groupnorm"] = "percent"
-    value["stackgroup"] = "one"
-    dd.push(value)
-  });
-
-  layout = buildLayout(name)
-  Plotly.newPlot(name, dd, layout, plotConfig);
-}
-
-function plotPercentGrowth(name, data) {
-  var dd = [];
-  data.forEach((value, key) => {
-    value["type"] = "scatter"
-    dd.push(value)
-  });
-
-  let layout = buildLayout(name)
-  layout.yaxis.tickformat = '.2%';
-
-  Plotly.newPlot(name, dd, layout, plotConfig);
 }
