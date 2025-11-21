@@ -8,6 +8,19 @@
         html {
             scroll-behavior: smooth;
         }
+
+        .radio-options {
+            display: flex;
+        }
+        .radio-container {
+            margin: 10px;
+        }
+        .radio-container2 {
+            margin: 10px;
+        }
+        .radio-container3 {
+            margin: 10px;
+        }
     </style>
 </head>
 
@@ -23,48 +36,87 @@
         </p>
 
     </div>
-    <div class="radio-container">
-        <h3>Select an option:</h3>
+    <div class="radio-options">
+        <div class="radio-container">
+            <h3>Select a Group By option:</h3>
 
-        <div class="option">
-            <input type="radio" id="option1" name="choice" value="All Sources" onchange="handleSelection(this)">
-            <label for="option1">All Sources</label>
+            <div class="option">
+                <input type="radio" id="category-option1" name="category" value="All Sources"
+                    onchange="handleSelection(this)">
+                <label for="category-option1">All Sources</label>
+            </div>
+
+            <div class="option">
+                <input type="radio" id="category-option2" name="category" value="Fossil Fuel & Carbon Free"
+                    onchange="handleSelection(this)">
+                <label for="category-option2">Fossil Fuel & Carbon Free</label>
+            </div>
+
+            <div class="option">
+                <input type="radio" id="category-option3" name="category" value="Fossil Fuel, Nuclear, Renewables"
+                    onchange="handleSelection(this)">
+                <label for="category-option3">Fossil Fuel, Nuclear, Renewables</label>
+            </div>
         </div>
+        <div class="radio-container2">
+            <h3>Select a Lookback option:</h3>
+            <p>Lookback only effects Growth Charts</p>
 
-        <div class="option">
-            <input type="radio" id="option2" name="choice" value="Fossil Fuel & Carbon Free" onchange="handleSelection(this)">
-            <label for="option2">Fossil Fuel & Carbon Free</label>
+            <div class="option">
+                <input type="radio" id="lookback-option1" name="lookback" value="1 Month Lookback"
+                    onchange="handleLookbackSelection(this)">
+                <label for="lookback-option1">1 Month Lookback</label>
+            </div>
+
+            <div class="option">
+                <input type="radio" id="lookback-option2" name="lookback" value="12 Month Lookback"
+                    onchange="handleLookbackSelection(this)">
+                <label for="lookback-option2">12 Month Lookback</label>
+            </div>
+
+            <div class="option">
+                <input type="radio" id="lookback-option3" name="lookback" value="24 Month Lookback"
+                    onchange="handleLookbackSelection(this)">
+                <label for="lookback-option3">24 Month Lookback</label>
+            </div>
         </div>
+        <div class="radio-container3">
+            <h3>Select a Rolling option:</h3>
 
-        <div class="option">
-            <input type="radio" id="option3" name="choice" value="Fossil Fuel, Nuclear, Renewables" onchange="handleSelection(this)">
-            <label for="option3">Fossil Fuel, Nuclear, Renewables</label>
+            <div class="option">
+                <input type="radio" id="rolling-option1" name="rolling" value="1 Month rolling"
+                    onchange="handleRollingSelection(this)">
+                <label for="rolling-option1">1 Month rolling</label>
+            </div>
+
+            <div class="option">
+                <input type="radio" id="rolling-option2" name="rolling" value="12 Month rolling"
+                    onchange="handleRollingSelection(this)">
+                <label for="rolling-option2">12 Month rolling</label>
+            </div>
         </div>
     </div>
 
 
     <div id="result" class="result">
-        <p>You selected: <span id="selected-option">All Sources</span></p>
+        <p>You selected Group By: <span id="selected-option">All Sources</span></p>
+    </div>
+        <div id="result2" class="result2">
+        <p>You selected: <span id="selected-option2">12 Month Lookback</span></p>
+    </div>
+        <div id="result3" class="result3">
+        <p>You selected: <span id="selected-option3">12 Month Rolling</span></p>
     </div>
     <div>
         <strong>Jump to:</strong>
         <ul>
-            <li><a href="#plotNetGenMonthlyDiv"> Net Generation Monthly</a></li>
-            <li><a href="#plotNetGenRollingDiv"> Net Generation 12 Month Rolling</a></li>
-
-            <li><a href="#plotPercentGenMonthlyDiv"> Percent Generation Monthly</a></li>
-            <li><a href="#plotPercentGenRollingDiv"> Percent Generation 12 Month Rolling</a></li>
-
-            <li><a href="#plotPercentGrowthMonthlyDiv"> Percent Generation Growth Monthly</a></li>
-            <li><a href="#plotPercentGrowthYearlyDiv"> Percent Generation Growth 12 Month Rolling</a></li>
-
-            <li><a href="#plotAbsoluteGrowthMonthlyDiv"> Absolute Generation Growth Monthly</a></li>
-            <li><a href="#plotAbsoluteGrowthYearlyDiv"> Absolute Generation Growth 12 Month Rolling</a></li>
+            <li><a href="#plotNetGenRollingDiv"> Net Generation</a></li>
+            <li><a href="#plotPercentGenRollingDiv"> Percent Generation</a></li>
+            <li><a href="#plotPercentGrowthDiv"> Percent Generation Growth</a></li>
+            <li><a href="#plotAbsoluteGrowthDiv"> Absolute Generation Growth</a></li>
 
             <!-- 
                 TODO:
-
-                Absolute change in percent of total gen.
 
                 2nd Derivative (absolute and percent)
                 3rd Derivative (absolute and percent)
@@ -72,25 +124,15 @@
                 Forecast next 5 years (percent growth)
 
                 Ratio over time
-
-                Enhance UI so that user can select desired chart type. (rather than displaying all of them)
             -->
         </ul>
     </div>
 
 
-    <div id="plotNetGenMonthlyDiv" style="display: flex; justify-content: center;"></div>
-    <div id="plotNetGenRollingDiv" style="display: flex; justify-content: center;"></div>
-
-
-    <div id="plotPercentGenMonthlyDiv" style="display: flex; justify-content: center;"></div>
-    <div id="plotPercentGenRollingDiv" style="display: flex; justify-content: center;"></div>
-
-    <div id="plotPercentGrowthMonthlyDiv" style="display: flex; justify-content: center;"></div>
-    <div id="plotPercentGrowthYearlyDiv" style="display: flex; justify-content: center;"></div>
-
-    <div id="plotAbsoluteGrowthMonthlyDiv" style="display: flex; justify-content: center;"></div>
-    <div id="plotAbsoluteGrowthYearlyDiv" style="display: flex; justify-content: center;"></div>
+    <div id="plotNetGenDiv" style="display: flex; justify-content: center;"></div>
+    <div id="plotPercentGenDiv" style="display: flex; justify-content: center;"></div>
+    <div id="plotPercentGrowthDiv" style="display: flex; justify-content: center;"></div>
+    <div id="plotAbsoluteGrowthDiv" style="display: flex; justify-content: center;"></div>
 
 
 
@@ -98,63 +140,94 @@
     <script type="text/javascript" src="data.js" defer></script>
     <script type="text/javascript" src="eia.js" defer></script>
     <script>
+
+        let lookbackWindow = 12; // Reasonable options are 1,12,24,36, etc
+        let rollingWindow = 12; // Reasonable options are 1 or 12 ONLY. 
+
         function handleSelection(radioButton) {
             // Update the result div
             document.getElementById("selected-option").textContent = radioButton.value;
             document.getElementById("result").style.display = "block";
 
             switch (radioButton.id) {
-                case "option1":
+                case "category-option1":
                     plotAll();
                     break;
-                case "option2":
+                case "category-option2":
                     plotCat2();
                     break;
-                case "option3":
+                case "category-option3":
                     plotCat3();
                     break;
             }
         }
 
+        function handleLookbackSelection(radioButton) {
+            document.getElementById("selected-option2").textContent = radioButton.value;
+            document.getElementById("result2").style.display = "block";
+            // parse numeric lookback (e.g. "12 Month Lookback" -> 12)
+            const parsed = parseInt(radioButton.value, 10);
+            if (!isNaN(parsed)) {
+                lookbackWindow = parsed;
+            } else {
+                lookbackWindow = 12; // default
+            }
+
+            const selectedCategory = document.querySelector('.radio-container input[name="category"]:checked');
+            if (selectedCategory) {
+                handleSelection(selectedCategory);
+            } else {
+                plotAll();
+            }
+
+        }
+
+        function handleRollingSelection(radioButton) {
+            document.getElementById("selected-option3").textContent = radioButton.value;
+            document.getElementById("result3").style.display = "block";
+            // parse numeric lookback (e.g. "12 Month Lookback" -> 12)
+            const parsed = parseInt(radioButton.value, 10);
+            if (!isNaN(parsed)) {
+                rollingWindow = parsed;
+            } else {
+                rollingWindow = 12; // default
+            }
+
+            const selectedCategory = document.querySelector('.radio-container input[name="category"]:checked');
+            if (selectedCategory) {
+                handleSelection(selectedCategory);
+            } else {
+                plotAll();
+            }
+
+        }
+
 
         function plotAll() {
-            plotNetGenMonthly(plotNetGenMonthlyDiv, structuredClone(allSourceData));
-            plotPercentGenMonthly(plotPercentGenMonthlyDiv, structuredClone(allSourceData));
-            plotNetGenRolling(plotNetGenRollingDiv, convertToRolling(structuredClone(allSourceData), 12));
-            plotPercentGenRolling(plotPercentGenRollingDiv, convertToRolling(structuredClone(allSourceData), 12));
-            plotPercentGrowth(plotPercentGrowthMonthlyDiv, calculateGrowth(convertToRolling(structuredClone(allSourceData), 12), 1));
-            plotPercentGrowth(plotPercentGrowthYearlyDiv, calculateGrowth(convertToRolling(structuredClone(allSourceData), 12), 12));
-            plotNetGenRolling(plotAbsoluteGrowthMonthlyDiv, calculateAbsoluteGrowth(convertToRolling(structuredClone(allSourceData), 12), 1));
-            plotNetGenRolling(plotAbsoluteGrowthYearlyDiv, calculateAbsoluteGrowth(convertToRolling(structuredClone(allSourceData), 12), 12));
+            plotNetGen(plotNetGenDiv, convertToRolling(structuredClone(allSourceData), rollingWindow));
+            plotPercentGen(plotPercentGenDiv, convertToRolling(structuredClone(allSourceData), rollingWindow));
+            plotPercentGrowth(plotPercentGrowthDiv, calculateGrowth(convertToRolling(structuredClone(allSourceData), rollingWindow), lookbackWindow));
+            plotNetGen(plotAbsoluteGrowthDiv, calculateAbsoluteGrowth(convertToRolling(structuredClone(allSourceData), rollingWindow), lookbackWindow));
         }
 
         function plotCat2() {
-            plotNetGenMonthly(plotNetGenMonthlyDiv, structuredClone(twoSourceData));
-            plotPercentGenMonthly(plotPercentGenMonthlyDiv, structuredClone(twoSourceData));
-            plotNetGenRolling(plotNetGenRollingDiv, convertToRolling(structuredClone(twoSourceData), 12));
-            plotPercentGenRolling(plotPercentGenRollingDiv, convertToRolling(structuredClone(twoSourceData), 12));
-            plotPercentGrowth(plotPercentGrowthMonthlyDiv, calculateGrowth(convertToRolling(structuredClone(twoSourceData), 12), 1));
-            plotPercentGrowth(plotPercentGrowthYearlyDiv, calculateGrowth(convertToRolling(structuredClone(twoSourceData), 12), 12));
-            plotNetGenRolling(plotAbsoluteGrowthMonthlyDiv, calculateAbsoluteGrowth(convertToRolling(structuredClone(twoSourceData), 12), 1));
-            plotNetGenRolling(plotAbsoluteGrowthYearlyDiv, calculateAbsoluteGrowth(convertToRolling(structuredClone(twoSourceData), 12), 12));
+            plotNetGen(plotNetGenDiv, convertToRolling(structuredClone(twoSourceData), rollingWindow));
+            plotPercentGen(plotPercentGenDiv, convertToRolling(structuredClone(twoSourceData), rollingWindow));
+            plotPercentGrowth(plotPercentGrowthDiv, calculateGrowth(convertToRolling(structuredClone(twoSourceData), rollingWindow), lookbackWindow));
+            plotNetGen(plotAbsoluteGrowthDiv, calculateAbsoluteGrowth(convertToRolling(structuredClone(twoSourceData), rollingWindow), lookbackWindow));
         }
 
         function plotCat3() {
-            plotNetGenMonthly(plotNetGenMonthlyDiv, structuredClone(threeSourceData));
-            plotPercentGenMonthly(plotPercentGenMonthlyDiv, structuredClone(threeSourceData));
-            plotNetGenRolling(plotNetGenRollingDiv, convertToRolling(structuredClone(threeSourceData), 12));
-            plotPercentGenRolling(plotPercentGenRollingDiv, convertToRolling(structuredClone(threeSourceData), 12));
-            plotPercentGrowth(plotPercentGrowthMonthlyDiv, calculateGrowth(convertToRolling(structuredClone(threeSourceData), 12), 1));
-            plotPercentGrowth(plotPercentGrowthYearlyDiv, calculateGrowth(convertToRolling(structuredClone(threeSourceData), 12), 12));
-            plotNetGenRolling(plotAbsoluteGrowthMonthlyDiv, calculateAbsoluteGrowth(convertToRolling(structuredClone(threeSourceData), 12), 1));
-            plotNetGenRolling(plotAbsoluteGrowthYearlyDiv, calculateAbsoluteGrowth(convertToRolling(structuredClone(threeSourceData), 12), 12));
+            plotNetGen(plotNetGenDiv, convertToRolling(structuredClone(threeSourceData), rollingWindow));
+            plotPercentGen(plotPercentGenDiv, convertToRolling(structuredClone(threeSourceData), rollingWindow));
+            plotPercentGrowth(plotPercentGrowthDiv, calculateGrowth(convertToRolling(structuredClone(threeSourceData), rollingWindow), lookbackWindow));
+            plotNetGen(plotAbsoluteGrowthDiv, calculateAbsoluteGrowth(convertToRolling(structuredClone(threeSourceData), rollingWindow), lookbackWindow));
         }
     </script>
 
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            populateData();
             plotAll();
         });
     </script>
