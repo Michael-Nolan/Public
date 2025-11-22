@@ -73,12 +73,6 @@
                     onchange="handleLookbackSelection(this)">
                 <label for="lookback-option2">12 Month Lookback</label>
             </div>
-
-            <div class="option">
-                <input type="radio" id="lookback-option3" name="lookback" value="24 Month Lookback"
-                    onchange="handleLookbackSelection(this)">
-                <label for="lookback-option3">24 Month Lookback</label>
-            </div>
         </div>
         <div class="radio-container3">
             <h3>Select a Rolling option:</h3>
@@ -114,17 +108,6 @@
             <li><a href="#plotPercentGenRollingDiv"> Percent Generation</a></li>
             <li><a href="#plotPercentGrowthDiv"> Percent Generation Growth</a></li>
             <li><a href="#plotAbsoluteGrowthDiv"> Absolute Generation Growth</a></li>
-
-            <!-- 
-                TODO:
-
-                2nd Derivative (absolute and percent)
-                3rd Derivative (absolute and percent)
-
-                Forecast next 5 years (percent growth)
-
-                Ratio over time
-            -->
         </ul>
     </div>
 
@@ -141,8 +124,10 @@
     <script type="text/javascript" src="eia.js" defer></script>
     <script>
 
-        let lookbackWindow = 12; // Reasonable options are 1,12,24,36, etc
-        let rollingWindow = 12; // Reasonable options are 1 or 12 ONLY. 
+
+        let lookbackWindow = 12; // Options are 1 or 12.
+        let rollingWindow = 12; // Options are 1 or 12.
+        let data = null;
 
         function handleSelection(radioButton) {
             // Update the result div
@@ -151,15 +136,16 @@
 
             switch (radioButton.id) {
                 case "category-option1":
-                    plotAll();
+                    data = allSourceData;
                     break;
                 case "category-option2":
-                    plotCat2();
+                    data = twoSourceData;
                     break;
                 case "category-option3":
-                    plotCat3();
+                    data = threeSourceData;
                     break;
             }
+            plotAll();
         }
 
         function handleLookbackSelection(radioButton) {
@@ -204,30 +190,33 @@
 
 
         function plotAll() {
-            plotNetGen(plotNetGenDiv, convertToRolling(structuredClone(allSourceData), rollingWindow));
-            plotPercentGen(plotPercentGenDiv, convertToRolling(structuredClone(allSourceData), rollingWindow));
-            plotPercentGrowth(plotPercentGrowthDiv, calculateGrowth(convertToRolling(structuredClone(allSourceData), rollingWindow), lookbackWindow));
-            plotNetGen(plotAbsoluteGrowthDiv, calculateAbsoluteGrowth(convertToRolling(structuredClone(allSourceData), rollingWindow), lookbackWindow));
+            plotNetGen(plotNetGenDiv, convertToRolling(structuredClone(data), rollingWindow), "Net Generation by Source " + getRollingText());
+            plotPercentGen(plotPercentGenDiv, convertToRolling(structuredClone(data), rollingWindow), "Percent Generation by Source " + getRollingText());
+            plotPercentGrowth(plotPercentGrowthDiv, calculateGrowth(convertToRolling(structuredClone(data), rollingWindow), lookbackWindow), "Percent Growth " + getLookbackText());
+            plotNetGen(plotAbsoluteGrowthDiv, calculateAbsoluteGrowth(convertToRolling(structuredClone(data), rollingWindow), lookbackWindow), "Absolute Value Growth " + getLookbackText());
         }
 
-        function plotCat2() {
-            plotNetGen(plotNetGenDiv, convertToRolling(structuredClone(twoSourceData), rollingWindow));
-            plotPercentGen(plotPercentGenDiv, convertToRolling(structuredClone(twoSourceData), rollingWindow));
-            plotPercentGrowth(plotPercentGrowthDiv, calculateGrowth(convertToRolling(structuredClone(twoSourceData), rollingWindow), lookbackWindow));
-            plotNetGen(plotAbsoluteGrowthDiv, calculateAbsoluteGrowth(convertToRolling(structuredClone(twoSourceData), rollingWindow), lookbackWindow));
+        function getRollingText(){
+            if (rollingWindow == 1){
+                return "(Monthly)"
+            }
+            return "(Trailing 12 Month)"
         }
 
-        function plotCat3() {
-            plotNetGen(plotNetGenDiv, convertToRolling(structuredClone(threeSourceData), rollingWindow));
-            plotPercentGen(plotPercentGenDiv, convertToRolling(structuredClone(threeSourceData), rollingWindow));
-            plotPercentGrowth(plotPercentGrowthDiv, calculateGrowth(convertToRolling(structuredClone(threeSourceData), rollingWindow), lookbackWindow));
-            plotNetGen(plotAbsoluteGrowthDiv, calculateAbsoluteGrowth(convertToRolling(structuredClone(threeSourceData), rollingWindow), lookbackWindow));
+        function getLookbackText(){
+            if (rollingWindow == 1 && lookbackWindow == 1){return "(Month-over-Month Growth)"}
+            if (rollingWindow == 1 && lookbackWindow == 12){return "(Year-over-Year Monthly Growth)"}
+            if (rollingWindow == 12 && lookbackWindow == 1){return "(Monthly Change in Trailing 12 Month)"}
+            if (rollingWindow == 12 && lookbackWindow == 12){return "(Year-over-Year Trailing 12 Month Growth)"}
         }
+
+
     </script>
 
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
+            data = allSourceData
             plotAll();
         });
     </script>
