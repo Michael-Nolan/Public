@@ -29,7 +29,7 @@ function makePlotConfig() {
 }
 
 
-function buildLayout(divName) {
+function buildLayout(divName, plotTitle) {
   // Only add presidency overlays for plots that are not percent growth
   const excludeOverlay = [plotPercentGenDiv];
 
@@ -58,7 +58,7 @@ function buildLayout(divName) {
 
   return {
     title: {
-      text: titleTextMap.get(divName)
+      text: plotTitle
     },
     xaxis: {
       title: {
@@ -180,17 +180,17 @@ function mergeCategories(data, mergeMap) {
   return result;
 }
 
-function plotNetGen(name, data) {
+function plotNetGen(name, data, plotTitle) {
   let dd = [];
   data.forEach((value, key) => {
     value["type"] = "scatter"
     dd.push(value)
   });
 
-  Plotly.newPlot(name, dd, buildLayout(name), makePlotConfig());
+  Plotly.newPlot(name, dd, buildLayout(name, plotTitle), makePlotConfig());
 }
 
-function plotPercentGen(name, data) {
+function plotPercentGen(name, data, plotTitle) {
   let dd = [];
   data.forEach((value, key) => {
     value["type"] = "scatter"
@@ -199,18 +199,18 @@ function plotPercentGen(name, data) {
     dd.push(value)
   });
 
-  layout = buildLayout(name)
+  layout = buildLayout(name, plotTitle)
   Plotly.newPlot(name, dd, layout, makePlotConfig());
 }
 
-function plotPercentGrowth(name, data) {
+function plotPercentGrowth(name, data, plotTitle) {
   let dd = [];
   data.forEach((value, key) => {
     value["type"] = "scatter"
     dd.push(value)
   });
 
-  let layout = buildLayout(name)
+  let layout = buildLayout(name, plotTitle)
   layout.yaxis.tickformat = '.2%';
 
   Plotly.newPlot(name, dd, layout, makePlotConfig());
