@@ -118,6 +118,14 @@
     <div id="plotAbsoluteGrowthDiv" style="display: flex; justify-content: center;"></div>
 
 
+    <div>
+        <h2 style="display: flex; justify-content: center;">This is a simple naive forecast that just projects the current growth forward 5 years.</h2>
+        <ul id="CAGR"></ul>
+        <div id="plotForecastDiv" style="display: flex; justify-content: center;"></div>
+    </div>
+    
+
+
 
     <!-- Link the external JavaScript file containing data -->
     <script type="text/javascript" src="data.js" defer></script>
@@ -194,6 +202,8 @@
             plotPercentGen(plotPercentGenDiv, convertToRolling(structuredClone(data), rollingWindow), "Percent Generation by Source " + getRollingText());
             plotPercentGrowth(plotPercentGrowthDiv, calculateGrowth(convertToRolling(structuredClone(data), rollingWindow), lookbackWindow), "Percent Growth " + getLookbackText());
             plotNetGen(plotAbsoluteGrowthDiv, calculateAbsoluteGrowth(convertToRolling(structuredClone(data), rollingWindow), lookbackWindow), "Absolute Value Growth " + getLookbackText());
+
+            plotNetGen(plotForecastDiv, extendDataByGrowth(convertToRolling(structuredClone(data), 12), 5, lookbackWindow), "Forecasted Net Generation by Source: Based on " + (lookbackWindow == 12 ? "Year-over-Year Change in Trailing 12 Month Growth":"Monthly Change in Trailing 12 Month Growth"));
         }
 
         function getRollingText(){
@@ -207,7 +217,7 @@
             if (rollingWindow == 1 && lookbackWindow == 1){return "(Month-over-Month Growth)"}
             if (rollingWindow == 1 && lookbackWindow == 12){return "(Year-over-Year Monthly Growth)"}
             if (rollingWindow == 12 && lookbackWindow == 1){return "(Monthly Change in Trailing 12 Month)"}
-            if (rollingWindow == 12 && lookbackWindow == 12){return "(Year-over-Year Trailing 12 Month Growth)"}
+            if (rollingWindow == 12 && lookbackWindow == 12){return "(Year-over-Year Change in Trailing 12 Month Growth)"}
         }
 
 
