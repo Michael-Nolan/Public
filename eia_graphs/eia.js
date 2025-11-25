@@ -2,19 +2,14 @@ const plotNetGenDiv = "plotNetGenDiv"
 const plotPercentGenDiv = "plotPercentGenDiv"
 const plotPercentGrowthDiv = "plotPercentGrowthDiv"
 const plotAbsoluteGrowthDiv = "plotAbsoluteGrowthDiv"
-
-const titleTextMap = new Map([
-  [plotNetGenDiv, 'Net Generation by Source (Monthly)'],
-  [plotPercentGenDiv, 'Percent Generation by Source (Monthly)'],
-  [plotPercentGrowthDiv, 'Percent Growth (12 Month Rolling)(1 month look back)'],
-  [plotAbsoluteGrowthDiv, 'Absolute Growth (12 Month Rolling)(1 month look back)'],
-]);
+const plotForecastDiv = "plotForecastDiv"
 
 const yAxisMap = new Map([
   [plotNetGenDiv, '1,000 mwh'],
   [plotPercentGenDiv, 'Percent'],
   [plotPercentGrowthDiv, 'Percent'],
   [plotAbsoluteGrowthDiv, '1,000 mwh'],
+  [plotForecastDiv, '1,000 mwh'],
 ]);
 
 function makePlotConfig() {
@@ -66,7 +61,7 @@ function buildLayout(divName, plotTitle) {
       },
       fixedrange: false,  // Allow zooming on x-axis
       minallowed: "2001-01",
-      maxallowed: "2025-08"
+      //maxallowed: "2025-08"
     },
     yaxis: {
       title: {
@@ -293,6 +288,69 @@ function calculateAbsoluteGrowth(data, windowSize) {
       y: newY,
       name: key,
     });
+  });
+
+  return result;
+}
+
+/**
+ * @param {Map} data - Map of series keyed by name; each value has `x` (dates `YYYY-MM`) and `y` (numbers)
+ * @param {number} yearsToExtend - number of years to extend (default 5)
+ * @param {number} lookback - lookback window, either 12 or 1 (default 12)
+ * @returns {Map} new Map with extended `x` and `y` arrays
+ */
+function extendDataByGrowth(data, yearsToExtend = 5, lookback = 12) {
+  const result = new Map();
+  const monthsToExtend = yearsToExtend * 12;
+
+  let ul = document.getElementById('CAGR');
+  ul.replaceChildren();
+
+  data.forEach((value, key) => {
+    const x = value.x.slice();
+    const y = value.y.slice();
+
+    const len = y.length;
+
+    const startIndex = len - 1 - lookback;
+    const startVal = y[startIndex];
+    const endVal = y[len - 1];
+
+    let monthlyFactor = 1;
+
+    const periods = lookback;
+    monthlyFactor = Math.pow(endVal / startVal, 1 / periods);
+
+    
+    let li = document.createElement('li');
+    let growthType = lookback == 12 ? "Current Yearly Growth":"Current Monthly Growth";
+    li.textContent = growthType + " - " + key + ': ' + (((endVal / startVal) - 1) * 100).toFixed(2) + "%";
+    ul.appendChild(li);
+    
+    let lastDate = x[len - 1];
+    let lastVal = endVal;
+
+    for (let m = 0; m < monthsToExtend; m++) {
+      lastVal = lastVal * monthlyFactor;
+
+
+      // increment month YYYY-MM
+      const [yrStr, moStr] = lastDate.split('-');
+      let yr = parseInt(yrStr, 10);
+      let mo = parseInt(moStr, 10) + 1;
+      if (mo > 12) {
+        mo = 1;
+        yr += 1;
+      }
+      const newDate = `${yr.toString().padStart(4, '0')}-${mo.toString().padStart(2, '0')}`;
+
+      x.push(newDate);
+      y.push(Number(lastVal.toFixed(3)));
+
+      lastDate = newDate;
+    }
+
+    result.set(key, { x, y, name: key });
   });
 
   return result;
