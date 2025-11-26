@@ -12,12 +12,15 @@
         .radio-options {
             display: flex;
         }
+
         .radio-container {
             margin: 10px;
         }
+
         .radio-container2 {
             margin: 10px;
         }
+
         .radio-container3 {
             margin: 10px;
         }
@@ -95,10 +98,10 @@
     <div id="result" class="result">
         <p>You selected Group By: <span id="selected-option">All Sources</span></p>
     </div>
-        <div id="result2" class="result2">
+    <div id="result2" class="result2">
         <p>You selected: <span id="selected-option2">12 Month Lookback</span></p>
     </div>
-        <div id="result3" class="result3">
+    <div id="result3" class="result3">
         <p>You selected: <span id="selected-option3">12 Month Rolling</span></p>
     </div>
     <div>
@@ -119,20 +122,70 @@
 
 
     <div>
-        <h2 style="display: flex; justify-content: center;">This is a simple naive forecast that just projects the current growth forward 5 years.</h2>
+        <h2 style="display: flex; justify-content: center;">This is a simple naive forecast that just projects the
+            current growth forward 5 years.</h2>
         <ul id="CAGR"></ul>
         <div id="plotForecastDiv" style="display: flex; justify-content: center;"></div>
     </div>
-    
+
+
+
+    <!-- <div>
+        <table>
+            <tr>
+                <th>Source</th>
+                <th>Annualized Growth (24-mo)</th>
+                <th>Annualized Growth (12-mo)</th>
+                <th>Annualized Growth (1-mo)</th>
+            </tr>
+            <tr>
+                <td><b>Solar</b></td>
+                <td id="CAGR_SOLAR_24">todo</td>
+                <td id="CAGR_SOLAR_12">todo</td>
+                <td id="CAGR_SOLAR_1">todo</td>
+            </tr>
+            <tr>
+                <td><b>Wind</b></td>
+                <td id="CAGR_WIND_24">todo</td>
+                <td id="CAGR_WIND_12">todo</td>
+                <td id="CAGR_WIND_1">todo</td>
+            </tr>
+            <tr>
+                <td><b>Natural Gas</b></td>
+                <td id="CAGR_NATGAS_24">todo</td>
+                <td id="CAGR_NATGAS_12">todo</td>
+                <td id="CAGR_NATGAS_1">todo</td>
+            </tr>
+            <tr>
+                <td><b>Coal</b></td>
+                <td id="CAGR_COAL_24">todo</td>
+                <td id="CAGR_COAL_12">todo</td>
+                <td id="CAGR_COAL_1">todo</td>
+            </tr>
+            <tr>
+                <td><b>Hydroelectric</b></td>
+                <td id="CAGR_HYDRO_24">todo</td>
+                <td id="CAGR_HYDRO_12">todo</td>
+                <td id="CAGR_HYDRO_1">todo</td>
+            </tr>
+            <tr>
+                <td><b>Nuclear</b></td>
+                <td id="CAGR_NUCLEAR_24">todo</td>
+                <td id="CAGR_NUCLEAR_12">todo</td>
+                <td id="CAGR_NUCLEAR_1">todo</td>
+            </tr>
+        </table>
+    </div> -->
+
 
 
 
     <!-- Link the external JavaScript file containing data -->
     <script type="text/javascript" src="data.js" defer></script>
-    <script type="text/javascript" src="eia.js" defer></script>
+    <script type="text/javascript" src="process_data.js" defer></script>
+    <script type="text/javascript" src="plot.js" defer></script>
+
     <script>
-
-
         let lookbackWindow = 12; // Options are 1 or 12.
         let rollingWindow = 12; // Options are 1 or 12.
         let data = null;
@@ -203,21 +256,21 @@
             plotPercentGrowth(plotPercentGrowthDiv, calculateGrowth(convertToRolling(structuredClone(data), rollingWindow), lookbackWindow), "Percent Growth " + getLookbackText());
             plotNetGen(plotAbsoluteGrowthDiv, calculateAbsoluteGrowth(convertToRolling(structuredClone(data), rollingWindow), lookbackWindow), "Absolute Value Growth " + getLookbackText());
 
-            plotNetGen(plotForecastDiv, extendDataByGrowth(convertToRolling(structuredClone(data), 12), 5, lookbackWindow), "Forecasted Net Generation by Source: Based on " + (lookbackWindow == 12 ? "Year-over-Year Change in Trailing 12 Month Growth":"Monthly Change in Trailing 12 Month Growth"));
+            plotNetGen(plotForecastDiv, extendDataByGrowth(convertToRolling(structuredClone(data), 12), 5, 12), "Forecasted Net Generation by Source: Based on " + (lookbackWindow == 12 ? "Year-over-Year Change in Trailing 12 Month Growth" : "Monthly Change in Trailing 12 Month Growth"));
         }
 
-        function getRollingText(){
-            if (rollingWindow == 1){
+        function getRollingText() {
+            if (rollingWindow == 1) {
                 return "(Monthly)"
             }
             return "(Trailing 12 Month)"
         }
 
-        function getLookbackText(){
-            if (rollingWindow == 1 && lookbackWindow == 1){return "(Month-over-Month Growth)"}
-            if (rollingWindow == 1 && lookbackWindow == 12){return "(Year-over-Year Monthly Growth)"}
-            if (rollingWindow == 12 && lookbackWindow == 1){return "(Monthly Change in Trailing 12 Month)"}
-            if (rollingWindow == 12 && lookbackWindow == 12){return "(Year-over-Year Change in Trailing 12 Month Growth)"}
+        function getLookbackText() {
+            if (rollingWindow == 1 && lookbackWindow == 1) { return "(Month-over-Month Growth)" }
+            if (rollingWindow == 1 && lookbackWindow == 12) { return "(Year-over-Year Monthly Growth)" }
+            if (rollingWindow == 12 && lookbackWindow == 1) { return "(Monthly Change in Trailing 12 Month)" }
+            if (rollingWindow == 12 && lookbackWindow == 12) { return "(Year-over-Year Change in Trailing 12 Month Growth)" }
         }
 
 

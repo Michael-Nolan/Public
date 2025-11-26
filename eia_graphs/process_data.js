@@ -12,66 +12,6 @@ const yAxisMap = new Map([
   [plotForecastDiv, '1,000 mwh'],
 ]);
 
-function makePlotConfig() {
-  return {
-    toImageButtonOptions: {
-      format: 'svg', // one of png, svg, jpeg, webp
-      filename: 'eia_graph',
-      scale: 1 // Multiply title/legend/axis/canvas sizes by this factor
-    },
-    scrollZoom: true
-  };
-}
-
-
-function buildLayout(divName, plotTitle) {
-  // Only add presidency overlays for plots that are not percent growth
-  const excludeOverlay = [plotPercentGenDiv];
-
-  const red = 'rgba(255,0,0,0.08)'
-  const blue = 'rgba(0,0,255,0.08)'
-  const presidencies = [
-    { start: '2001-01', end: '2009-01', color: red }, // Bush (R)
-    { start: '2009-01', end: '2017-01', color: blue }, // Obama (D)
-    { start: '2017-01', end: '2021-01', color: red }, // Trump (R)
-    { start: '2021-01', end: '2025-01', color: blue }, // Biden (D)
-    { start: '2025-01', end: '2025-09', color: red }, // Trump (R)
-  ];
-
-  const shapes = presidencies.map(p => ({
-    type: 'rect',
-    xref: 'x',
-    yref: 'paper',
-    x0: p.start,
-    x1: p.end,
-    y0: 0,
-    y1: 1,
-    fillcolor: p.color,
-    line: { width: 0 },
-    layer: 'below'
-  }));
-
-  return {
-    title: {
-      text: plotTitle
-    },
-    xaxis: {
-      title: {
-        text: 'month'
-      },
-      fixedrange: false,  // Allow zooming on x-axis
-      minallowed: "2001-01",
-    },
-    yaxis: {
-      title: {
-        text: yAxisMap.get(divName),
-      },
-      fixedrange: true  // Prevent direct y-axis zooming
-    },
-    ...(!excludeOverlay.includes(divName) ? { shapes } : {})
-  };
-}
-
 const nameMap = new Map([
   ['all coal products', 'Coal'],
   ['wind', 'Wind'],
@@ -99,16 +39,17 @@ const cat2MergeMap = new Map([
   ['Hydroelectric', 'Carbon Free']
 ]);
 
-const allSourceData = processRawData();
+const allSourceData = processRawData(rawData.response.data);
 const twoSourceData = mergeCategories(structuredClone(allSourceData), cat2MergeMap);
 const threeSourceData = mergeCategories(structuredClone(allSourceData), cat3MergeMap);
 
-function processRawData() {
-  rawData.response.data.sort((a, b) => a.period.localeCompare(b.period));
+function processRawData(data) {
+  data.sort((a, b) => a.period.localeCompare(b.period));
 
+  data[1].xyz = 5
   const groupedData = new Map();
 
-  rawData.response.data.forEach(item => {
+  data.forEach(item => {
     const fuelType = nameMap.get(item.fuelTypeDescription);
     if (!groupedData.has(fuelType)) {
       groupedData.set(fuelType, []);
@@ -172,42 +113,6 @@ function mergeCategories(data, mergeMap) {
   });
 
   return result;
-}
-
-function plotNetGen(name, data, plotTitle) {
-  let dd = [];
-  data.forEach((value, key) => {
-    value["type"] = "scatter"
-    dd.push(value)
-  });
-
-  Plotly.newPlot(name, dd, buildLayout(name, plotTitle), makePlotConfig());
-}
-
-function plotPercentGen(name, data, plotTitle) {
-  let dd = [];
-  data.forEach((value, key) => {
-    value["type"] = "scatter"
-    value["groupnorm"] = "percent"
-    value["stackgroup"] = "one"
-    dd.push(value)
-  });
-
-  layout = buildLayout(name, plotTitle)
-  Plotly.newPlot(name, dd, layout, makePlotConfig());
-}
-
-function plotPercentGrowth(name, data, plotTitle) {
-  let dd = [];
-  data.forEach((value, key) => {
-    value["type"] = "scatter"
-    dd.push(value)
-  });
-
-  let layout = buildLayout(name, plotTitle)
-  layout.yaxis.tickformat = '.2%';
-
-  Plotly.newPlot(name, dd, layout, makePlotConfig());
 }
 
 function convertToRolling(data, windowSize) {
@@ -292,12 +197,6 @@ function calculateAbsoluteGrowth(data, windowSize) {
   return result;
 }
 
-/**
- * @param {Map} data - Map of series keyed by name; each value has `x` (dates `YYYY-MM`) and `y` (numbers)
- * @param {number} yearsToExtend - number of years to extend (default 5)
- * @param {number} lookback - lookback window, either 12 or 1 (default 12)
- * @returns {Map} new Map with extended `x` and `y` arrays
- */
 function extendDataByGrowth(data, yearsToExtend = 5, lookback = 12) {
   const result = new Map();
   const monthsToExtend = yearsToExtend * 12;
@@ -320,12 +219,12 @@ function extendDataByGrowth(data, yearsToExtend = 5, lookback = 12) {
     const periods = lookback;
     monthlyFactor = Math.pow(endVal / startVal, 1 / periods);
 
-    
+
     let li = document.createElement('li');
-    let growthType = lookback == 12 ? "Current Yearly Growth":"Current Monthly Growth";
+    let growthType = lookback == 12 ? "Current Yearly Growth" : "Current Monthly Growth";
     li.textContent = growthType + " - " + key + ': ' + (((endVal / startVal) - 1) * 100).toFixed(2) + "%";
     ul.appendChild(li);
-    
+
     let lastDate = x[len - 1];
     let lastVal = endVal;
 
