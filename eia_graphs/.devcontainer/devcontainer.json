@@ -1,0 +1,19 @@
+{
+  "name": "TypeScript",
+  "dockerFile" : "Dockerfile",
+
+  "customizations":{
+    "vscode":{
+        "settings": {
+            "terminal.integrated.shell.linux": "/bin/bash"
+          },
+        
+          "extensions": [
+            "streetsidesoftware.code-spell-checker"
+          ]
+    }
+  },
+
+
+  "forwardPorts": [3000]
+}
