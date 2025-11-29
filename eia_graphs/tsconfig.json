@@ -1,0 +1,33 @@
+{
+    "files": [
+        "data.ts",
+        "process_data.ts"
+    ],
+    "include": [
+        "data.ts",
+        "process_data.ts"
+    ],
+    "compilerOptions": {
+        "target": "es2022",
+        // Enable all strict type checking options
+        "strict": true,
+        // Additional strict checks not included in "strict"
+        "noUncheckedIndexedAccess": true,
+        "noPropertyAccessFromIndexSignature": true,
+        "exactOptionalPropertyTypes": true,
+        // Catch unused code
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        // Prevent fallthrough and implicit returns
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitReturns": true,
+        // Ensure overrides are intentional
+        "noImplicitOverride": true,
+        // Module resolution strictness
+        "allowSyntheticDefaultImports": false,
+        "esModuleInterop": false,
+        "forceConsistentCasingInFileNames": true,
+        // Deprecated code detection
+        "noUncheckedSideEffectImports": true
+    }
+}

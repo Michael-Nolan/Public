@@ -1,5 +1,31 @@
-"use strict";
-const rawData = {
+interface GenerationRecord {
+    period: string;
+    location: string;
+    stateDescription: string;
+    sectorid: string;
+    sectorDescription: string;
+    fueltypeid: string;
+    fuelTypeDescription: string;
+    generation: string;
+    "generation-units": string;
+}
+
+interface ResponseData {
+    total: string;
+    dateFormat: string;
+    frequency: string;
+    data: GenerationRecord[];
+    description: String;
+}
+
+interface RawDataStructure {
+    response: ResponseData;
+    request: null;
+    apiVersion: String;
+    ExcelAddInVersion: String;
+}
+
+const rawData: RawDataStructure = {
     "response": {
         "total": "1626",
         "dateFormat": "YYYY-MM",

@@ -49,4 +49,4 @@ if __name__ == "__main__":
     apiKey = os.environ.get('EIA_API_KEY')
     eiaURL = "https://api.eia.gov/v2/electricity/electric-power-operational-data/data/?frequency=monthly&data[0]=generation&facets[fueltypeid][]=COW&facets[fueltypeid][]=HYC&facets[fueltypeid][]=NGO&facets[fueltypeid][]=NUC&facets[fueltypeid][]=TSN&facets[fueltypeid][]=WND&facets[location][]=US&facets[sectorid][]=99&sort[0][column]=period&sort[0][direction]=desc&offset=0&length=5000&api_key=" + apiKey
 
-    get_url_and_save(eiaURL, "data.js")
+    get_url_and_save(eiaURL, "data.ts")
