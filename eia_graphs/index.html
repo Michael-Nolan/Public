@@ -181,105 +181,11 @@
 
 
     <!-- Link the external JavaScript file containing data -->
-    <script type="text/javascript" src="data.js" defer></script>
-    <script type="text/javascript" src="process_data.js" defer></script>
-    <script type="text/javascript" src="plot.js" defer></script>
-
-    <script>
-        let lookbackWindow = 12; // Options are 1 or 12.
-        let rollingWindow = 12; // Options are 1 or 12.
-        let data = null;
-
-        function handleSelection(radioButton) {
-            // Update the result div
-            document.getElementById("selected-option").textContent = radioButton.value;
-            document.getElementById("result").style.display = "block";
-
-            switch (radioButton.id) {
-                case "category-option1":
-                    data = allSourceData;
-                    break;
-                case "category-option2":
-                    data = twoSourceData;
-                    break;
-                case "category-option3":
-                    data = threeSourceData;
-                    break;
-            }
-            plotAll();
-        }
-
-        function handleLookbackSelection(radioButton) {
-            document.getElementById("selected-option2").textContent = radioButton.value;
-            document.getElementById("result2").style.display = "block";
-            // parse numeric lookback (e.g. "12 Month Lookback" -> 12)
-            const parsed = parseInt(radioButton.value, 10);
-            if (!isNaN(parsed)) {
-                lookbackWindow = parsed;
-            } else {
-                lookbackWindow = 12; // default
-            }
-
-            const selectedCategory = document.querySelector('.radio-container input[name="category"]:checked');
-            if (selectedCategory) {
-                handleSelection(selectedCategory);
-            } else {
-                plotAll();
-            }
-
-        }
-
-        function handleRollingSelection(radioButton) {
-            document.getElementById("selected-option3").textContent = radioButton.value;
-            document.getElementById("result3").style.display = "block";
-            // parse numeric lookback (e.g. "12 Month Lookback" -> 12)
-            const parsed = parseInt(radioButton.value, 10);
-            if (!isNaN(parsed)) {
-                rollingWindow = parsed;
-            } else {
-                rollingWindow = 12; // default
-            }
-
-            const selectedCategory = document.querySelector('.radio-container input[name="category"]:checked');
-            if (selectedCategory) {
-                handleSelection(selectedCategory);
-            } else {
-                plotAll();
-            }
-
-        }
-
-
-        function plotAll() {
-            plotNetGen(plotNetGenDiv, convertToRolling(structuredClone(data), rollingWindow), "Net Generation by Source " + getRollingText());
-            plotPercentGen(plotPercentGenDiv, convertToRolling(structuredClone(data), rollingWindow), "Percent Generation by Source " + getRollingText());
-            plotPercentGrowth(plotPercentGrowthDiv, calculateGrowth(convertToRolling(structuredClone(data), rollingWindow), lookbackWindow), "Percent Growth " + getLookbackText());
-            plotNetGen(plotAbsoluteGrowthDiv, calculateAbsoluteGrowth(convertToRolling(structuredClone(data), rollingWindow), lookbackWindow), "Absolute Value Growth " + getLookbackText());
-
-            plotNetGen(plotForecastDiv, extendDataByGrowth(convertToRolling(structuredClone(data), 12), 5, 12), "Forecasted Net Generation by Source: Based on " + (lookbackWindow == 12 ? "Year-over-Year Change in Trailing 12 Month Growth" : "Monthly Change in Trailing 12 Month Growth"));
-        }
-
-        function getRollingText() {
-            if (rollingWindow == 1) {
-                return "(Monthly)"
-            }
-            return "(Trailing 12 Month)"
-        }
-
-        function getLookbackText() {
-            if (rollingWindow == 1 && lookbackWindow == 1) { return "(Month-over-Month Growth)" }
-            if (rollingWindow == 1 && lookbackWindow == 12) { return "(Year-over-Year Monthly Growth)" }
-            if (rollingWindow == 12 && lookbackWindow == 1) { return "(Monthly Change in Trailing 12 Month)" }
-            if (rollingWindow == 12 && lookbackWindow == 12) { return "(Year-over-Year Change in Trailing 12 Month Growth)" }
-        }
-
-
-    </script>
-
-
+    <script type="text/javascript" src="built/data.js" defer></script>
+    <script type="text/javascript" src="built/process_data.js" defer></script>
+    <script type="text/javascript" src="built/plot.js" defer></script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            data = allSourceData
             plotAll();
         });
     </script>

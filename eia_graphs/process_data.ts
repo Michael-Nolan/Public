@@ -51,7 +51,7 @@ function groupByType(data: GenerationRecord[]): Map<string, GenerationRecord[]> 
     if (!groupedData.has(fuelType)) {
       groupedData.set(fuelType, []);
     }
-    let obj = groupedData.get(fuelType)
+    const obj = groupedData.get(fuelType)
     assertNotUndefined(obj)
     obj.push(item);
   });
@@ -65,7 +65,7 @@ interface ProcessedResult {
 }
 
 function convertProcessedResultToMap(input: ProcessedResult): Map<string, number> {
-  let output = new Map<string, number>();
+  const output = new Map<string, number>();
   for (let idx = 0; idx < input.x.length && idx < input.y.length; idx++) {
     const date = input.x[idx];
     const value = input.y[idx];
@@ -78,7 +78,7 @@ function convertProcessedResultToMap(input: ProcessedResult): Map<string, number
 }
 
 function convertMapLayoutToArrayLayout(data: Map<string, Map<string, number>>): Map<string, ProcessedResult> {
-  let result = new Map<string, ProcessedResult>()
+  const result = new Map<string, ProcessedResult>()
 
   data.forEach((value, key) => {
     const x: string[] = [];
@@ -132,7 +132,7 @@ function processRawData(data: GenerationRecord[]): Map<string, ProcessedResult> 
 function mergeCategories(data: Map<string, ProcessedResult>, mergeMap: Map<string, string>): Map<string, ProcessedResult> {
   const maps = new Map<string, Map<string, number>>();
   data.forEach((value, key) => {
-    let dateToValueMap = convertProcessedResultToMap(value)
+    const dateToValueMap = convertProcessedResultToMap(value)
 
     const newKey = mergeMap.get(key)
     assertNotUndefined(newKey)
@@ -153,12 +153,12 @@ function mergeCategories(data: Map<string, ProcessedResult>, mergeMap: Map<strin
   return convertMapLayoutToArrayLayout(maps)
 }
 
-function convertToRolling(data:Map<string, ProcessedResult>, windowSize:number) {
+function convertToRolling(data: Map<string, ProcessedResult>, windowSize: number) {
   const result = new Map();
 
   data.forEach((value, key) => {
-    let newX = [];
-    let newY = [];
+    const newX = [];
+    const newY = [];
 
     let sum = 0;
     for (let i = 0; i < value.x.length; i++) {
@@ -191,12 +191,12 @@ function convertToRolling(data:Map<string, ProcessedResult>, windowSize:number) 
   return result;
 }
 
-function calculateGrowth(data:Map<string, ProcessedResult>, windowSize:number) {
+function calculateGrowth(data: Map<string, ProcessedResult>, windowSize: number) {
   const result = new Map();
 
   data.forEach((value, key) => {
-    let newX = [];
-    let newY = [];
+    const newX = [];
+    const newY = [];
 
     for (let i = windowSize; i < value.y.length; i++) {
       const currentValue = value.y[i];
@@ -219,12 +219,12 @@ function calculateGrowth(data:Map<string, ProcessedResult>, windowSize:number) {
   return result;
 }
 
-function calculateAbsoluteGrowth(data:Map<string, ProcessedResult>, windowSize:number):Map<string,ProcessedResult> {
-  const result = new Map<string,ProcessedResult>();
+function calculateAbsoluteGrowth(data: Map<string, ProcessedResult>, windowSize: number): Map<string, ProcessedResult> {
+  const result = new Map<string, ProcessedResult>();
 
   data.forEach((value, key) => {
-    const newX:string[] = [];
-    const newY:number[] = [];
+    const newX: string[] = [];
+    const newY: number[] = [];
 
     for (let i = windowSize; i < value.y.length; i++) {
       // Calculate absolute difference instead of percentage change
@@ -249,11 +249,11 @@ function calculateAbsoluteGrowth(data:Map<string, ProcessedResult>, windowSize:n
   return result;
 }
 
-function extendDataByGrowth(data:Map<string, ProcessedResult>, yearsToExtend = 5, lookback = 12):Map<string,ProcessedResult> {
-  const result = new Map<string,ProcessedResult>();
+function extendDataByGrowth(data: Map<string, ProcessedResult>, yearsToExtend = 5, lookback = 12): Map<string, ProcessedResult> {
+  const result = new Map<string, ProcessedResult>();
   const monthsToExtend = yearsToExtend * 12;
 
-  let ul = document.getElementById('CAGR');
+  const ul = document.getElementById('CAGR');
   assertNotNull(ul)
   ul.replaceChildren();
 
@@ -276,8 +276,8 @@ function extendDataByGrowth(data:Map<string, ProcessedResult>, yearsToExtend = 5
     monthlyFactor = Math.pow(endVal / startVal, 1 / periods);
 
 
-    let li = document.createElement('li');
-    let growthType = lookback == 12 ? "Current Yearly Growth" : "Current Monthly Growth";
+    const li = document.createElement('li');
+    const growthType = lookback == 12 ? "Current Yearly Growth" : "Current Monthly Growth";
     li.textContent = growthType + " - " + key + ': ' + (((endVal / startVal) - 1) * 100).toFixed(2) + "%";
     ul.appendChild(li);
 
@@ -290,7 +290,7 @@ function extendDataByGrowth(data:Map<string, ProcessedResult>, yearsToExtend = 5
 
 
       // increment month YYYY-MM
-      const dateParts:string[] = lastDate.split('-')
+      const dateParts: string[] = lastDate.split('-')
       const yrStr = dateParts[0]
       const moStr = dateParts[1]
       assertNotUndefined(yrStr)
@@ -325,4 +325,97 @@ function assertNotNull<T>(value: T | null): asserts value is T {
   if (value === null) {
     throw new Error("Value is null");
   }
+}
+
+
+
+ let lookbackWindow = 12; // Options are 1 or 12.
+        let rollingWindow = 12; // Options are 1 or 12.
+        let data = allSourceData;
+
+        function plotAll() {
+            plotNetGen(plotNetGenDiv, convertToRolling(structuredClone(data), rollingWindow), "Net Generation by Source " + getRollingText());
+            plotPercentGen(plotPercentGenDiv, convertToRolling(structuredClone(data), rollingWindow), "Percent Generation by Source " + getRollingText());
+            plotPercentGrowth(plotPercentGrowthDiv, calculateGrowth(convertToRolling(structuredClone(data), rollingWindow), lookbackWindow), "Percent Growth " + getLookbackText());
+            plotNetGen(plotAbsoluteGrowthDiv, calculateAbsoluteGrowth(convertToRolling(structuredClone(data), rollingWindow), lookbackWindow), "Absolute Value Growth " + getLookbackText());
+            plotNetGen(plotForecastDiv, extendDataByGrowth(convertToRolling(structuredClone(data), 12), 5, 12), "Forecasted Net Generation by Source: Based on " + (lookbackWindow == 12 ? "Year-over-Year Change in Trailing 12 Month Growth" : "Monthly Change in Trailing 12 Month Growth"));
+        }
+
+
+        function handleSelection(radioButton) {
+            // Update the result div
+            document.getElementById("selected-option").textContent = radioButton.value;
+            document.getElementById("result").style.display = "block";
+
+            switch (radioButton.id) {
+                case "category-option1":
+                    data = allSourceData;
+                    break;
+                case "category-option2":
+                    data = twoSourceData;
+                    break;
+                case "category-option3":
+                    data = threeSourceData;
+                    break;
+            }
+            plotAll();
+        }
+
+        function handleLookbackSelection(radioButton) {
+            document.getElementById("selected-option2").textContent = radioButton.value;
+            document.getElementById("result2").style.display = "block";
+            // parse numeric lookback (e.g. "12 Month Lookback" -> 12)
+            const parsed = parseInt(radioButton.value, 10);
+            if (!isNaN(parsed)) {
+                lookbackWindow = parsed;
+            } else {
+                lookbackWindow = 12; // default
+            }
+
+            const selectedCategory = document.querySelector('.radio-container input[name="category"]:checked');
+            if (selectedCategory) {
+                handleSelection(selectedCategory);
+            } else {
+                plotAll();
+            }
+
+        }
+
+        function handleRollingSelection(radioButton) {
+            document.getElementById("selected-option3").textContent = radioButton.value;
+            document.getElementById("result3").style.display = "block";
+            // parse numeric lookback (e.g. "12 Month Lookback" -> 12)
+            const parsed = parseInt(radioButton.value, 10);
+            if (!isNaN(parsed)) {
+                rollingWindow = parsed;
+            } else {
+                rollingWindow = 12; // default
+            }
+
+            const selectedCategory = document.querySelector('.radio-container input[name="category"]:checked');
+            if (selectedCategory) {
+                handleSelection(selectedCategory);
+            } else {
+                plotAll();
+            }
+
+        }
+
+
+
+
+
+
+function getRollingText() {
+  if (rollingWindow == 1) {
+    return "(Monthly)"
+  }
+  return "(Trailing 12 Month)"
+}
+
+function getLookbackText() {
+  if (rollingWindow == 1 && lookbackWindow == 1) { return "(Month-over-Month Growth)" }
+  if (rollingWindow == 1 && lookbackWindow == 12) { return "(Year-over-Year Monthly Growth)" }
+  if (rollingWindow == 12 && lookbackWindow == 1) { return "(Monthly Change in Trailing 12 Month)" }
+  if (rollingWindow == 12 && lookbackWindow == 12) { return "(Year-over-Year Change in Trailing 12 Month Growth)" }
 }
