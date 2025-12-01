@@ -15,14 +15,14 @@ interface ResponseData {
     dateFormat: string;
     frequency: string;
     data: GenerationRecord[];
-    description: String;
+    description: string;
 }
 
 interface RawDataStructure {
     response: ResponseData;
     request: null;
-    apiVersion: String;
-    ExcelAddInVersion: String;
+    apiVersion: string;
+    ExcelAddInVersion: string;
 }
 
 const rawData: RawDataStructure = {

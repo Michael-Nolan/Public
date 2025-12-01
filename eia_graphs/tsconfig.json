@@ -1,14 +1,13 @@
 {
     "files": [
         "data.ts",
-        "process_data.ts"
+        "process_data.ts",
+        "plot.ts"
     ],
-    "include": [
-        "data.ts",
-        "process_data.ts"
-    ],
+
     "compilerOptions": {
-        "target": "es2022",
+        "outDir": "./built",
+        "target": "es2024",
         // Enable all strict type checking options
         "strict": true,
         // Additional strict checks not included in "strict"
@@ -28,6 +27,8 @@
         "esModuleInterop": false,
         "forceConsistentCasingInFileNames": true,
         // Deprecated code detection
-        "noUncheckedSideEffectImports": true
+        "noUncheckedSideEffectImports": true,
+        "noImplicitAny": true,
+        "strictNullChecks": true,
     }
 }

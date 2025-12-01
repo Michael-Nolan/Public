@@ -1,3 +1,4 @@
+
 function plotNetGen(name, data, plotTitle) {
   let dd = [];
   data.forEach((value, key) => {
@@ -17,7 +18,7 @@ function plotPercentGen(name, data, plotTitle) {
     dd.push(value)
   });
 
-  layout = buildLayout(name, plotTitle)
+  let layout = buildLayout(name, plotTitle)
   Plotly.newPlot(name, dd, layout, makePlotConfig());
 }
 
