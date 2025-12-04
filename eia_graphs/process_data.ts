@@ -207,14 +207,9 @@ function calculateGrowth(data: Map<string, ProcessedResult>, windowSize: number)
       assertNotUndefined(currentValue)
       assertNotUndefined(oldValue)
 
-      const periods:number = windowSize / 12
-      const cagr = ((Math.pow(currentValue / oldValue, 1 / periods) - 1));
-
-
-      assertNotUndefined(cagr)
       let date = value.x[i];
       assertNotUndefined(date)
-      newY.push(cagr);
+      newY.push(((currentValue - oldValue) / oldValue));
       newX.push(date);
     }
 
