@@ -153,11 +153,11 @@ function mergeCategories(data: Map<string, ProcessedResult>, mergeMap: Map<strin
   return convertMapLayoutToArrayLayout(maps)
 }
 
-function convertToRolling(data: Map<string, ProcessedResult>, windowSize: number) {
-  const result = new Map();
+function convertToRolling(data: Map<string, ProcessedResult>, windowSize: number): Map<string, ProcessedResult> {
+  const result = new Map<string, ProcessedResult>();
 
   data.forEach((value, key) => {
-    const newX = [];
+    const newX:string[] = [];
     const newY = [];
 
     let sum = 0;
@@ -177,7 +177,9 @@ function convertToRolling(data: Map<string, ProcessedResult>, windowSize: number
       }
 
       newY.push(sum);
-      newX.push(value.x[i]);
+      let date = value.x[i];
+      assertNotUndefined(date)
+      newX.push(date);
     }
 
     // Assign to result
@@ -191,22 +193,30 @@ function convertToRolling(data: Map<string, ProcessedResult>, windowSize: number
   return result;
 }
 
-function calculateGrowth(data: Map<string, ProcessedResult>, windowSize: number) {
-  const result = new Map();
+
+function calculateGrowth(data: Map<string, ProcessedResult>, windowSize: number): Map<string, ProcessedResult> {
+  const result = new Map<string, ProcessedResult>();
 
   data.forEach((value, key) => {
-    const newX = [];
-    const newY = [];
+    const newX:string[] = [];
+    const newY:number[] = [];
 
     for (let i = windowSize; i < value.y.length; i++) {
       const currentValue = value.y[i];
       const oldValue = value.y[i - windowSize]
       assertNotUndefined(currentValue)
       assertNotUndefined(oldValue)
-      newY.push(((currentValue - oldValue) / oldValue));
-      newX.push(value.x[i]);
-    }
 
+      const periods:number = windowSize / 12
+      const cagr = ((Math.pow(currentValue / oldValue, 1 / periods) - 1));
+
+
+      assertNotUndefined(cagr)
+      let date = value.x[i];
+      assertNotUndefined(date)
+      newY.push(cagr);
+      newX.push(date);
+    }
 
     // Assign to result
     result.set(key, {
@@ -249,13 +259,9 @@ function calculateAbsoluteGrowth(data: Map<string, ProcessedResult>, windowSize:
   return result;
 }
 
-function extendDataByGrowth(data: Map<string, ProcessedResult>, yearsToExtend = 5, lookback = 12): Map<string, ProcessedResult> {
+function extendDataByGrowth(data: Map<string, ProcessedResult>, yearsToExtend = 5, lookback:number): Map<string, ProcessedResult> {
   const result = new Map<string, ProcessedResult>();
   const monthsToExtend = yearsToExtend * 12;
-
-  const ul = document.getElementById('CAGR');
-  assertNotNull(ul)
-  ul.replaceChildren();
 
   data.forEach((value, key) => {
     const x = value.x.slice();
@@ -274,12 +280,6 @@ function extendDataByGrowth(data: Map<string, ProcessedResult>, yearsToExtend = 
 
     const periods = lookback;
     monthlyFactor = Math.pow(endVal / startVal, 1 / periods);
-
-
-    const li = document.createElement('li');
-    const growthType = lookback == 12 ? "Current Yearly Growth" : "Current Monthly Growth";
-    li.textContent = growthType + " - " + key + ': ' + (((endVal / startVal) - 1) * 100).toFixed(2) + "%";
-    ul.appendChild(li);
 
     let lastDate = x[len - 1];
     assertNotUndefined(lastDate)
@@ -321,85 +321,75 @@ function assertNotUndefined<T>(value: T | undefined): asserts value is T {
   }
 }
 
-function assertNotNull<T>(value: T | null): asserts value is T {
+function assertNotNull<T>(value: T | null): T {
   if (value === null) {
     throw new Error("Value is null");
   }
+  return value
 }
 
 
 
- let lookbackWindow = 12; // Options are 1 or 12.
-        let rollingWindow = 12; // Options are 1 or 12.
-        let data = allSourceData;
+let lookbackWindow = 12; // Options are 1 or 12.
+let rollingWindow = 12; // Options are 1 or 12.
+let data = allSourceData;
 
-        function plotAll() {
-            plotNetGen(plotNetGenDiv, convertToRolling(structuredClone(data), rollingWindow), "Net Generation by Source " + getRollingText());
-            plotPercentGen(plotPercentGenDiv, convertToRolling(structuredClone(data), rollingWindow), "Percent Generation by Source " + getRollingText());
-            plotPercentGrowth(plotPercentGrowthDiv, calculateGrowth(convertToRolling(structuredClone(data), rollingWindow), lookbackWindow), "Percent Growth " + getLookbackText());
-            plotNetGen(plotAbsoluteGrowthDiv, calculateAbsoluteGrowth(convertToRolling(structuredClone(data), rollingWindow), lookbackWindow), "Absolute Value Growth " + getLookbackText());
-            plotNetGen(plotForecastDiv, extendDataByGrowth(convertToRolling(structuredClone(data), 12), 5, 12), "Forecasted Net Generation by Source: Based on " + (lookbackWindow == 12 ? "Year-over-Year Change in Trailing 12 Month Growth" : "Monthly Change in Trailing 12 Month Growth"));
-        }
+let forcastLookbackWindow = 12;
+
+function handleColumnSelect(x:number):void{
+forcastLookbackWindow = x;
+plotAll()
+}
+
+function plotAll():void {
+  plotNetGen(plotNetGenDiv, convertToRolling(structuredClone(data), rollingWindow), "Net Generation by Source " + getRollingText());
+  plotPercentGen(plotPercentGenDiv, convertToRolling(structuredClone(data), rollingWindow), "Percent Generation by Source " + getRollingText());
+  plotPercentGrowth(plotPercentGrowthDiv, calculateGrowth(convertToRolling(structuredClone(data), rollingWindow), lookbackWindow), "Percent Growth " + getLookbackText());
+  plotNetGen(plotAbsoluteGrowthDiv, calculateAbsoluteGrowth(convertToRolling(structuredClone(data), rollingWindow), lookbackWindow), "Absolute Value Growth " + getLookbackText());
+  
+  
+  plotNetGen(plotForecastDiv, extendDataByGrowth(convertToRolling(structuredClone(data), 12), 5, forcastLookbackWindow), "Forecasted Net Generation by Source: Based on " + (lookbackWindow == 12 ? "Year-over-Year Change in Trailing 12 Month Growth" : "Monthly Change in Trailing 12 Month Growth"));
+
+  calculateCAGRGrowth(convertToRolling(structuredClone(data), 12));
+}
 
 
-        function handleSelection(radioButton) {
-            // Update the result div
-            document.getElementById("selected-option").textContent = radioButton.value;
-            document.getElementById("result").style.display = "block";
+function handleSelection(radioButton:HTMLInputElement) {
+  switch (radioButton.id) {
+    case "category-option1":
+      data = allSourceData;
+      break;
+    case "category-option2":
+      data = twoSourceData;
+      break;
+    case "category-option3":
+      data = threeSourceData;
+      break;
+  }
+  plotAll();
+}
 
-            switch (radioButton.id) {
-                case "category-option1":
-                    data = allSourceData;
-                    break;
-                case "category-option2":
-                    data = twoSourceData;
-                    break;
-                case "category-option3":
-                    data = threeSourceData;
-                    break;
-            }
-            plotAll();
-        }
+function handleLookbackSelection(radioButton:HTMLInputElement) {
+  // parse numeric lookback (e.g. "12 Month Lookback" -> 12)
+  const parsed = parseInt(radioButton.value, 10);
+  if (!isNaN(parsed)) {
+    lookbackWindow = parsed;
+  } else {
+    lookbackWindow = 12; // default
+  }
+  plotAll();
+}
 
-        function handleLookbackSelection(radioButton) {
-            document.getElementById("selected-option2").textContent = radioButton.value;
-            document.getElementById("result2").style.display = "block";
-            // parse numeric lookback (e.g. "12 Month Lookback" -> 12)
-            const parsed = parseInt(radioButton.value, 10);
-            if (!isNaN(parsed)) {
-                lookbackWindow = parsed;
-            } else {
-                lookbackWindow = 12; // default
-            }
-
-            const selectedCategory = document.querySelector('.radio-container input[name="category"]:checked');
-            if (selectedCategory) {
-                handleSelection(selectedCategory);
-            } else {
-                plotAll();
-            }
-
-        }
-
-        function handleRollingSelection(radioButton) {
-            document.getElementById("selected-option3").textContent = radioButton.value;
-            document.getElementById("result3").style.display = "block";
-            // parse numeric lookback (e.g. "12 Month Lookback" -> 12)
-            const parsed = parseInt(radioButton.value, 10);
-            if (!isNaN(parsed)) {
-                rollingWindow = parsed;
-            } else {
-                rollingWindow = 12; // default
-            }
-
-            const selectedCategory = document.querySelector('.radio-container input[name="category"]:checked');
-            if (selectedCategory) {
-                handleSelection(selectedCategory);
-            } else {
-                plotAll();
-            }
-
-        }
+function handleRollingSelection(radioButton:HTMLInputElement) {
+  // parse numeric lookback (e.g. "12 Month Lookback" -> 12)
+  const parsed = parseInt(radioButton.value, 10);
+  if (!isNaN(parsed)) {
+    rollingWindow = parsed;
+  } else {
+    rollingWindow = 12; // default
+  }
+  plotAll();
+}
 
 
 
@@ -407,10 +397,9 @@ function assertNotNull<T>(value: T | null): asserts value is T {
 
 
 function getRollingText() {
-  if (rollingWindow == 1) {
-    return "(Monthly)"
-  }
-  return "(Trailing 12 Month)"
+  if (rollingWindow == 1) {return "(Monthly)"}
+  if (rollingWindow == 12) {return "(Trailing 12 Month)"}
+  throw new Error("getRollingText failed to match");
 }
 
 function getLookbackText() {
@@ -418,4 +407,65 @@ function getLookbackText() {
   if (rollingWindow == 1 && lookbackWindow == 12) { return "(Year-over-Year Monthly Growth)" }
   if (rollingWindow == 12 && lookbackWindow == 1) { return "(Monthly Change in Trailing 12 Month)" }
   if (rollingWindow == 12 && lookbackWindow == 12) { return "(Year-over-Year Change in Trailing 12 Month Growth)" }
+  throw new Error("getLookbackText failed to match");
+}
+
+
+function calculateCAGRGrowth(data: Map<string, ProcessedResult>) {
+  const lookbacks = [1, 12, 24, 36]
+
+  data.forEach((value, key) => {
+    const y = value.y.slice();
+    const len = y.length;
+    // CAGR = (Ending Value / Beginning Value)^(1 / Number of Periods) - 1.
+    lookbacks.forEach((lookback) => {
+
+      const startIndex = len - 1 - lookback;
+      const startVal = y[startIndex];
+      const endVal = y[len - 1];
+
+      assertNotUndefined(endVal)
+      assertNotUndefined(startVal)
+
+      const periods:number = lookback / 12
+
+      const cagr = ((Math.pow(endVal / startVal, 1 / periods) - 1) * 100).toFixed(2) + "%";
+
+
+      if (key == "Solar" && lookback == 1){document.getElementById('CAGR_SOLAR_1')!.textContent = cagr;}
+      if (key == "Solar" && lookback == 12){document.getElementById('CAGR_SOLAR_12')!.textContent = cagr;}
+      if (key == "Solar" && lookback == 24){document.getElementById('CAGR_SOLAR_24')!.textContent = cagr;}
+      if (key == "Solar" && lookback == 36){document.getElementById('CAGR_SOLAR_36')!.textContent = cagr;}
+
+
+      if (key == "Wind" && lookback == 1){document.getElementById('CAGR_WIND_1')!.textContent = cagr;}
+      if (key == "Wind" && lookback == 12){document.getElementById('CAGR_WIND_12')!.textContent = cagr;}
+      if (key == "Wind" && lookback == 24){document.getElementById('CAGR_WIND_24')!.textContent = cagr;}
+      if (key == "Wind" && lookback == 36){document.getElementById('CAGR_WIND_36')!.textContent = cagr;}
+
+
+      if (key == "Coal" && lookback == 1){document.getElementById('CAGR_COAL_1')!.textContent = cagr;}
+      if (key == "Coal" && lookback == 12){document.getElementById('CAGR_COAL_12')!.textContent = cagr;}
+      if (key == "Coal" && lookback == 24){document.getElementById('CAGR_COAL_24')!.textContent = cagr;}
+      if (key == "Coal" && lookback == 36){document.getElementById('CAGR_COAL_36')!.textContent = cagr;}
+
+
+      if (key == "Hydroelectric" && lookback == 1){document.getElementById('CAGR_HYDRO_1')!.textContent = cagr;}
+      if (key == "Hydroelectric" && lookback == 12){document.getElementById('CAGR_HYDRO_12')!.textContent = cagr;}
+      if (key == "Hydroelectric" && lookback == 24){document.getElementById('CAGR_HYDRO_24')!.textContent = cagr;}
+      if (key == "Hydroelectric" && lookback == 36){document.getElementById('CAGR_HYDRO_36')!.textContent = cagr;}
+
+
+      if (key == "Nuclear" && lookback == 1){document.getElementById('CAGR_NUCLEAR_1')!.textContent = cagr;}
+      if (key == "Nuclear" && lookback == 12){document.getElementById('CAGR_NUCLEAR_12')!.textContent = cagr;}
+      if (key == "Nuclear" && lookback == 24){document.getElementById('CAGR_NUCLEAR_24')!.textContent = cagr;}
+      if (key == "Nuclear" && lookback == 36){document.getElementById('CAGR_NUCLEAR_36')!.textContent = cagr;}
+
+
+      if (key == "Natural Gas" && lookback == 1){document.getElementById('CAGR_NATGAS_1')!.textContent = cagr;}
+      if (key == "Natural Gas" && lookback == 12){document.getElementById('CAGR_NATGAS_12')!.textContent = cagr;}
+      if (key == "Natural Gas" && lookback == 24){document.getElementById('CAGR_NATGAS_24')!.textContent = cagr;}
+      if (key == "Natural Gas" && lookback == 36){document.getElementById('CAGR_NATGAS_36')!.textContent = cagr;}
+    });
+  });
 }
