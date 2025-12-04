@@ -24,6 +24,12 @@
         .radio-container3 {
             margin: 10px;
         }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
     </style>
 </head>
 
@@ -45,7 +51,7 @@
 
             <div class="option">
                 <input type="radio" id="category-option1" name="category" value="All Sources"
-                    onchange="handleSelection(this)">
+                    onchange="handleSelection(this)" checked>
                 <label for="category-option1">All Sources</label>
             </div>
 
@@ -73,7 +79,7 @@
 
             <div class="option">
                 <input type="radio" id="lookback-option2" name="lookback" value="12 Month Lookback"
-                    onchange="handleLookbackSelection(this)">
+                    onchange="handleLookbackSelection(this)" checked>
                 <label for="lookback-option2">12 Month Lookback</label>
             </div>
         </div>
@@ -88,22 +94,12 @@
 
             <div class="option">
                 <input type="radio" id="rolling-option2" name="rolling" value="12 Month rolling"
-                    onchange="handleRollingSelection(this)">
+                    onchange="handleRollingSelection(this)" checked>
                 <label for="rolling-option2">12 Month rolling</label>
             </div>
         </div>
     </div>
 
-
-    <div id="result" class="result">
-        <p>You selected Group By: <span id="selected-option">All Sources</span></p>
-    </div>
-    <div id="result2" class="result2">
-        <p>You selected: <span id="selected-option2">12 Month Lookback</span></p>
-    </div>
-    <div id="result3" class="result3">
-        <p>You selected: <span id="selected-option3">12 Month Rolling</span></p>
-    </div>
     <div>
         <strong>Jump to:</strong>
         <ul>
@@ -124,58 +120,65 @@
     <div>
         <h2 style="display: flex; justify-content: center;">This is a simple naive forecast that just projects the
             current growth forward 5 years.</h2>
-        <ul id="CAGR"></ul>
+        <div>
+            <table>
+                <tr>
+                    <th>Source</th>
+                    <th><input type="radio" name="column" value="growth-36" onclick="handleColumnSelect(36)">
+                        Annualized Growth (36-mo)</th>
+                    <th><input type="radio" name="column" value="growth-24" onclick="handleColumnSelect(24)">
+                        Annualized Growth (24-mo)</th>
+                    <th><input type="radio" name="column" value="growth-12" onclick="handleColumnSelect(12)" checked>
+                        Annualized Growth (12-mo)</th>
+                    <th><input type="radio" name="column" value="growth-1" onclick="handleColumnSelect(1)">
+                        Annualized Growth (1-mo)</th>
+                </tr>
+                <tr>
+                    <td><b>Solar</b></td>
+                    <td id="CAGR_SOLAR_36">todo</td>
+                    <td id="CAGR_SOLAR_24">todo</td>
+                    <td id="CAGR_SOLAR_12">todo</td>
+                    <td id="CAGR_SOLAR_1">todo</td>
+                </tr>
+                <tr>
+                    <td><b>Wind</b></td>
+                    <td id="CAGR_WIND_36">todo</td>
+                    <td id="CAGR_WIND_24">todo</td>
+                    <td id="CAGR_WIND_12">todo</td>
+                    <td id="CAGR_WIND_1">todo</td>
+                </tr>
+                <tr>
+                    <td><b>Natural Gas</b></td>
+                    <td id="CAGR_NATGAS_36">todo</td>
+                    <td id="CAGR_NATGAS_24">todo</td>
+                    <td id="CAGR_NATGAS_12">todo</td>
+                    <td id="CAGR_NATGAS_1">todo</td>
+                </tr>
+                <tr>
+                    <td><b>Coal</b></td>
+                    <td id="CAGR_COAL_36">todo</td>
+                    <td id="CAGR_COAL_24">todo</td>
+                    <td id="CAGR_COAL_12">todo</td>
+                    <td id="CAGR_COAL_1">todo</td>
+                </tr>
+                <tr>
+                    <td><b>Hydroelectric</b></td>
+                    <td id="CAGR_HYDRO_36">todo</td>
+                    <td id="CAGR_HYDRO_24">todo</td>
+                    <td id="CAGR_HYDRO_12">todo</td>
+                    <td id="CAGR_HYDRO_1">todo</td>
+                </tr>
+                <tr>
+                    <td><b>Nuclear</b></td>
+                    <td id="CAGR_NUCLEAR_36">todo</td>
+                    <td id="CAGR_NUCLEAR_24">todo</td>
+                    <td id="CAGR_NUCLEAR_12">todo</td>
+                    <td id="CAGR_NUCLEAR_1">todo</td>
+                </tr>
+            </table>
+        </div>
         <div id="plotForecastDiv" style="display: flex; justify-content: center;"></div>
     </div>
-
-
-
-    <!-- <div>
-        <table>
-            <tr>
-                <th>Source</th>
-                <th>Annualized Growth (24-mo)</th>
-                <th>Annualized Growth (12-mo)</th>
-                <th>Annualized Growth (1-mo)</th>
-            </tr>
-            <tr>
-                <td><b>Solar</b></td>
-                <td id="CAGR_SOLAR_24">todo</td>
-                <td id="CAGR_SOLAR_12">todo</td>
-                <td id="CAGR_SOLAR_1">todo</td>
-            </tr>
-            <tr>
-                <td><b>Wind</b></td>
-                <td id="CAGR_WIND_24">todo</td>
-                <td id="CAGR_WIND_12">todo</td>
-                <td id="CAGR_WIND_1">todo</td>
-            </tr>
-            <tr>
-                <td><b>Natural Gas</b></td>
-                <td id="CAGR_NATGAS_24">todo</td>
-                <td id="CAGR_NATGAS_12">todo</td>
-                <td id="CAGR_NATGAS_1">todo</td>
-            </tr>
-            <tr>
-                <td><b>Coal</b></td>
-                <td id="CAGR_COAL_24">todo</td>
-                <td id="CAGR_COAL_12">todo</td>
-                <td id="CAGR_COAL_1">todo</td>
-            </tr>
-            <tr>
-                <td><b>Hydroelectric</b></td>
-                <td id="CAGR_HYDRO_24">todo</td>
-                <td id="CAGR_HYDRO_12">todo</td>
-                <td id="CAGR_HYDRO_1">todo</td>
-            </tr>
-            <tr>
-                <td><b>Nuclear</b></td>
-                <td id="CAGR_NUCLEAR_24">todo</td>
-                <td id="CAGR_NUCLEAR_12">todo</td>
-                <td id="CAGR_NUCLEAR_1">todo</td>
-            </tr>
-        </table>
-    </div> -->
 
 
 
