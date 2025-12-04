@@ -166,12 +166,9 @@ function calculateGrowth(data, windowSize) {
             const oldValue = value.y[i - windowSize];
             assertNotUndefined(currentValue);
             assertNotUndefined(oldValue);
-            const periods = windowSize / 12;
-            const cagr = ((Math.pow(currentValue / oldValue, 1 / periods) - 1));
-            assertNotUndefined(cagr);
             let date = value.x[i];
             assertNotUndefined(date);
-            newY.push(cagr);
+            newY.push(((currentValue - oldValue) / oldValue));
             newX.push(date);
         }
         // Assign to result
