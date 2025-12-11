@@ -25,7 +25,7 @@ interface RawDataStructure {
     ExcelAddInVersion: string;
 }
 
-const rawData: RawDataStructure = {
+const rawData: RawDataStructure = deepFreeze({
     "response": {
         "total": "1626",
         "dateFormat": "YYYY-MM",
@@ -17923,4 +17923,4 @@ const rawData: RawDataStructure = {
     "request": null,
     "apiVersion": "2.1.10",
     "ExcelAddInVersion": "2.1.0"
-};
+});

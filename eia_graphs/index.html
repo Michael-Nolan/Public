@@ -3,6 +3,16 @@
 
 <head>
     <script src="https://cdn.plot.ly/plotly-3.0.1.min.js" charset="utf-8"></script>
+    <!-- Link the external JavaScript file containing data -->
+     <script type="text/javascript" src="built/lib.js" defer></script>
+    <script type="text/javascript" src="built/data.js" defer></script>
+    <script type="text/javascript" src="built/process_data.js" defer></script>
+    <script type="text/javascript" src="built/plot.js" defer></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            plotAll();
+        });
+    </script>
 
     <style>
         html {
@@ -103,10 +113,11 @@
     <div>
         <strong>Jump to:</strong>
         <ul>
-            <li><a href="#plotNetGenRollingDiv"> Net Generation</a></li>
-            <li><a href="#plotPercentGenRollingDiv"> Percent Generation</a></li>
-            <li><a href="#plotPercentGrowthDiv"> Percent Generation Growth</a></li>
-            <li><a href="#plotAbsoluteGrowthDiv"> Absolute Generation Growth</a></li>
+            <li><a href="#plotNetGenRollingDiv">Net Generation</a></li>
+            <li><a href="#plotPercentGenRollingDiv">Percent Generation</a></li>
+            <li><a href="#plotPercentGrowthDiv">Percent Generation Growth</a></li>
+            <li><a href="#plotAbsoluteGrowthDiv">Absolute Generation Growth</a></li>
+            <li><a href="#plotForecastOuterDiv"> Five Year Forecast</a></li>
         </ul>
     </div>
 
@@ -117,7 +128,7 @@
     <div id="plotAbsoluteGrowthDiv" style="display: flex; justify-content: center;"></div>
 
 
-    <div>
+    <div id="plotForecastOuterDiv">
         <h2 style="display: flex; justify-content: center;">This is a simple naive forecast that just projects the
             current growth forward 5 years.</h2>
         <div>
@@ -179,19 +190,6 @@
         </div>
         <div id="plotForecastDiv" style="display: flex; justify-content: center;"></div>
     </div>
-
-
-
-
-    <!-- Link the external JavaScript file containing data -->
-    <script type="text/javascript" src="built/data.js" defer></script>
-    <script type="text/javascript" src="built/process_data.js" defer></script>
-    <script type="text/javascript" src="built/plot.js" defer></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            plotAll();
-        });
-    </script>
 </body>
 
 </html>

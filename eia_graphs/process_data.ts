@@ -4,44 +4,51 @@ const plotPercentGrowthDiv = "plotPercentGrowthDiv"
 const plotAbsoluteGrowthDiv = "plotAbsoluteGrowthDiv"
 const plotForecastDiv = "plotForecastDiv"
 
-const yAxisMap = new Map([
+const yAxisMap = deepFreeze(new Map([
   [plotNetGenDiv, '1,000 mwh'],
   [plotPercentGenDiv, 'Percent'],
   [plotPercentGrowthDiv, 'Percent'],
   [plotAbsoluteGrowthDiv, '1,000 mwh'],
   [plotForecastDiv, '1,000 mwh'],
-]);
+]));
 
-const nameMap = new Map([
+const nameMap = deepFreeze(new Map([
   ['all coal products', 'Coal'],
   ['wind', 'Wind'],
   ['estimated total solar', 'Solar'],
   ['nuclear', 'Nuclear'],
   ['natural gas & other gases', 'Natural Gas'],
   ['conventional hydroelectric', 'Hydroelectric']
-]);
+]));
 
-const cat3MergeMap = new Map([
+const cat3MergeMap = deepFreeze(new Map([
   ['Coal', 'Fossil Fuels'],
   ['Wind', 'Renewables'],
   ['Solar', 'Renewables'],
   ['Nuclear', 'Nuclear'],
   ['Natural Gas', 'Fossil Fuels'],
   ['Hydroelectric', 'Renewables']
-]);
+]));
 
-const cat2MergeMap = new Map([
+const cat2MergeMap = deepFreeze(new Map([
   ['Coal', 'Fossil Fuels'],
   ['Wind', 'Carbon Free'],
   ['Solar', 'Carbon Free'],
   ['Nuclear', 'Carbon Free'],
   ['Natural Gas', 'Fossil Fuels'],
   ['Hydroelectric', 'Carbon Free']
-]);
+]));
 
-const allSourceData = processRawData(rawData.response.data);
-const twoSourceData = mergeCategories(structuredClone(allSourceData), cat2MergeMap);
-const threeSourceData = mergeCategories(structuredClone(allSourceData), cat3MergeMap);
+const allSourceData = deepFreeze(processRawData(rawData.response.data));
+const twoSourceData = deepFreeze(mergeCategories(structuredClone(allSourceData), cat2MergeMap));
+const threeSourceData = deepFreeze(mergeCategories(structuredClone(allSourceData), cat3MergeMap));
+
+
+// Global State
+let lookbackWindow = 12; // Options are 1 or 12.
+let rollingWindow = 12; // Options are 1 or 12.
+let data = allSourceData;
+let forcastLookbackWindow = 12;
 
 function groupByType(data: GenerationRecord[]): Map<string, GenerationRecord[]> {
   const groupedData = new Map<string, GenerationRecord[]>();
@@ -157,7 +164,7 @@ function convertToRolling(data: Map<string, ProcessedResult>, windowSize: number
   const result = new Map<string, ProcessedResult>();
 
   data.forEach((value, key) => {
-    const newX:string[] = [];
+    const newX: string[] = [];
     const newY = [];
 
     let sum = 0;
@@ -194,22 +201,31 @@ function convertToRolling(data: Map<string, ProcessedResult>, windowSize: number
 }
 
 
-function calculateGrowth(data: Map<string, ProcessedResult>, windowSize: number): Map<string, ProcessedResult> {
+function calculatePercentGrowth(data: Map<string, ProcessedResult>, lookback: number, windowSize: number): Map<string, ProcessedResult> {
   const result = new Map<string, ProcessedResult>();
 
   data.forEach((value, key) => {
-    const newX:string[] = [];
-    const newY:number[] = [];
+    const newX: string[] = [];
+    const newY: number[] = [];
 
-    for (let i = windowSize; i < value.y.length; i++) {
+    for (let i = lookback; i < value.y.length; i++) {
       const currentValue = value.y[i];
-      const oldValue = value.y[i - windowSize]
+      const oldValue = value.y[i - lookback]
       assertNotUndefined(currentValue)
       assertNotUndefined(oldValue)
 
       let date = value.x[i];
       assertNotUndefined(date)
-      newY.push(((currentValue - oldValue) / oldValue));
+
+      const periods: number = lookback / 12
+      let growth = ((Math.pow(currentValue / oldValue, 1 / periods) - 1))
+
+      // CAGR gives wildly misleading results on non rolling data
+      if (windowSize < 12) {
+        growth = (currentValue - oldValue) / oldValue
+      }
+
+      newY.push(growth);
       newX.push(date);
     }
 
@@ -254,7 +270,7 @@ function calculateAbsoluteGrowth(data: Map<string, ProcessedResult>, windowSize:
   return result;
 }
 
-function extendDataByGrowth(data: Map<string, ProcessedResult>, yearsToExtend = 5, lookback:number): Map<string, ProcessedResult> {
+function extendDataByGrowth(data: Map<string, ProcessedResult>, yearsToExtend = 5, lookback: number): Map<string, ProcessedResult> {
   const result = new Map<string, ProcessedResult>();
   const monthsToExtend = yearsToExtend * 12;
 
@@ -324,32 +340,27 @@ function assertNotNull<T>(value: T | null): T {
 }
 
 
-
-let lookbackWindow = 12; // Options are 1 or 12.
-let rollingWindow = 12; // Options are 1 or 12.
-let data = allSourceData;
-
-let forcastLookbackWindow = 12;
-
-function handleColumnSelect(x:number):void{
-forcastLookbackWindow = x;
-plotAll()
+function handleColumnSelect(x: number): void {
+  forcastLookbackWindow = x;
+  plotAll()
 }
 
-function plotAll():void {
-  plotNetGen(plotNetGenDiv, convertToRolling(structuredClone(data), rollingWindow), "Net Generation by Source " + getRollingText());
-  plotPercentGen(plotPercentGenDiv, convertToRolling(structuredClone(data), rollingWindow), "Percent Generation by Source " + getRollingText());
-  plotPercentGrowth(plotPercentGrowthDiv, calculateGrowth(convertToRolling(structuredClone(data), rollingWindow), lookbackWindow), "Percent Growth " + getLookbackText());
-  plotNetGen(plotAbsoluteGrowthDiv, calculateAbsoluteGrowth(convertToRolling(structuredClone(data), rollingWindow), lookbackWindow), "Absolute Value Growth " + getLookbackText());
+function plotAll(): void {
+  const rollingData = deepFreeze(convertToRolling(structuredClone(data), rollingWindow))
+  const rollingData12 = deepFreeze(convertToRolling(structuredClone(data), 12))
+  const percentGrowthData = deepFreeze(calculatePercentGrowth(rollingData, lookbackWindow, rollingWindow))
+  const absoluteGrowthData = deepFreeze(calculateAbsoluteGrowth(rollingData, lookbackWindow))
   
-  
-  plotNetGen(plotForecastDiv, extendDataByGrowth(convertToRolling(structuredClone(data), 12), 5, forcastLookbackWindow), "Forecasted Net Generation by Source: Based on " + (lookbackWindow == 12 ? "Year-over-Year Change in Trailing 12 Month Growth" : "Monthly Change in Trailing 12 Month Growth"));
-
-  calculateCAGRGrowth(convertToRolling(structuredClone(data), 12));
+  plotNetGen(plotNetGenDiv, rollingData, "Net Generation by Source " + getRollingText());
+  plotPercentGen(plotPercentGenDiv, rollingData, "Percent Generation by Source " + getRollingText());
+  plotPercentGrowth(plotPercentGrowthDiv, percentGrowthData, "Percent Growth " + getLookbackText());
+  plotNetGen(plotAbsoluteGrowthDiv, absoluteGrowthData, "Absolute Value Growth " + getLookbackText());
+  plotNetGen(plotForecastDiv, extendDataByGrowth(rollingData12, 5, forcastLookbackWindow), "Five Year Forecasted Net Generation by Source: Based on " + getForecastText());
+  calculateCAGRGrowth(rollingData12);
 }
 
 
-function handleSelection(radioButton:HTMLInputElement) {
+function handleSelection(radioButton: HTMLInputElement):void {
   switch (radioButton.id) {
     case "category-option1":
       data = allSourceData;
@@ -364,7 +375,7 @@ function handleSelection(radioButton:HTMLInputElement) {
   plotAll();
 }
 
-function handleLookbackSelection(radioButton:HTMLInputElement) {
+function handleLookbackSelection(radioButton: HTMLInputElement):void {
   // parse numeric lookback (e.g. "12 Month Lookback" -> 12)
   const parsed = parseInt(radioButton.value, 10);
   if (!isNaN(parsed)) {
@@ -375,7 +386,7 @@ function handleLookbackSelection(radioButton:HTMLInputElement) {
   plotAll();
 }
 
-function handleRollingSelection(radioButton:HTMLInputElement) {
+function handleRollingSelection(radioButton: HTMLInputElement):void {
   // parse numeric lookback (e.g. "12 Month Lookback" -> 12)
   const parsed = parseInt(radioButton.value, 10);
   if (!isNaN(parsed)) {
@@ -391,13 +402,13 @@ function handleRollingSelection(radioButton:HTMLInputElement) {
 
 
 
-function getRollingText() {
-  if (rollingWindow == 1) {return "(Monthly)"}
-  if (rollingWindow == 12) {return "(Trailing 12 Month)"}
+function getRollingText():string {
+  if (rollingWindow == 1) { return "(Monthly)" }
+  if (rollingWindow == 12) { return "(Trailing 12 Month)" }
   throw new Error("getRollingText failed to match");
 }
 
-function getLookbackText() {
+function getLookbackText():string {
   if (rollingWindow == 1 && lookbackWindow == 1) { return "(Month-over-Month Growth)" }
   if (rollingWindow == 1 && lookbackWindow == 12) { return "(Year-over-Year Monthly Growth)" }
   if (rollingWindow == 12 && lookbackWindow == 1) { return "(Monthly Change in Trailing 12 Month)" }
@@ -405,8 +416,16 @@ function getLookbackText() {
   throw new Error("getLookbackText failed to match");
 }
 
+function getForecastText():string {
+  if (forcastLookbackWindow == 1) { return "(Monthly Change in Trailing 12 Month)" }
+  if (forcastLookbackWindow == 12) { return "(Year-over-Year Change in Trailing 12 Month Growth)" }
+  if (forcastLookbackWindow == 24) { return "(Two Year Change in Trailing 12 Month Growth)" }
+  if (forcastLookbackWindow == 36) { return "(Three Year Change in Trailing 12 Month Growth)" }
+  throw new Error("getForecastText failed to match");
+}
 
-function calculateCAGRGrowth(data: Map<string, ProcessedResult>) {
+
+function calculateCAGRGrowth(data: Map<string, ProcessedResult>):void {
   const lookbacks = [1, 12, 24, 36]
 
   data.forEach((value, key) => {
@@ -422,45 +441,44 @@ function calculateCAGRGrowth(data: Map<string, ProcessedResult>) {
       assertNotUndefined(endVal)
       assertNotUndefined(startVal)
 
-      const periods:number = lookback / 12
-
+      const periods: number = lookback / 12
       const cagr = ((Math.pow(endVal / startVal, 1 / periods) - 1) * 100).toFixed(2) + "%";
 
 
-      if (key == "Solar" && lookback == 1){document.getElementById('CAGR_SOLAR_1')!.textContent = cagr;}
-      if (key == "Solar" && lookback == 12){document.getElementById('CAGR_SOLAR_12')!.textContent = cagr;}
-      if (key == "Solar" && lookback == 24){document.getElementById('CAGR_SOLAR_24')!.textContent = cagr;}
-      if (key == "Solar" && lookback == 36){document.getElementById('CAGR_SOLAR_36')!.textContent = cagr;}
+      if (key == "Solar" && lookback == 1) { document.getElementById('CAGR_SOLAR_1')!.textContent = cagr; }
+      if (key == "Solar" && lookback == 12) { document.getElementById('CAGR_SOLAR_12')!.textContent = cagr; }
+      if (key == "Solar" && lookback == 24) { document.getElementById('CAGR_SOLAR_24')!.textContent = cagr; }
+      if (key == "Solar" && lookback == 36) { document.getElementById('CAGR_SOLAR_36')!.textContent = cagr; }
 
 
-      if (key == "Wind" && lookback == 1){document.getElementById('CAGR_WIND_1')!.textContent = cagr;}
-      if (key == "Wind" && lookback == 12){document.getElementById('CAGR_WIND_12')!.textContent = cagr;}
-      if (key == "Wind" && lookback == 24){document.getElementById('CAGR_WIND_24')!.textContent = cagr;}
-      if (key == "Wind" && lookback == 36){document.getElementById('CAGR_WIND_36')!.textContent = cagr;}
+      if (key == "Wind" && lookback == 1) { document.getElementById('CAGR_WIND_1')!.textContent = cagr; }
+      if (key == "Wind" && lookback == 12) { document.getElementById('CAGR_WIND_12')!.textContent = cagr; }
+      if (key == "Wind" && lookback == 24) { document.getElementById('CAGR_WIND_24')!.textContent = cagr; }
+      if (key == "Wind" && lookback == 36) { document.getElementById('CAGR_WIND_36')!.textContent = cagr; }
 
 
-      if (key == "Coal" && lookback == 1){document.getElementById('CAGR_COAL_1')!.textContent = cagr;}
-      if (key == "Coal" && lookback == 12){document.getElementById('CAGR_COAL_12')!.textContent = cagr;}
-      if (key == "Coal" && lookback == 24){document.getElementById('CAGR_COAL_24')!.textContent = cagr;}
-      if (key == "Coal" && lookback == 36){document.getElementById('CAGR_COAL_36')!.textContent = cagr;}
+      if (key == "Coal" && lookback == 1) { document.getElementById('CAGR_COAL_1')!.textContent = cagr; }
+      if (key == "Coal" && lookback == 12) { document.getElementById('CAGR_COAL_12')!.textContent = cagr; }
+      if (key == "Coal" && lookback == 24) { document.getElementById('CAGR_COAL_24')!.textContent = cagr; }
+      if (key == "Coal" && lookback == 36) { document.getElementById('CAGR_COAL_36')!.textContent = cagr; }
 
 
-      if (key == "Hydroelectric" && lookback == 1){document.getElementById('CAGR_HYDRO_1')!.textContent = cagr;}
-      if (key == "Hydroelectric" && lookback == 12){document.getElementById('CAGR_HYDRO_12')!.textContent = cagr;}
-      if (key == "Hydroelectric" && lookback == 24){document.getElementById('CAGR_HYDRO_24')!.textContent = cagr;}
-      if (key == "Hydroelectric" && lookback == 36){document.getElementById('CAGR_HYDRO_36')!.textContent = cagr;}
+      if (key == "Hydroelectric" && lookback == 1) { document.getElementById('CAGR_HYDRO_1')!.textContent = cagr; }
+      if (key == "Hydroelectric" && lookback == 12) { document.getElementById('CAGR_HYDRO_12')!.textContent = cagr; }
+      if (key == "Hydroelectric" && lookback == 24) { document.getElementById('CAGR_HYDRO_24')!.textContent = cagr; }
+      if (key == "Hydroelectric" && lookback == 36) { document.getElementById('CAGR_HYDRO_36')!.textContent = cagr; }
 
 
-      if (key == "Nuclear" && lookback == 1){document.getElementById('CAGR_NUCLEAR_1')!.textContent = cagr;}
-      if (key == "Nuclear" && lookback == 12){document.getElementById('CAGR_NUCLEAR_12')!.textContent = cagr;}
-      if (key == "Nuclear" && lookback == 24){document.getElementById('CAGR_NUCLEAR_24')!.textContent = cagr;}
-      if (key == "Nuclear" && lookback == 36){document.getElementById('CAGR_NUCLEAR_36')!.textContent = cagr;}
+      if (key == "Nuclear" && lookback == 1) { document.getElementById('CAGR_NUCLEAR_1')!.textContent = cagr; }
+      if (key == "Nuclear" && lookback == 12) { document.getElementById('CAGR_NUCLEAR_12')!.textContent = cagr; }
+      if (key == "Nuclear" && lookback == 24) { document.getElementById('CAGR_NUCLEAR_24')!.textContent = cagr; }
+      if (key == "Nuclear" && lookback == 36) { document.getElementById('CAGR_NUCLEAR_36')!.textContent = cagr; }
 
 
-      if (key == "Natural Gas" && lookback == 1){document.getElementById('CAGR_NATGAS_1')!.textContent = cagr;}
-      if (key == "Natural Gas" && lookback == 12){document.getElementById('CAGR_NATGAS_12')!.textContent = cagr;}
-      if (key == "Natural Gas" && lookback == 24){document.getElementById('CAGR_NATGAS_24')!.textContent = cagr;}
-      if (key == "Natural Gas" && lookback == 36){document.getElementById('CAGR_NATGAS_36')!.textContent = cagr;}
+      if (key == "Natural Gas" && lookback == 1) { document.getElementById('CAGR_NATGAS_1')!.textContent = cagr; }
+      if (key == "Natural Gas" && lookback == 12) { document.getElementById('CAGR_NATGAS_12')!.textContent = cagr; }
+      if (key == "Natural Gas" && lookback == 24) { document.getElementById('CAGR_NATGAS_24')!.textContent = cagr; }
+      if (key == "Natural Gas" && lookback == 36) { document.getElementById('CAGR_NATGAS_36')!.textContent = cagr; }
     });
   });
 }

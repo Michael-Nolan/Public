@@ -1,5 +1,6 @@
 {
     "files": [
+        "lib.ts",
         "data.ts",
         "process_data.ts",
         "plot.ts"
