@@ -1,5 +1,6 @@
 "use strict";
 function plotNetGen(name, data, plotTitle) {
+    data = structuredClone(data);
     let dd = [];
     data.forEach((value, key) => {
         value["type"] = "scatter";
@@ -8,6 +9,7 @@ function plotNetGen(name, data, plotTitle) {
     Plotly.newPlot(name, dd, buildLayout(name, plotTitle), makePlotConfig());
 }
 function plotPercentGen(name, data, plotTitle) {
+    data = structuredClone(data);
     let dd = [];
     data.forEach((value, key) => {
         value["type"] = "scatter";
@@ -19,6 +21,7 @@ function plotPercentGen(name, data, plotTitle) {
     Plotly.newPlot(name, dd, layout, makePlotConfig());
 }
 function plotPercentGrowth(name, data, plotTitle) {
+    data = structuredClone(data);
     let dd = [];
     data.forEach((value, key) => {
         value["type"] = "scatter";

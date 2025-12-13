@@ -2,6 +2,8 @@ const plotNetGenDiv = "plotNetGenDiv"
 const plotPercentGenDiv = "plotPercentGenDiv"
 const plotPercentGrowthDiv = "plotPercentGrowthDiv"
 const plotAbsoluteGrowthDiv = "plotAbsoluteGrowthDiv"
+const plotPercentGrowthAccelerationDiv = "plotPercentGrowthAccelerationDiv"
+const plotAbsoluteGrowthAccelerationDiv = "plotAbsoluteGrowthAccelerationDiv"
 const plotForecastDiv = "plotForecastDiv"
 
 const yAxisMap = deepFreeze(new Map([
@@ -9,6 +11,8 @@ const yAxisMap = deepFreeze(new Map([
   [plotPercentGenDiv, 'Percent'],
   [plotPercentGrowthDiv, 'Percent'],
   [plotAbsoluteGrowthDiv, '1,000 mwh'],
+  [plotPercentGrowthAccelerationDiv, 'percentage point'],
+  [plotAbsoluteGrowthAccelerationDiv, '1,000 mwh'],
   [plotForecastDiv, '1,000 mwh'],
 ]));
 
@@ -40,8 +44,8 @@ const cat2MergeMap = deepFreeze(new Map([
 ]));
 
 const allSourceData = deepFreeze(processRawData(rawData.response.data));
-const twoSourceData = deepFreeze(mergeCategories(structuredClone(allSourceData), cat2MergeMap));
-const threeSourceData = deepFreeze(mergeCategories(structuredClone(allSourceData), cat3MergeMap));
+const twoSourceData = deepFreeze(mergeCategories(allSourceData, cat2MergeMap));
+const threeSourceData = deepFreeze(mergeCategories(allSourceData, cat3MergeMap));
 
 
 // Global State
@@ -62,7 +66,7 @@ function groupByType(data: GenerationRecord[]): Map<string, GenerationRecord[]> 
     assertNotUndefined(obj)
     obj.push(item);
   });
-  return groupedData;
+  return deepFreeze(groupedData);
 }
 
 interface ProcessedResult {
@@ -81,7 +85,7 @@ function convertProcessedResultToMap(input: ProcessedResult): Map<string, number
     output.set(date, value);
   }
 
-  return output;
+  return deepFreeze(output);
 }
 
 function convertMapLayoutToArrayLayout(data: Map<string, Map<string, number>>): Map<string, ProcessedResult> {
@@ -103,7 +107,7 @@ function convertMapLayoutToArrayLayout(data: Map<string, Map<string, number>>): 
 
   });
 
-  return result
+  return deepFreeze(result)
 }
 
 function processRawData(data: GenerationRecord[]): Map<string, ProcessedResult> {
@@ -113,9 +117,6 @@ function processRawData(data: GenerationRecord[]): Map<string, ProcessedResult> 
   const result = new Map<string, ProcessedResult>();
 
   groupedData.forEach((value, key) => {
-    // Sort data by period in ascending order
-    value.sort((a, b) => a.period.localeCompare(b.period));
-
     const dates = value.map(item => item.period)
     const values = value.map(item => parseFloat(item.generation))
 
@@ -130,7 +131,7 @@ function processRawData(data: GenerationRecord[]): Map<string, ProcessedResult> 
     });
   });
 
-  return result
+  return deepFreeze(result)
 }
 
 // Takes in a map with keys, and a mergeMap that maps from oldKey to newKey. 
@@ -197,7 +198,7 @@ function convertToRolling(data: Map<string, ProcessedResult>, windowSize: number
     });
   });
 
-  return result;
+  return deepFreeze(result);
 }
 
 
@@ -237,7 +238,17 @@ function calculatePercentGrowth(data: Map<string, ProcessedResult>, lookback: nu
     });
   });
 
-  return result;
+  return deepFreeze(result);
+}
+
+function times100(data: Map<string, ProcessedResult>): Map<string, ProcessedResult> {
+  const result = structuredClone(data)
+
+  result.forEach((value) => {
+    value.y.map((v, i) => { value.y[i] = v * 100 });
+  });
+
+  return deepFreeze(result);
 }
 
 function calculateAbsoluteGrowth(data: Map<string, ProcessedResult>, windowSize: number): Map<string, ProcessedResult> {
@@ -267,7 +278,7 @@ function calculateAbsoluteGrowth(data: Map<string, ProcessedResult>, windowSize:
     });
   });
 
-  return result;
+  return deepFreeze(result);
 }
 
 function extendDataByGrowth(data: Map<string, ProcessedResult>, yearsToExtend = 5, lookback: number): Map<string, ProcessedResult> {
@@ -323,7 +334,7 @@ function extendDataByGrowth(data: Map<string, ProcessedResult>, yearsToExtend = 
     result.set(key, { x, y, name: key });
   });
 
-  return result;
+  return deepFreeze(result);
 }
 
 function assertNotUndefined<T>(value: T | undefined): asserts value is T {
@@ -346,21 +357,30 @@ function handleColumnSelect(x: number): void {
 }
 
 function plotAll(): void {
-  const rollingData = deepFreeze(convertToRolling(structuredClone(data), rollingWindow))
-  const rollingData12 = deepFreeze(convertToRolling(structuredClone(data), 12))
+  const rollingData = deepFreeze(convertToRolling(data, rollingWindow))
+  const rollingData12 = deepFreeze(convertToRolling(data, 12))
   const percentGrowthData = deepFreeze(calculatePercentGrowth(rollingData, lookbackWindow, rollingWindow))
   const absoluteGrowthData = deepFreeze(calculateAbsoluteGrowth(rollingData, lookbackWindow))
-  
+
+  const percentAcceleration = deepFreeze(times100(calculateAbsoluteGrowth(calculatePercentGrowth(rollingData12, 12, 12), 12)));
+  const absoluteAcceleration = deepFreeze(calculateAbsoluteGrowth(calculateAbsoluteGrowth(rollingData12, 12), 12));
+
+
+
   plotNetGen(plotNetGenDiv, rollingData, "Net Generation by Source " + getRollingText());
   plotPercentGen(plotPercentGenDiv, rollingData, "Percent Generation by Source " + getRollingText());
   plotPercentGrowth(plotPercentGrowthDiv, percentGrowthData, "Percent Growth " + getLookbackText());
   plotNetGen(plotAbsoluteGrowthDiv, absoluteGrowthData, "Absolute Value Growth " + getLookbackText());
+  plotNetGen(plotPercentGrowthAccelerationDiv, percentAcceleration, "Acceleration of Percent Growth");
+  plotNetGen(plotAbsoluteGrowthAccelerationDiv, absoluteAcceleration, "Acceleration of Absolute Growth");
+
+
   plotNetGen(plotForecastDiv, extendDataByGrowth(rollingData12, 5, forcastLookbackWindow), "Five Year Forecasted Net Generation by Source: Based on " + getForecastText());
   calculateCAGRGrowth(rollingData12);
 }
 
 
-function handleSelection(radioButton: HTMLInputElement):void {
+function handleSelection(radioButton: HTMLInputElement): void {
   switch (radioButton.id) {
     case "category-option1":
       data = allSourceData;
@@ -375,7 +395,7 @@ function handleSelection(radioButton: HTMLInputElement):void {
   plotAll();
 }
 
-function handleLookbackSelection(radioButton: HTMLInputElement):void {
+function handleLookbackSelection(radioButton: HTMLInputElement): void {
   // parse numeric lookback (e.g. "12 Month Lookback" -> 12)
   const parsed = parseInt(radioButton.value, 10);
   if (!isNaN(parsed)) {
@@ -386,7 +406,7 @@ function handleLookbackSelection(radioButton: HTMLInputElement):void {
   plotAll();
 }
 
-function handleRollingSelection(radioButton: HTMLInputElement):void {
+function handleRollingSelection(radioButton: HTMLInputElement): void {
   // parse numeric lookback (e.g. "12 Month Lookback" -> 12)
   const parsed = parseInt(radioButton.value, 10);
   if (!isNaN(parsed)) {
@@ -402,13 +422,13 @@ function handleRollingSelection(radioButton: HTMLInputElement):void {
 
 
 
-function getRollingText():string {
+function getRollingText(): string {
   if (rollingWindow == 1) { return "(Monthly)" }
   if (rollingWindow == 12) { return "(Trailing 12 Month)" }
   throw new Error("getRollingText failed to match");
 }
 
-function getLookbackText():string {
+function getLookbackText(): string {
   if (rollingWindow == 1 && lookbackWindow == 1) { return "(Month-over-Month Growth)" }
   if (rollingWindow == 1 && lookbackWindow == 12) { return "(Year-over-Year Monthly Growth)" }
   if (rollingWindow == 12 && lookbackWindow == 1) { return "(Monthly Change in Trailing 12 Month)" }
@@ -416,7 +436,7 @@ function getLookbackText():string {
   throw new Error("getLookbackText failed to match");
 }
 
-function getForecastText():string {
+function getForecastText(): string {
   if (forcastLookbackWindow == 1) { return "(Monthly Change in Trailing 12 Month)" }
   if (forcastLookbackWindow == 12) { return "(Year-over-Year Change in Trailing 12 Month Growth)" }
   if (forcastLookbackWindow == 24) { return "(Two Year Change in Trailing 12 Month Growth)" }
@@ -425,7 +445,7 @@ function getForecastText():string {
 }
 
 
-function calculateCAGRGrowth(data: Map<string, ProcessedResult>):void {
+function calculateCAGRGrowth(data: Map<string, ProcessedResult>): void {
   const lookbacks = [1, 12, 24, 36]
 
   data.forEach((value, key) => {
