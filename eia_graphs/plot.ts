@@ -1,5 +1,6 @@
 
 function plotNetGen(name, data, plotTitle) {
+  data = structuredClone(data)
   let dd = [];
   data.forEach((value, key) => {
     value["type"] = "scatter"
@@ -10,6 +11,7 @@ function plotNetGen(name, data, plotTitle) {
 }
 
 function plotPercentGen(name, data, plotTitle) {
+  data = structuredClone(data)
   let dd = [];
   data.forEach((value, key) => {
     value["type"] = "scatter"
@@ -23,6 +25,7 @@ function plotPercentGen(name, data, plotTitle) {
 }
 
 function plotPercentGrowth(name, data, plotTitle) {
+  data = structuredClone(data)
   let dd = [];
   data.forEach((value, key) => {
     value["type"] = "scatter"

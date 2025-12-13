@@ -3,12 +3,16 @@ const plotNetGenDiv = "plotNetGenDiv";
 const plotPercentGenDiv = "plotPercentGenDiv";
 const plotPercentGrowthDiv = "plotPercentGrowthDiv";
 const plotAbsoluteGrowthDiv = "plotAbsoluteGrowthDiv";
+const plotPercentGrowthAccelerationDiv = "plotPercentGrowthAccelerationDiv";
+const plotAbsoluteGrowthAccelerationDiv = "plotAbsoluteGrowthAccelerationDiv";
 const plotForecastDiv = "plotForecastDiv";
 const yAxisMap = deepFreeze(new Map([
     [plotNetGenDiv, '1,000 mwh'],
     [plotPercentGenDiv, 'Percent'],
     [plotPercentGrowthDiv, 'Percent'],
     [plotAbsoluteGrowthDiv, '1,000 mwh'],
+    [plotPercentGrowthAccelerationDiv, 'percentage point'],
+    [plotAbsoluteGrowthAccelerationDiv, '1,000 mwh'],
     [plotForecastDiv, '1,000 mwh'],
 ]));
 const nameMap = deepFreeze(new Map([
@@ -36,8 +40,8 @@ const cat2MergeMap = deepFreeze(new Map([
     ['Hydroelectric', 'Carbon Free']
 ]));
 const allSourceData = deepFreeze(processRawData(rawData.response.data));
-const twoSourceData = deepFreeze(mergeCategories(structuredClone(allSourceData), cat2MergeMap));
-const threeSourceData = deepFreeze(mergeCategories(structuredClone(allSourceData), cat3MergeMap));
+const twoSourceData = deepFreeze(mergeCategories(allSourceData, cat2MergeMap));
+const threeSourceData = deepFreeze(mergeCategories(allSourceData, cat3MergeMap));
 // Global State
 let lookbackWindow = 12; // Options are 1 or 12.
 let rollingWindow = 12; // Options are 1 or 12.
@@ -55,7 +59,7 @@ function groupByType(data) {
         assertNotUndefined(obj);
         obj.push(item);
     });
-    return groupedData;
+    return deepFreeze(groupedData);
 }
 function convertProcessedResultToMap(input) {
     const output = new Map();
@@ -66,7 +70,7 @@ function convertProcessedResultToMap(input) {
         assertNotUndefined(value);
         output.set(date, value);
     }
-    return output;
+    return deepFreeze(output);
 }
 function convertMapLayoutToArrayLayout(data) {
     const result = new Map();
@@ -83,15 +87,13 @@ function convertMapLayoutToArrayLayout(data) {
             name: key,
         });
     });
-    return result;
+    return deepFreeze(result);
 }
 function processRawData(data) {
     const groupedData = groupByType(data);
     // Transform and sort data for each fuel type
     const result = new Map();
     groupedData.forEach((value, key) => {
-        // Sort data by period in ascending order
-        value.sort((a, b) => a.period.localeCompare(b.period));
         const dates = value.map(item => item.period);
         const values = value.map(item => parseFloat(item.generation));
         if (dates.length != values.length) {
@@ -103,7 +105,7 @@ function processRawData(data) {
             name: key,
         });
     });
-    return result;
+    return deepFreeze(result);
 }
 // Takes in a map with keys, and a mergeMap that maps from oldKey to newKey. 
 // Converts the data to use the new key.
@@ -159,7 +161,7 @@ function convertToRolling(data, windowSize) {
             name: key,
         });
     });
-    return result;
+    return deepFreeze(result);
 }
 function calculatePercentGrowth(data, lookback, windowSize) {
     const result = new Map();
@@ -189,7 +191,14 @@ function calculatePercentGrowth(data, lookback, windowSize) {
             name: key,
         });
     });
-    return result;
+    return deepFreeze(result);
+}
+function times100(data) {
+    const result = structuredClone(data);
+    result.forEach((value) => {
+        value.y.map((v, i) => { value.y[i] = v * 100; });
+    });
+    return deepFreeze(result);
 }
 function calculateAbsoluteGrowth(data, windowSize) {
     const result = new Map();
@@ -214,7 +223,7 @@ function calculateAbsoluteGrowth(data, windowSize) {
             name: key,
         });
     });
-    return result;
+    return deepFreeze(result);
 }
 function extendDataByGrowth(data, yearsToExtend = 5, lookback) {
     const result = new Map();
@@ -255,7 +264,7 @@ function extendDataByGrowth(data, yearsToExtend = 5, lookback) {
         }
         result.set(key, { x, y, name: key });
     });
-    return result;
+    return deepFreeze(result);
 }
 function assertNotUndefined(value) {
     if (value === undefined) {
@@ -273,14 +282,18 @@ function handleColumnSelect(x) {
     plotAll();
 }
 function plotAll() {
-    const rollingData = deepFreeze(convertToRolling(structuredClone(data), rollingWindow));
-    const rollingData12 = deepFreeze(convertToRolling(structuredClone(data), 12));
+    const rollingData = deepFreeze(convertToRolling(data, rollingWindow));
+    const rollingData12 = deepFreeze(convertToRolling(data, 12));
     const percentGrowthData = deepFreeze(calculatePercentGrowth(rollingData, lookbackWindow, rollingWindow));
     const absoluteGrowthData = deepFreeze(calculateAbsoluteGrowth(rollingData, lookbackWindow));
+    const percentAcceleration = deepFreeze(times100(calculateAbsoluteGrowth(calculatePercentGrowth(rollingData12, 12, 12), 12)));
+    const absoluteAcceleration = deepFreeze(calculateAbsoluteGrowth(calculateAbsoluteGrowth(rollingData12, 12), 12));
     plotNetGen(plotNetGenDiv, rollingData, "Net Generation by Source " + getRollingText());
     plotPercentGen(plotPercentGenDiv, rollingData, "Percent Generation by Source " + getRollingText());
     plotPercentGrowth(plotPercentGrowthDiv, percentGrowthData, "Percent Growth " + getLookbackText());
     plotNetGen(plotAbsoluteGrowthDiv, absoluteGrowthData, "Absolute Value Growth " + getLookbackText());
+    plotNetGen(plotPercentGrowthAccelerationDiv, percentAcceleration, "Acceleration of Percent Growth");
+    plotNetGen(plotAbsoluteGrowthAccelerationDiv, absoluteAcceleration, "Acceleration of Absolute Growth");
     plotNetGen(plotForecastDiv, extendDataByGrowth(rollingData12, 5, forcastLookbackWindow), "Five Year Forecasted Net Generation by Source: Based on " + getForecastText());
     calculateCAGRGrowth(rollingData12);
 }
