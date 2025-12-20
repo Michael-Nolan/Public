@@ -17,6 +17,8 @@
     <style>
         html {
             scroll-behavior: smooth;
+            background-color: #eeeeee;
+            font-size: 16px;
         }
 
         .radio-options {
@@ -39,6 +41,22 @@
         th,
         td {
             border: 1px solid black;
+        }
+
+        
+        summary {
+            /* Keep paper_bgcolor in Plot.ts in sync with this */
+            background-color: #f6f3ef;
+        }
+
+        details {
+            border: 1px solid black;
+            margin: 20px;
+        }
+
+        summary>p {
+            font-size: 20px;
+            display: inline;
         }
     </style>
 </head>
@@ -113,88 +131,109 @@
     <div>
         <strong>Jump to:</strong>
         <ul>
-            <li><a href="#plotNetGenRollingDiv">Net Generation</a></li>
-            <li><a href="#plotPercentGenRollingDiv">Percent Generation</a></li>
+            <li><a href="#plotNetGenDiv">Net Generation</a></li>
+            <li><a href="#plotPercentGenDiv">Percent Generation</a></li>
             <li><a href="#plotPercentGrowthDiv">Percent Generation Growth</a></li>
             <li><a href="#plotAbsoluteGrowthDiv">Absolute Generation Growth</a></li>
-            <li><a href="#plotPercentGrowthAccelerationDiv">Percent Growth Acceleration</a></li>
-            <li><a href="#plotAbsoluteGrowthAccelerationDiv">Absolute Growth Acceleration</a></li>
+            <li><a href="#accelerationCharts">Percent Growth Acceleration</a></li>
+            <li><a href="#accelerationCharts">Absolute Growth Acceleration</a></li>
             <li><a href="#plotForecastOuterDiv"> Five Year Forecast</a></li>
             <li><a href="#otherresources">Other Resources/Links</a></li>
         </ul>
     </div>
 
+    <details open>
+        <summary>
+            <p>Net and Percent Generation Charts</p>
+        </summary>
+        <div id="plotNetGenDiv" style="display: flex; justify-content: center;"></div>
+        <div id="plotPercentGenDiv" style="display: flex; justify-content: center;"></div>
+    </details>
 
-    <div id="plotNetGenDiv" style="display: flex; justify-content: center;"></div>
-    <div id="plotPercentGenDiv" style="display: flex; justify-content: center;"></div>
-    <div id="plotPercentGrowthDiv" style="display: flex; justify-content: center;"></div>
-    <div id="plotAbsoluteGrowthDiv" style="display: flex; justify-content: center;"></div>
-    <div id="plotPercentGrowthAccelerationDiv" style="display: flex; justify-content: center;"></div>
-    <div id="plotAbsoluteGrowthAccelerationDiv" style="display: flex; justify-content: center;"></div>
+    <details open>
+        <summary>
+            <p>Growth Charts</p>
+        </summary>
+        <div id="plotPercentGrowthDiv" style="display: flex; justify-content: center;"></div>
+        <div id="plotAbsoluteGrowthDiv" style="display: flex; justify-content: center;"></div>
+    </details>
 
+    <details id="accelerationCharts">
+        <summary>
+            <p>Acceleration Charts</p>
+        </summary>
+        <div id="plotPercentGrowthAccelerationDiv" style="display: flex; justify-content: center;"></div>
+        <div id="plotAbsoluteGrowthAccelerationDiv" style="display: flex; justify-content: center;"></div>
+    </details>
 
-    <div id="plotForecastOuterDiv">
-        <h2 style="display: flex; justify-content: center;">This is a simple naive forecast that just projects the
-            current growth forward 5 years.</h2>
-        <div>
-            <table>
-                <tr>
-                    <th>Source</th>
-                    <th><input type="radio" name="column" value="growth-36" onclick="handleColumnSelect(36)">
-                        Annualized Growth (36-mo)</th>
-                    <th><input type="radio" name="column" value="growth-24" onclick="handleColumnSelect(24)">
-                        Annualized Growth (24-mo)</th>
-                    <th><input type="radio" name="column" value="growth-12" onclick="handleColumnSelect(12)" checked>
-                        Annualized Growth (12-mo)</th>
-                    <th><input type="radio" name="column" value="growth-1" onclick="handleColumnSelect(1)">
-                        Annualized Growth (1-mo)</th>
-                </tr>
-                <tr>
-                    <td><b>Solar</b></td>
-                    <td id="CAGR_SOLAR_36">todo</td>
-                    <td id="CAGR_SOLAR_24">todo</td>
-                    <td id="CAGR_SOLAR_12">todo</td>
-                    <td id="CAGR_SOLAR_1">todo</td>
-                </tr>
-                <tr>
-                    <td><b>Wind</b></td>
-                    <td id="CAGR_WIND_36">todo</td>
-                    <td id="CAGR_WIND_24">todo</td>
-                    <td id="CAGR_WIND_12">todo</td>
-                    <td id="CAGR_WIND_1">todo</td>
-                </tr>
-                <tr>
-                    <td><b>Natural Gas</b></td>
-                    <td id="CAGR_NATGAS_36">todo</td>
-                    <td id="CAGR_NATGAS_24">todo</td>
-                    <td id="CAGR_NATGAS_12">todo</td>
-                    <td id="CAGR_NATGAS_1">todo</td>
-                </tr>
-                <tr>
-                    <td><b>Coal</b></td>
-                    <td id="CAGR_COAL_36">todo</td>
-                    <td id="CAGR_COAL_24">todo</td>
-                    <td id="CAGR_COAL_12">todo</td>
-                    <td id="CAGR_COAL_1">todo</td>
-                </tr>
-                <tr>
-                    <td><b>Hydroelectric</b></td>
-                    <td id="CAGR_HYDRO_36">todo</td>
-                    <td id="CAGR_HYDRO_24">todo</td>
-                    <td id="CAGR_HYDRO_12">todo</td>
-                    <td id="CAGR_HYDRO_1">todo</td>
-                </tr>
-                <tr>
-                    <td><b>Nuclear</b></td>
-                    <td id="CAGR_NUCLEAR_36">todo</td>
-                    <td id="CAGR_NUCLEAR_24">todo</td>
-                    <td id="CAGR_NUCLEAR_12">todo</td>
-                    <td id="CAGR_NUCLEAR_1">todo</td>
-                </tr>
-            </table>
+    <details open>
+        <summary>
+            <p>5 Year Forecast</p>
+        </summary>
+        <div id="plotForecastOuterDiv">
+            <h2 style="display: flex; justify-content: center;">This is a simple naive forecast that just projects the
+                current growth forward 5 years.</h2>
+            <div>
+                <table>
+                    <tr>
+                        <th>Source</th>
+                        <th><input type="radio" name="column" value="growth-36" onclick="handleColumnSelect(36)">
+                            Annualized Growth (36-mo)</th>
+                        <th><input type="radio" name="column" value="growth-24" onclick="handleColumnSelect(24)">
+                            Annualized Growth (24-mo)</th>
+                        <th><input type="radio" name="column" value="growth-12" onclick="handleColumnSelect(12)"
+                                checked>
+                            Annualized Growth (12-mo)</th>
+                        <th><input type="radio" name="column" value="growth-1" onclick="handleColumnSelect(1)">
+                            Annualized Growth (1-mo)</th>
+                    </tr>
+                    <tr>
+                        <td><b>Solar</b></td>
+                        <td id="CAGR_SOLAR_36">todo</td>
+                        <td id="CAGR_SOLAR_24">todo</td>
+                        <td id="CAGR_SOLAR_12">todo</td>
+                        <td id="CAGR_SOLAR_1">todo</td>
+                    </tr>
+                    <tr>
+                        <td><b>Wind</b></td>
+                        <td id="CAGR_WIND_36">todo</td>
+                        <td id="CAGR_WIND_24">todo</td>
+                        <td id="CAGR_WIND_12">todo</td>
+                        <td id="CAGR_WIND_1">todo</td>
+                    </tr>
+                    <tr>
+                        <td><b>Natural Gas</b></td>
+                        <td id="CAGR_NATGAS_36">todo</td>
+                        <td id="CAGR_NATGAS_24">todo</td>
+                        <td id="CAGR_NATGAS_12">todo</td>
+                        <td id="CAGR_NATGAS_1">todo</td>
+                    </tr>
+                    <tr>
+                        <td><b>Coal</b></td>
+                        <td id="CAGR_COAL_36">todo</td>
+                        <td id="CAGR_COAL_24">todo</td>
+                        <td id="CAGR_COAL_12">todo</td>
+                        <td id="CAGR_COAL_1">todo</td>
+                    </tr>
+                    <tr>
+                        <td><b>Hydroelectric</b></td>
+                        <td id="CAGR_HYDRO_36">todo</td>
+                        <td id="CAGR_HYDRO_24">todo</td>
+                        <td id="CAGR_HYDRO_12">todo</td>
+                        <td id="CAGR_HYDRO_1">todo</td>
+                    </tr>
+                    <tr>
+                        <td><b>Nuclear</b></td>
+                        <td id="CAGR_NUCLEAR_36">todo</td>
+                        <td id="CAGR_NUCLEAR_24">todo</td>
+                        <td id="CAGR_NUCLEAR_12">todo</td>
+                        <td id="CAGR_NUCLEAR_1">todo</td>
+                    </tr>
+                </table>
+            </div>
+            <div id="plotForecastDiv" style="display: flex; justify-content: center;"></div>
         </div>
-        <div id="plotForecastDiv" style="display: flex; justify-content: center;"></div>
-    </div>
+    </details>
 
     <div id="otherresources">
         <strong>Other Resources:</strong>
