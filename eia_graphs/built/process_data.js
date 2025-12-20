@@ -292,8 +292,8 @@ function plotAll() {
     plotPercentGen(plotPercentGenDiv, rollingData, "Percent Generation by Source " + getRollingText());
     plotPercentGrowth(plotPercentGrowthDiv, percentGrowthData, "Percent Growth " + getLookbackText());
     plotNetGen(plotAbsoluteGrowthDiv, absoluteGrowthData, "Absolute Value Growth " + getLookbackText());
-    plotNetGen(plotPercentGrowthAccelerationDiv, percentAcceleration, "Acceleration of Percent Growth");
-    plotNetGen(plotAbsoluteGrowthAccelerationDiv, absoluteAcceleration, "Acceleration of Absolute Growth");
+    plotNetGen(plotPercentGrowthAccelerationDiv, percentAcceleration, "Acceleration of Percent Growth (change in 12m ttm growth)");
+    plotNetGen(plotAbsoluteGrowthAccelerationDiv, absoluteAcceleration, "Acceleration of Absolute Growth (change in 12m ttm growth)");
     plotNetGen(plotForecastDiv, extendDataByGrowth(rollingData12, 5, forcastLookbackWindow), "Five Year Forecasted Net Generation by Source: Based on " + getForecastText());
     calculateCAGRGrowth(rollingData12);
 }

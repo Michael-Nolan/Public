@@ -82,6 +82,7 @@ function buildLayout(divName, plotTitle) {
             },
             fixedrange: true // Prevent direct y-axis zooming
         },
+        paper_bgcolor: "#f6f3ef",
         ...(!excludeOverlay.includes(divName) ? { shapes } : {})
     };
 }
