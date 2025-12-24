@@ -61,7 +61,7 @@ function buildLayout(divName, plotTitle) {
     { start: '2009-01', end: '2017-01', color: blue }, // Obama (D)
     { start: '2017-01', end: '2021-01', color: red }, // Trump (R)
     { start: '2021-01', end: '2025-01', color: blue }, // Biden (D)
-    { start: '2025-01', end: '2025-09', color: red }, // Trump (R)
+    { start: '2025-01', end: '2025-10', color: red }, // Trump (R)
   ];
 
   const shapes = presidencies.map(p => ({

@@ -3,6 +3,37 @@ import urllib.error
 import os
 import json
 
+
+tsPreamble = """interface GenerationRecord {
+    period: string;
+    location: string;
+    stateDescription: string;
+    sectorid: string;
+    sectorDescription: string;
+    fueltypeid: string;
+    fuelTypeDescription: string;
+    generation: string;
+    "generation-units": string;
+}
+
+interface ResponseData {
+    total: string;
+    dateFormat: string;
+    frequency: string;
+    data: GenerationRecord[];
+    description: string;
+}
+
+interface RawDataStructure {
+    response: ResponseData;
+    request: null;
+    apiVersion: string;
+    ExcelAddInVersion: string;
+}
+
+const rawData: RawDataStructure = deepFreeze(
+""" 
+
 def get_url_and_save(url, filename="response.txt"):
     """
     Issues a GET request to the specified URL and saves the response as a text file
@@ -30,7 +61,7 @@ def get_url_and_save(url, filename="response.txt"):
 
             # Save the response content to a file
             with open(filename, 'w', encoding='utf-8') as file:
-                file.write("const rawData = " + json.dumps(parsed_json, indent=4) + ";")
+                file.write(tsPreamble + json.dumps(parsed_json, indent=4) + ");")
             
             
             print(f"Response successfully saved to {filename}")
