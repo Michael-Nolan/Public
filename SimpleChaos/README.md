@@ -12,7 +12,6 @@
     - [ChaosAttacks](#chaosattacks)
   - [Demo Projects](#demo-projects)
   - [Versioning](#versioning)
-  - [Contributing](#contributing)
 
 ## What is Chaos Testing
 
@@ -110,11 +109,11 @@ There are many types of attacks that can be carried out.
 * error
 * jvmCrash
 * latency
-* ~~highCPU~~ (coming soon)
-* ~~highMemory~~ (coming soon)
-* ~~abnormalLogs~~ (coming soon)
-* ~~highDisk~~ (more research needed, might not be a useful attack)
-* ~~highNetwork~~ (more research needed, might not be a useful or possible attack)
+* ~~highCPU~~ (more research needed)
+* ~~highMemory~~ (more research needed)
+* ~~abnormalLogs~~ (more research needed)
+* ~~highDisk~~ (more research needed)
+* ~~highNetwork~~ (more research needed)
 
 ## Demo Projects
 
@@ -122,24 +121,9 @@ There are a few demo application for using SimpleChaos. They are located in the 
 
 * [Java demo](demo-applications/java-demo/README.md)
 * [Spring demo](demo-applications/spring-demo/README.md)
-* [Kotlin-Spring demo](demo-applications/kotlin-spring-demo/README.md)
-* Kotlin and Scala examples coming soon.
+* [Spring AOP demo](demo-applications/spring-aop-demo/README.md)
 
 ## Versioning
 
 All projects use [SemVer](https://semver.org/). Except versions that are below `1.0.0`. Versions below `1.0.0` should
 not be used in production and do not follow SemVer.
-
-## Contributing
-
-Contributions are welcomed!
-
-The best way to contribute is just to use SimpleChaos in your projects! Opening a feature request, or a bug issue is
-also greatly appreciated.
-
-If you are looking for more active contributions Some areas that could use help are:
-
-* Examples of real life use cases of SimpleChaos!
-* Additional implementations of the `Reporter` Interface. (SQL/NOSQL/etc reporters)
-* Documentation
-* Implementations of SimpleChaos for other languages (C#/Go/Python/etc)
