@@ -1,0 +1,35 @@
+# Please see the documentation for all configuration options:
+# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+
+version: 2
+updates:
+  - package-ecosystem: "maven"
+    directory: "/SideEffect/"
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "maven"
+    directory: "/SimpleChaos/java"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "maven"
+    directory: "/SimpleChaos/spring"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "maven"
+    directory: "/SimpleChaos/spring-aop"
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "maven"
+    directory: "/SimpleChaos/demo-applications/java-demo"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "maven"
+    directory: "/SimpleChaos/demo-applications/spring-demo"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "maven"
+    directory: "/SimpleChaos/demo-applications/spring-aop-demo"
+    schedule:
+      interval: "weekly"
