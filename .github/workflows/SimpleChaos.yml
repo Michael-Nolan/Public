@@ -31,19 +31,19 @@ jobs:
         cache: maven
     
     - name: Build SimpleChaos/java
-      run: mvn -B install --file SimpleChaos/java/pom.xml
+      run: mvn -B verify --file SimpleChaos/java/pom.xml
 
     - name: Build SimpleChaos/spring
-      run: mvn -B install --file SimpleChaos/spring/pom.xml
+      run: mvn -B verify --file SimpleChaos/spring/pom.xml
 
     - name: Build SimpleChaos/spring-aop
-      run: mvn -B install --file SimpleChaos/spring-aop/pom.xml
+      run: mvn -B verify --file SimpleChaos/spring-aop/pom.xml
 
     - name: Build SimpleChaos/demo/java
-      run: mvn -B install --file SimpleChaos/demo-applications/java-demo/pom.xml
+      run: mvn -B verify --file SimpleChaos/demo-applications/java-demo/pom.xml
 
     - name: Build SimpleChaos/demo/spring
-      run: mvn -B install --file SimpleChaos/demo-applications/spring-demo/pom.xml
+      run: mvn -B verify --file SimpleChaos/demo-applications/spring-demo/pom.xml
 
     - name: Build SimpleChaos/demo/spring-aop
-      run: mvn -B install --file SimpleChaos/demo-applications/spring-aop-demo/pom.xml
+      run: mvn -B verify --file SimpleChaos/demo-applications/spring-aop-demo/pom.xml
