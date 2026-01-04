@@ -1,14 +1,14 @@
-name: SimpleChaos Java Build
+name: SimpleChaos Build
 
 on:
   push:
     branches: [ main ]
     paths:
-      - 'SimpleChaos/java/**'
+      - 'SimpleChaos/**'
   pull_request:
     branches: [ main ]
     paths:
-      - 'SimpleChaos/java/**'
+      - 'SimpleChaos/**'
 
 jobs:
   build:
