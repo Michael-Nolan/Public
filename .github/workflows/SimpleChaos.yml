@@ -16,7 +16,7 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         # ubuntu-latest, windows-latest, macos-latest
-        jdk-version: [11, 25]
+        jdk-version: [11]
 
     runs-on: ${{ matrix.os }}
     steps:
