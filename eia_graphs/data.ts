@@ -28,7 +28,7 @@ interface RawDataStructure {
 const rawData: RawDataStructure = deepFreeze(
 {
     "response": {
-        "total": "1638",
+        "total": "1644",
         "dateFormat": "YYYY-MM",
         "frequency": "monthly",
         "data": [
@@ -17343,7 +17343,7 @@ const rawData: RawDataStructure = deepFreeze(
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "HYC",
                 "fuelTypeDescription": "conventional hydroelectric",
-                "generation": "21429.15212",
+                "generation": "21431.14404",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17354,7 +17354,7 @@ const rawData: RawDataStructure = deepFreeze(
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "NGO",
                 "fuelTypeDescription": "natural gas & other gases",
-                "generation": "158142.1917",
+                "generation": "158104.35373",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17376,7 +17376,7 @@ const rawData: RawDataStructure = deepFreeze(
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "TSN",
                 "fuelTypeDescription": "estimated total solar",
-                "generation": "20825.49285",
+                "generation": "20850.53643",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17387,7 +17387,7 @@ const rawData: RawDataStructure = deepFreeze(
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "WND",
                 "fuelTypeDescription": "wind",
-                "generation": "43611.65101",
+                "generation": "43600.06416",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17398,7 +17398,7 @@ const rawData: RawDataStructure = deepFreeze(
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "COW",
                 "fuelTypeDescription": "all coal products",
-                "generation": "62306.02232",
+                "generation": "62306.02395",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17409,7 +17409,7 @@ const rawData: RawDataStructure = deepFreeze(
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "HYC",
                 "fuelTypeDescription": "conventional hydroelectric",
-                "generation": "19541.08731",
+                "generation": "19543.3146",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17420,7 +17420,7 @@ const rawData: RawDataStructure = deepFreeze(
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "NGO",
                 "fuelTypeDescription": "natural gas & other gases",
-                "generation": "132290.11537",
+                "generation": "132485.33982",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17442,7 +17442,7 @@ const rawData: RawDataStructure = deepFreeze(
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "TSN",
                 "fuelTypeDescription": "estimated total solar",
-                "generation": "22227.19638",
+                "generation": "22252.98967",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17453,7 +17453,7 @@ const rawData: RawDataStructure = deepFreeze(
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "WND",
                 "fuelTypeDescription": "wind",
-                "generation": "39356.6952",
+                "generation": "39346.22162",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17464,7 +17464,7 @@ const rawData: RawDataStructure = deepFreeze(
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "COW",
                 "fuelTypeDescription": "all coal products",
-                "generation": "49215.21019",
+                "generation": "49215.22407",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17475,7 +17475,7 @@ const rawData: RawDataStructure = deepFreeze(
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "HYC",
                 "fuelTypeDescription": "conventional hydroelectric",
-                "generation": "22454.1132",
+                "generation": "22450.5158",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17486,7 +17486,7 @@ const rawData: RawDataStructure = deepFreeze(
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "NGO",
                 "fuelTypeDescription": "natural gas & other gases",
-                "generation": "119049.29981",
+                "generation": "118890.24044",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17508,7 +17508,7 @@ const rawData: RawDataStructure = deepFreeze(
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "TSN",
                 "fuelTypeDescription": "estimated total solar",
-                "generation": "31122.56073",
+                "generation": "31199.05986",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17519,7 +17519,7 @@ const rawData: RawDataStructure = deepFreeze(
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "WND",
                 "fuelTypeDescription": "wind",
-                "generation": "50606.76347",
+                "generation": "50591.46731",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17541,7 +17541,7 @@ const rawData: RawDataStructure = deepFreeze(
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "HYC",
                 "fuelTypeDescription": "conventional hydroelectric",
-                "generation": "22840.02691",
+                "generation": "22839.22305",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17552,7 +17552,7 @@ const rawData: RawDataStructure = deepFreeze(
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "NGO",
                 "fuelTypeDescription": "natural gas & other gases",
-                "generation": "115321.11226",
+                "generation": "115290.32184",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17574,7 +17574,7 @@ const rawData: RawDataStructure = deepFreeze(
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "TSN",
                 "fuelTypeDescription": "estimated total solar",
-                "generation": "35427.76723",
+                "generation": "35538.17397",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17585,7 +17585,7 @@ const rawData: RawDataStructure = deepFreeze(
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "WND",
                 "fuelTypeDescription": "wind",
-                "generation": "45888.56638",
+                "generation": "45875.75116",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17596,7 +17596,7 @@ const rawData: RawDataStructure = deepFreeze(
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "COW",
                 "fuelTypeDescription": "all coal products",
-                "generation": "48778.18265",
+                "generation": "48778.18686",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17607,7 +17607,7 @@ const rawData: RawDataStructure = deepFreeze(
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "HYC",
                 "fuelTypeDescription": "conventional hydroelectric",
-                "generation": "24358.38929",
+                "generation": "24355.92802",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17618,7 +17618,7 @@ const rawData: RawDataStructure = deepFreeze(
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "NGO",
                 "fuelTypeDescription": "natural gas & other gases",
-                "generation": "135643.27241",
+                "generation": "135706.05619",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17640,7 +17640,7 @@ const rawData: RawDataStructure = deepFreeze(
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "TSN",
                 "fuelTypeDescription": "estimated total solar",
-                "generation": "38932.2843",
+                "generation": "39051.13949",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17651,7 +17651,7 @@ const rawData: RawDataStructure = deepFreeze(
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "WND",
                 "fuelTypeDescription": "wind",
-                "generation": "36881.11525",
+                "generation": "36872.98337",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17673,7 +17673,7 @@ const rawData: RawDataStructure = deepFreeze(
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "HYC",
                 "fuelTypeDescription": "conventional hydroelectric",
-                "generation": "22161.36024",
+                "generation": "22159.23746",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17684,7 +17684,7 @@ const rawData: RawDataStructure = deepFreeze(
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "NGO",
                 "fuelTypeDescription": "natural gas & other gases",
-                "generation": "165746.37415",
+                "generation": "165754.84569",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17706,7 +17706,7 @@ const rawData: RawDataStructure = deepFreeze(
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "TSN",
                 "fuelTypeDescription": "estimated total solar",
-                "generation": "41168.07125",
+                "generation": "41457.68316",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17717,7 +17717,7 @@ const rawData: RawDataStructure = deepFreeze(
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "WND",
                 "fuelTypeDescription": "wind",
-                "generation": "35787.95538",
+                "generation": "35776.4113",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17739,7 +17739,7 @@ const rawData: RawDataStructure = deepFreeze(
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "HYC",
                 "fuelTypeDescription": "conventional hydroelectric",
-                "generation": "19984.27372",
+                "generation": "19981.99708",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17750,7 +17750,7 @@ const rawData: RawDataStructure = deepFreeze(
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "NGO",
                 "fuelTypeDescription": "natural gas & other gases",
-                "generation": "202846.84798",
+                "generation": "202877.78084",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17772,7 +17772,7 @@ const rawData: RawDataStructure = deepFreeze(
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "TSN",
                 "fuelTypeDescription": "estimated total solar",
-                "generation": "43032.21294",
+                "generation": "43281.13838",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17783,7 +17783,7 @@ const rawData: RawDataStructure = deepFreeze(
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "WND",
                 "fuelTypeDescription": "wind",
-                "generation": "31815.91915",
+                "generation": "31810.12879",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17805,7 +17805,7 @@ const rawData: RawDataStructure = deepFreeze(
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "HYC",
                 "fuelTypeDescription": "conventional hydroelectric",
-                "generation": "19982.75949",
+                "generation": "20097.96822",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17816,7 +17816,7 @@ const rawData: RawDataStructure = deepFreeze(
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "NGO",
                 "fuelTypeDescription": "natural gas & other gases",
-                "generation": "193710.0995",
+                "generation": "193757.9859",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17838,7 +17838,7 @@ const rawData: RawDataStructure = deepFreeze(
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "TSN",
                 "fuelTypeDescription": "estimated total solar",
-                "generation": "40819.87152",
+                "generation": "41127.90884",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17849,7 +17849,7 @@ const rawData: RawDataStructure = deepFreeze(
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "WND",
                 "fuelTypeDescription": "wind",
-                "generation": "27297.02776",
+                "generation": "27306.83469",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17860,7 +17860,7 @@ const rawData: RawDataStructure = deepFreeze(
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "COW",
                 "fuelTypeDescription": "all coal products",
-                "generation": "58426.61557",
+                "generation": "58301.93173",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17871,7 +17871,7 @@ const rawData: RawDataStructure = deepFreeze(
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "HYC",
                 "fuelTypeDescription": "conventional hydroelectric",
-                "generation": "15321.54005",
+                "generation": "15284.79165",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17882,7 +17882,7 @@ const rawData: RawDataStructure = deepFreeze(
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "NGO",
                 "fuelTypeDescription": "natural gas & other gases",
-                "generation": "168837.88846",
+                "generation": "168838.54284",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17904,7 +17904,7 @@ const rawData: RawDataStructure = deepFreeze(
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "TSN",
                 "fuelTypeDescription": "estimated total solar",
-                "generation": "36421.66733",
+                "generation": "36325.43095",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17915,7 +17915,7 @@ const rawData: RawDataStructure = deepFreeze(
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "WND",
                 "fuelTypeDescription": "wind",
-                "generation": "25678.52076",
+                "generation": "25672.70784",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17926,7 +17926,7 @@ const rawData: RawDataStructure = deepFreeze(
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "COW",
                 "fuelTypeDescription": "all coal products",
-                "generation": "54435.23102",
+                "generation": "54018.85287",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17937,7 +17937,7 @@ const rawData: RawDataStructure = deepFreeze(
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "HYC",
                 "fuelTypeDescription": "conventional hydroelectric",
-                "generation": "16545.87198",
+                "generation": "16544.58103",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17948,7 +17948,7 @@ const rawData: RawDataStructure = deepFreeze(
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "NGO",
                 "fuelTypeDescription": "natural gas & other gases",
-                "generation": "145043.91364",
+                "generation": "145070.32956",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17970,7 +17970,7 @@ const rawData: RawDataStructure = deepFreeze(
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "TSN",
                 "fuelTypeDescription": "estimated total solar",
-                "generation": "32027.03533",
+                "generation": "32194.50879",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17981,7 +17981,7 @@ const rawData: RawDataStructure = deepFreeze(
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "WND",
                 "fuelTypeDescription": "wind",
-                "generation": "39540.31639",
+                "generation": "39533.58109",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -17992,7 +17992,7 @@ const rawData: RawDataStructure = deepFreeze(
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "COW",
                 "fuelTypeDescription": "all coal products",
-                "generation": "54491.49671",
+                "generation": "54489.78643",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -18003,7 +18003,7 @@ const rawData: RawDataStructure = deepFreeze(
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "HYC",
                 "fuelTypeDescription": "conventional hydroelectric",
-                "generation": "18416.51199",
+                "generation": "18414.54688",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -18014,7 +18014,7 @@ const rawData: RawDataStructure = deepFreeze(
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "NGO",
                 "fuelTypeDescription": "natural gas & other gases",
-                "generation": "132282.53074",
+                "generation": "132432.20914",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -18036,7 +18036,7 @@ const rawData: RawDataStructure = deepFreeze(
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "TSN",
                 "fuelTypeDescription": "estimated total solar",
-                "generation": "24519.30895",
+                "generation": "24579.51455",
                 "generation-units": "thousand megawatthours"
             },
             {
@@ -18047,13 +18047,79 @@ const rawData: RawDataStructure = deepFreeze(
                 "sectorDescription": "All Sectors",
                 "fueltypeid": "WND",
                 "fuelTypeDescription": "wind",
-                "generation": "40947.72281",
+                "generation": "40956.79915",
+                "generation-units": "thousand megawatthours"
+            },
+            {
+                "period": "2025-12",
+                "location": "US",
+                "stateDescription": "U.S. Total",
+                "sectorid": "99",
+                "sectorDescription": "All Sectors",
+                "fueltypeid": "COW",
+                "fuelTypeDescription": "all coal products",
+                "generation": "66871.2752",
+                "generation-units": "thousand megawatthours"
+            },
+            {
+                "period": "2025-12",
+                "location": "US",
+                "stateDescription": "U.S. Total",
+                "sectorid": "99",
+                "sectorDescription": "All Sectors",
+                "fueltypeid": "HYC",
+                "fuelTypeDescription": "conventional hydroelectric",
+                "generation": "23919.96173",
+                "generation-units": "thousand megawatthours"
+            },
+            {
+                "period": "2025-12",
+                "location": "US",
+                "stateDescription": "U.S. Total",
+                "sectorid": "99",
+                "sectorDescription": "All Sectors",
+                "fueltypeid": "NGO",
+                "fuelTypeDescription": "natural gas & other gases",
+                "generation": "148827.69501",
+                "generation-units": "thousand megawatthours"
+            },
+            {
+                "period": "2025-12",
+                "location": "US",
+                "stateDescription": "U.S. Total",
+                "sectorid": "99",
+                "sectorDescription": "All Sectors",
+                "fueltypeid": "NUC",
+                "fuelTypeDescription": "nuclear",
+                "generation": "72521.112",
+                "generation-units": "thousand megawatthours"
+            },
+            {
+                "period": "2025-12",
+                "location": "US",
+                "stateDescription": "U.S. Total",
+                "sectorid": "99",
+                "sectorDescription": "All Sectors",
+                "fueltypeid": "TSN",
+                "fuelTypeDescription": "estimated total solar",
+                "generation": "20961.77552",
+                "generation-units": "thousand megawatthours"
+            },
+            {
+                "period": "2025-12",
+                "location": "US",
+                "stateDescription": "U.S. Total",
+                "sectorid": "99",
+                "sectorDescription": "All Sectors",
+                "fueltypeid": "WND",
+                "fuelTypeDescription": "wind",
+                "generation": "47047.65926",
                 "generation-units": "thousand megawatthours"
             }
         ],
         "description": "Monthly and annual electric power operations by state, sector, and energy source.\n    Source: Form EIA-923"
     },
     "request": null,
-    "apiVersion": "2.1.10",
+    "apiVersion": "2.1.12",
     "ExcelAddInVersion": "2.1.0"
 });
