@@ -1,34 +1,7 @@
-interface GenerationRecord {
-    period: string;
-    location: string;
-    stateDescription: string;
-    sectorid: string;
-    sectorDescription: string;
-    fueltypeid: string;
-    fuelTypeDescription: string;
-    generation: string;
-    "generation-units": string;
-}
-
-interface ResponseData {
-    total: string;
-    dateFormat: string;
-    frequency: string;
-    data: GenerationRecord[];
-    description: string;
-}
-
-interface RawDataStructure {
-    response: ResponseData;
-    request: null;
-    apiVersion: string;
-    ExcelAddInVersion: string;
-}
-
-const rawData: RawDataStructure = deepFreeze(
-{
+"use strict";
+const rawData = deepFreeze({
     "response": {
-        "total": "1644",
+        "total": "1656",
         "dateFormat": "YYYY-MM",
         "frequency": "monthly",
         "data": [
@@ -18114,6 +18087,138 @@ const rawData: RawDataStructure = deepFreeze(
                 "fueltypeid": "WND",
                 "fuelTypeDescription": "wind",
                 "generation": "47047.65926",
+                "generation-units": "thousand megawatthours"
+            },
+            {
+                "period": "2026-01",
+                "location": "US",
+                "stateDescription": "U.S. Total",
+                "sectorid": "99",
+                "sectorDescription": "All Sectors",
+                "fueltypeid": "COW",
+                "fuelTypeDescription": "all coal products",
+                "generation": "72502.66005",
+                "generation-units": "thousand megawatthours"
+            },
+            {
+                "period": "2026-01",
+                "location": "US",
+                "stateDescription": "U.S. Total",
+                "sectorid": "99",
+                "sectorDescription": "All Sectors",
+                "fueltypeid": "HYC",
+                "fuelTypeDescription": "conventional hydroelectric",
+                "generation": "27909.38846",
+                "generation-units": "thousand megawatthours"
+            },
+            {
+                "period": "2026-01",
+                "location": "US",
+                "stateDescription": "U.S. Total",
+                "sectorid": "99",
+                "sectorDescription": "All Sectors",
+                "fueltypeid": "NGO",
+                "fuelTypeDescription": "natural gas & other gases",
+                "generation": "152542.02388",
+                "generation-units": "thousand megawatthours"
+            },
+            {
+                "period": "2026-01",
+                "location": "US",
+                "stateDescription": "U.S. Total",
+                "sectorid": "99",
+                "sectorDescription": "All Sectors",
+                "fueltypeid": "NUC",
+                "fuelTypeDescription": "nuclear",
+                "generation": "73250.911",
+                "generation-units": "thousand megawatthours"
+            },
+            {
+                "period": "2026-01",
+                "location": "US",
+                "stateDescription": "U.S. Total",
+                "sectorid": "99",
+                "sectorDescription": "All Sectors",
+                "fueltypeid": "TSN",
+                "fuelTypeDescription": "estimated total solar",
+                "generation": "24036.06753",
+                "generation-units": "thousand megawatthours"
+            },
+            {
+                "period": "2026-01",
+                "location": "US",
+                "stateDescription": "U.S. Total",
+                "sectorid": "99",
+                "sectorDescription": "All Sectors",
+                "fueltypeid": "WND",
+                "fuelTypeDescription": "wind",
+                "generation": "44433.71775",
+                "generation-units": "thousand megawatthours"
+            },
+            {
+                "period": "2026-02",
+                "location": "US",
+                "stateDescription": "U.S. Total",
+                "sectorid": "99",
+                "sectorDescription": "All Sectors",
+                "fueltypeid": "COW",
+                "fuelTypeDescription": "all coal products",
+                "generation": "55858.52454",
+                "generation-units": "thousand megawatthours"
+            },
+            {
+                "period": "2026-02",
+                "location": "US",
+                "stateDescription": "U.S. Total",
+                "sectorid": "99",
+                "sectorDescription": "All Sectors",
+                "fueltypeid": "HYC",
+                "fuelTypeDescription": "conventional hydroelectric",
+                "generation": "22462.024",
+                "generation-units": "thousand megawatthours"
+            },
+            {
+                "period": "2026-02",
+                "location": "US",
+                "stateDescription": "U.S. Total",
+                "sectorid": "99",
+                "sectorDescription": "All Sectors",
+                "fueltypeid": "NGO",
+                "fuelTypeDescription": "natural gas & other gases",
+                "generation": "132885.87494",
+                "generation-units": "thousand megawatthours"
+            },
+            {
+                "period": "2026-02",
+                "location": "US",
+                "stateDescription": "U.S. Total",
+                "sectorid": "99",
+                "sectorDescription": "All Sectors",
+                "fueltypeid": "NUC",
+                "fuelTypeDescription": "nuclear",
+                "generation": "62384.185",
+                "generation-units": "thousand megawatthours"
+            },
+            {
+                "period": "2026-02",
+                "location": "US",
+                "stateDescription": "U.S. Total",
+                "sectorid": "99",
+                "sectorDescription": "All Sectors",
+                "fueltypeid": "TSN",
+                "fuelTypeDescription": "estimated total solar",
+                "generation": "27738.60531",
+                "generation-units": "thousand megawatthours"
+            },
+            {
+                "period": "2026-02",
+                "location": "US",
+                "stateDescription": "U.S. Total",
+                "sectorid": "99",
+                "sectorDescription": "All Sectors",
+                "fueltypeid": "WND",
+                "fuelTypeDescription": "wind",
+                "generation": "39707.24116",
                 "generation-units": "thousand megawatthours"
             }
         ],
