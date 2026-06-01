@@ -1,0 +1,19 @@
+[tools]
+node = "22"
+go = "1.22.3"
+rust = "stable"
+java = "temurin-26.0.1"
+gleam = "1.16.0"
+
+"npm:typescript" = "latest"
+
+# Experimenting with different AI tools.
+"npm:@openai/codex" = "latest"
+"npm:@google/gemini-cli" = "latest"
+"npm:opencode-ai" = "latest"
+"npm:@anthropic-ai/claude-code" = "latest"
+
+
+[settings]
+# Ensures mise doesn't prompt for confirmation during the docker build
+experimental = true

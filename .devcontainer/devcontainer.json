@@ -1,0 +1,19 @@
+{
+    "name": "Unified Devcontainer",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": ".."
+    },
+    "remoteUser": "vscode",
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "editor.formatOnSave": true,
+                "terminal.integrated.shell.linux": "/bin/bash"
+            },
+            "extensions": [
+                "streetsidesoftware.code-spell-checker"
+            ]
+        }
+    }
+}
